@@ -24,17 +24,26 @@ app.get('/about-us', (req, res) => {
   res.render('about-us');
 });
 
-app.get('/blog', (req, res) => {
-  res.render('blog');
-});
-
 app.get('/contact', (req, res) => {
   res.render('contact');
 });
 
-app.get('/elements', (req, res) => {
-  res.render('elements');
+app.get('/faq', (req, res) => {
+  res.render('faq');
 });
+
+app.get('/analysis', (req, res) => {
+  res.render('analysis');
+});
+
+app.get('/services', (req, res) => {
+  res.render('services');
+});
+
+app.get('/tnc', (req, res) => {
+  res.render('tnc');
+});
+
 
 // Connect MongoDB (optional for now)
 mongoose.connect('mongodb://127.0.0.1:27017/cdtindex')
