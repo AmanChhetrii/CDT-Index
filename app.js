@@ -11,7 +11,7 @@ app.use(express.json());
 // Static files (css, js, img, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set EJS as view engine
+// Set view engine as ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
