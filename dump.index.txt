@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-   
+ 
     <%-include('partials/header'); %>
 
     <!-- ##### Hero Area Start ##### -->
@@ -140,82 +139,84 @@
     <!-- ##### About Area End ##### -->
 
     <!-- ##### Currency Area Start ##### -->
-    <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background-image: url(/img/bg-img/bg-2.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center white mx-auto">
-                        <h3 class="mb-4">Cryptocurrency Calculator</h3>
-                        <h5 class="mb-2">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="currency-calculator mb-15 clearfix">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="940045">
-                                <select>
-                                    <option>EUR</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="currency-calculator mb-15">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="10400">
-                                <select>
-                                    <option>USD</option>
-                                    <option>BTC</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1.02">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background-image: url(img/bg-img/bg-2.jpg);">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading text-center white mx-auto">
+          <h3 class="mb-4" style="color: #FFD700;">Our Awards</h3>
+          <h5 class="mb-2" style="color: white;">
+            Working non-stop towards excellence, our awards showcase trust, dedication, and industry leadership.
+          </h5>
         </div>
-    </section>
+      </div>
+    </div>
+
+    <div class="row justify-content-center text-center">
+      <!-- Award 1 -->
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="p-5 rounded h-100" style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); min-height: 300px;">
+          <img src="/img/icons8-award-100-4.png" alt="Global Recognition" style="width: 60px; height: 60px; margin-bottom: 20px;">
+          <h5 style="color: #FFD700;">Global Growth Recognition</h5>
+          <p style="color: white;">Recognized as one of the fastest-growing crypto communities in 15+ countries.</p>
+        </div>
+      </div>
+
+      <!-- Award 2 -->
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="p-5 rounded h-100" style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); min-height: 300px;">
+          <img src="/img/icons8-award-100-3.png" alt="Community Project Award" style="width: 60px; height: 60px; margin-bottom: 20px;">
+          <h5 style="color: #FFD700;">Best Community Project</h5>
+          <p style="color: white;">Recognized for building a transparent and user-centric platform that prioritizes community engagement, educational access, and consistent support within the digital asset space.</p>
+        </div>
+      </div>
+
+      <!-- Award 3 -->
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="p-5 rounded h-100" style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); min-height: 300px;">
+          <img src="/img/icons8-award-100-5.png" alt="Verified Strategy" style="width: 60px; height: 60px; margin-bottom: 20px;">
+          <h5 style="color: #FFD700;">Verified Index Strategy</h5>
+          <p style="color: white;">CDT's diversified fund model independently reviewed for stability and long-term growth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+               
     <!-- ##### Currency Area End ##### -->
 
+   <section class="live-chart" id="live-chart" 
+         style="width:95vw; margin:30px auto; padding:15px; 
+                background:#ffffff; border-radius:12px; 
+                box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    
+    <div class="tradingview-widget-container" 
+         style="width:100%; height:auto; overflow:hidden;">
+         
+        <div class="tradingview-widget-container__widget"></div>
+        
+        <script type="text/javascript" 
+                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+          "symbols": [
+            { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+            { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
+            { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
+            { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+            { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+            { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
+          ],
+          "showSymbolLogo": true,
+          "colorTheme": "light",
+          "isTransparent": false,
+          "displayMode": "adaptive",
+          "locale": "in"
+        }
+        </script>
+    </div>
+</section>
+
+    
     <!-- ##### Blog Area Start ##### -->
     <section class="cryptos-blog-area section-padding-100">
         <div class="container">

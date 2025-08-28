@@ -3,66 +3,195 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="">
+    <meta name="description" content="CDT Index - Professional Crypto Investment Solutions">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title -->
-    <title>CDT-Index</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/img/core-img/logo_small.png">
-
-    <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css">
-
+    
+    <%-include('partials/header'); %>
+    
+    <style>
+        /* Modern Futuristic Styles */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            --glow-color: #00d4ff;
+            --text-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Animated Background */
+        .hero-area {
+            background: var(--dark-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(10px) translateY(10px); }
+        }
+        
+        /* Glowing text effects */
+        .glow-text {
+            text-shadow: var(--text-glow);
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            to { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8); }
+        }
+        
+        /* Modern Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--glow-color);
+        }
+        
+        /* Modern buttons */
+        .modern-btn {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Data visualization cards */
+        .crypto-card {
+            background: linear-gradient(145deg, #1e1e2e, #2d2d44);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .crypto-card:hover {
+            border-color: var(--glow-color);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
+        }
+        
+        /* Performance metrics */
+        .metric-card {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: var(--primary-gradient);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: subtract;
+        }
+    </style>
 </head>
 
 <body>
- 
-    <%-include('partials/header'); %>
-
     <!-- ##### Hero Area Start ##### -->
-    <section class="hero-area">
-        <div class="hero-slides owl-carousel">
-
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12 col-md-7">
-                            <div class="hero-slides-content">
-                                <h2 data-animation="fadeInUp" data-delay="100ms">Take a step into the <span>Crypto World</span></h2>
-                                <h6 data-animation="fadeInUp" data-delay="400ms">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar.</h6>
-                                <a href="#" class="btn cryptos-btn" data-animation="fadeInUp" data-delay="700ms">Read More</a>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="hero-slides-thumb" data-animation="fadeInUp" data-delay="1000ms">
-                                <img src="/img/bg-img/bg-2.png" alt="">
-                            </div>
+    <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="hero-slides-content">
+                        <h2 class="glow-text" style="font-size: 3.5rem; font-weight: 700; color: white; margin-bottom: 2rem;">
+                            Enter the Future of <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Investment</span>
+                        </h2>
+                        <h6 style="font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
+                            Professional-grade cryptocurrency investment solutions designed for the modern investor. Access diversified digital asset portfolios with institutional-level security and transparency.
+                        </h6>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <a href="/about-us" class="btn modern-btn">Learn More</a>
+                            <a href="#performance" class="btn" style="background: transparent; border: 2px solid var(--glow-color); color: var(--glow-color); border-radius: 50px; padding: 12px 30px; text-decoration: none; transition: all 0.3s ease;">
+                                View Performance
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12 col-md-7">
-                            <div class="hero-slides-content">
-                                <h2 data-animation="fadeInUp" data-delay="100ms">Take a step into the <span>Crypto World</span></h2>
-                                <h6 data-animation="fadeInUp" data-delay="400ms">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar.</h6>
-                                <a href="#" class="btn cryptos-btn" data-animation="fadeInUp" data-delay="700ms">Read More</a>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="hero-slides-thumb" data-animation="fadeInUp" data-delay="1000ms">
-                                <img src="/img/bg-img/bg-2.png" alt="">
-                            </div>
-                        </div>
+                <div class="col-12 col-md-5">
+                    <div class="hero-slides-thumb" style="position: relative; text-align: center;">
+                        <!-- Floating geometric shapes -->
+                        <div class="floating-element" style="top: 10%; left: 10%; width: 60px; height: 60px; background: var(--glow-color); border-radius: 50%; animation-delay: 0s;"></div>
+                        <div class="floating-element" style="top: 60%; right: 10%; width: 40px; height: 40px; background: var(--accent-gradient); border-radius: 20%; animation-delay: 2s;"></div>
+                        <div class="floating-element" style="top: 30%; right: 30%; width: 80px; height: 80px; border: 2px solid var(--glow-color); border-radius: 50%; animation-delay: 4s;"></div>
+                        
+                        <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" style="max-width: 100%; filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));">
                     </div>
                 </div>
             </div>
@@ -70,79 +199,142 @@
     </section>
     <!-- ##### Hero Area End ##### -->
 
-    <!-- ##### Course Area Start ##### -->
-    <div class="cryptos-feature-area section-padding-100-0">
+    <!-- ##### Features Area Start ##### -->
+    <div class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-heading text-center mx-auto">
-                        <h3>Let’s change <br><span>the world</span> together</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
+                    <div class="section-heading text-center mx-auto" style="margin-bottom: 5rem;">
+                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
+                            Why Choose <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CDT Index</span>
+                        </h3>
+                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                            Our cutting-edge platform combines advanced analytics, professional management, and institutional-grade security to deliver superior crypto investment experiences.
+                        </p>
                     </div>
                 </div>
             </div>
             
             <div class="row">
-                <!-- Single Course Area -->
+                <!-- Professional Management -->
                 <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-safebox"></i>
-                        <h3>Fast &amp; Easy</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
+                    <div class="feature-card mb-100 text-center">
+                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                            <i class="icon-safebox"></i>
+                        </div>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Professional Management</h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                            Expert portfolio management with continuous monitoring and rebalancing to optimize returns while managing risk in volatile crypto markets.
+                        </p>
+                        <a href="/services" class="btn modern-btn mt-3">Explore Services</a>
                     </div>
                 </div>
 
-                <!-- Single Course Area -->
+                <!-- Diversified Portfolio -->
                 <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area active mb-100 text-center">
-                        <i class="icon-bitcoin"></i>
-                        <h3>No strigs attached</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
+                    <div class="feature-card mb-100 text-center">
+                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                            <i class="icon-bitcoin"></i>
+                        </div>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Diversified Strategy</h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                            Access a carefully curated portfolio of leading cryptocurrencies, reducing single-asset risk while capturing market growth opportunities.
+                        </p>
+                        <a href="/analysis" class="btn modern-btn mt-3">View Analysis</a>
                     </div>
                 </div>
 
-                <!-- Single Course Area -->
+                <!-- Low Fees -->
                 <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-exchange"></i>
-                        <h3>Small Commisions</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
+                    <div class="feature-card mb-100 text-center">
+                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                            <i class="icon-exchange"></i>
+                        </div>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Competitive Fees</h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                            Transparent, competitive fee structure designed to maximize your returns. No hidden costs, just straightforward professional service.
+                        </p>
+                        <a href="/services" class="btn modern-btn mt-3">Fee Structure</a>
                     </div>
                 </div>
 
-                <!-- Single Course Area -->
+                <!-- Security -->
                 <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-wallet"></i>
-                        <h3>10% Secure</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
+                    <div class="feature-card mb-100 text-center">
+                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                            <i class="icon-wallet"></i>
+                        </div>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Bank-Grade Security</h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                            Multi-signature wallets, cold storage, and institutional-grade security protocols protect your investments with the highest standards.
+                        </p>
+                        <a href="/about-us" class="btn modern-btn mt-3">Security Details</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ##### Course Area End ##### -->
+    <!-- ##### Features Area End ##### -->
+
+    <!-- ##### Performance Metrics Start ##### -->
+    <section id="performance" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 100px 0;">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Track our fund's performance with real-time data and comprehensive analytics</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="metric-card">
+                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">24.7%</h2>
+                        <p style="color: white; font-size: 1.1rem;">Annual Growth Rate</p>
+                        <small style="color: rgba(255,255,255,0.6);">Last 12 months</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="metric-card">
+                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">$50M+</h2>
+                        <p style="color: white; font-size: 1.1rem;">Assets Under Management</p>
+                        <small style="color: rgba(255,255,255,0.6);">As of current date</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="metric-card">
+                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">2,500+</h2>
+                        <p style="color: white; font-size: 1.1rem;">Active Investors</p>
+                        <small style="color: rgba(255,255,255,0.6);">Growing community</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Performance Metrics End ##### -->
 
     <!-- ##### About Area Start ##### -->
-    <section class="cryptos-about-area">
+    <section class="cryptos-about-area" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); padding: 100px 0;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12 col-md-6">
-                    <div class="about-thumbnail mb-100">
-                        <img src="/img/bg-img/about.png" alt="">
+                    <div class="about-thumbnail mb-100" style="position: relative;">
+                        <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; border: 2px solid var(--glow-color); border-radius: 50%; opacity: 0.3; animation: float 4s ease-in-out infinite;"></div>
+                        <img src="/img/bg-img/about.png" alt="About CDT Index" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="about-content mb-100">
                         <div class="section-heading">
-                            <h3>Let’s change <br><span>the world</span> together</h3>
-                            <h5>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                            <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-                            <a href="#" class="btn cryptos-btn mt-30">Read More</a>
+                            <h3 style="color: white; font-size: 2.5rem; margin-bottom: 2rem;">
+                                Building the Future of <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital Finance</span>
+                            </h3>
+                            <h5 style="color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.8;">
+                                CDT Index represents the evolution of cryptocurrency investment, combining traditional financial expertise with cutting-edge blockchain technology.
+                            </h5>
+                            <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 3rem;">
+                                Our platform provides institutional-quality investment management for digital assets, offering professional oversight and strategic portfolio construction in the rapidly evolving cryptocurrency landscape.
+                            </p>
+                            <a href="/about-us" class="btn modern-btn">Discover Our Story</a>
                         </div>
                     </div>
                 </div>
@@ -151,295 +343,251 @@
     </section>
     <!-- ##### About Area End ##### -->
 
-    <!-- ##### Currency Area Start ##### -->
-    <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background-image: url(/img/bg-img/bg-2.jpg);">
+    <!-- ##### Awards Section Start ##### -->
+    <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('img/bg-img/bg-2.jpg'); background-size: cover; background-position: center;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading text-center white mx-auto">
-                        <h3 class="mb-4">Cryptocurrency Calculator</h3>
-                        <h5 class="mb-2">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
+                        <h3 class="mb-4 glow-text" style="color: #FFD700; font-size: 3rem;">Industry Recognition</h3>
+                        <h5 class="mb-2" style="color: white; font-size: 1.2rem;">
+                            Trusted by thousands of investors worldwide, recognized for excellence and innovation in digital asset management.
+                        </h5>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="currency-calculator mb-15 clearfix">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
 
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="940045">
-                                <select>
-                                    <option>EUR</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
+            <div class="row justify-content-center text-center">
+                <!-- Award 1 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <img src="/img/icons8-award-100-4.png" alt="Global Recognition" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
+                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Global Growth Recognition</h5>
+                            <p style="color: white; line-height: 1.7;">Recognized as one of the fastest-growing crypto investment platforms across 15+ countries with consistent performance delivery.</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="currency-calculator mb-15">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="10400">
-                                <select>
-                                    <option>USD</option>
-                                    <option>BTC</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
+                <!-- Award 2 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <img src="/img/icons8-award-100-3.png" alt="Community Project Award" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
+                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Excellence in Innovation</h5>
+                            <p style="color: white; line-height: 1.7;">Award-winning platform architecture that prioritizes user experience, transparency, and consistent educational support within the digital asset ecosystem.</p>
+                        </div>
+                    </div>
+                </div>
 
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1.02">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
+                <!-- Award 3 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <img src="/img/icons8-award-100-5.png" alt="Verified Strategy" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
+                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Verified Investment Strategy</h5>
+                            <p style="color: white; line-height: 1.7;">Independently audited investment methodology validated for risk management, portfolio optimization, and sustainable long-term growth potential.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### Currency Area End ##### -->
+    <!-- ##### Awards Section End ##### -->
 
-   <section class="live-chart" id="live-chart" 
-         style="width:95vw; margin:30px auto; padding:15px; 
-                background:#ffffff; border-radius:12px; 
-                box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-    
-    <div class="tradingview-widget-container" 
-         style="width:100%; height:auto; overflow:hidden;">
-         
-        <div class="tradingview-widget-container__widget"></div>
+    <!-- ##### Live Chart Section ##### -->
+    <section class="live-chart" id="live-chart" 
+             style="width:95vw; margin:50px auto; padding:20px; 
+                    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1)); 
+                    backdrop-filter: blur(20px);
+                    border-radius:20px; 
+                    box-shadow:0 8px 32px rgba(0,212,255,0.1);
+                    border: 1px solid rgba(0,212,255,0.2);">
         
-        <script type="text/javascript" 
-                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-          "symbols": [
-            { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
-            { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
-            { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
-            { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
-            { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
-            { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
-          ],
-          "showSymbolLogo": true,
-          "colorTheme": "light",
-          "isTransparent": false,
-          "displayMode": "adaptive",
-          "locale": "in"
-        }
-        </script>
-    </div>
-</section>
+        <div class="text-center mb-4">
+            <h3 style="color: white; margin-bottom: 1rem;">Market Overview</h3>
+            <p style="color: rgba(255,255,255,0.7);">Real-time market data and trends</p>
+        </div>
+        
+        <div class="tradingview-widget-container" 
+             style="width:100%; height:auto; overflow:hidden; border-radius: 15px;">
+             
+            <div class="tradingview-widget-container__widget"></div>
+            
+            <script type="text/javascript" 
+                    src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+              "symbols": [
+                { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+                { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
+                { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
+                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+                { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+                { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
+              ],
+              "showSymbolLogo": true,
+              "colorTheme": "dark",
+              "isTransparent": true,
+              "displayMode": "adaptive",
+              "locale": "en"
+            }
+            </script>
+        </div>
+    </section>
 
-    
     <!-- ##### Blog Area Start ##### -->
-    <section class="cryptos-blog-area section-padding-100">
+    <section class="cryptos-blog-area section-padding-100" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
         <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Latest <span class="glow-text">Insights</span></h3>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Stay informed with market analysis, investment strategies, and crypto industry developments</p>
+                </div>
+            </div>
+            
             <div class="row align-items-center">
                 <div class="col-12 col-lg-7">
                     <div class="blog-area">
                         <!-- Single Blog Area -->
-                        <div class="single-blog-area d-flex align-items-start">
+                        <div class="crypto-card d-flex align-items-start">
                             <!-- Thumbnail -->
-                            <div class="blog-thumbnail">
-                                <img src="/img/blog-img/1.jpg" alt="">
+                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
+                                <img src="/img/blog-img/1.jpg" alt="Market Analysis" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
                             </div>
                             <!-- Content -->
                             <div class="blog-content">
-                                <a href="#" class="post-title">This Platform Aims to Disrupt the Market</a>
-                                <div class="meta-data">
-                                    <a href="#">Crypto News</a> |
-                                    <a href="#">March 18, 2018</a>
+                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Digital Asset Market Outlook for 2025</a>
+                                <div class="meta-data" style="margin-bottom: 1rem;">
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Market Analysis</a> |
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 15, 2025</a>
                                 </div>
-                                <p>Morbi vel arcu gravida, iaculis lacus vel, posuere ipsum. Sed faucibus mauris vitae urna consectetur, sit amet maximus nisl sagittis.</p>
+                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Comprehensive analysis of emerging trends, regulatory developments, and institutional adoption patterns shaping the cryptocurrency investment landscape.</p>
                             </div>
                         </div>
+                        
                         <!-- Single Blog Area -->
-                        <div class="single-blog-area d-flex align-items-start">
+                        <div class="crypto-card d-flex align-items-start">
                             <!-- Thumbnail -->
-                            <div class="blog-thumbnail">
-                                <img src="/img/blog-img/2.jpg" alt="">
+                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
+                                <img src="/img/blog-img/2.jpg" alt="Investment Strategy" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
                             </div>
                             <!-- Content -->
                             <div class="blog-content">
-                                <a href="#" class="post-title">New Hedge Funds invests in Crypto</a>
-                                <div class="meta-data">
-                                    <a href="#">Crypto News</a> |
-                                    <a href="#">March 18, 2018</a>
+                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Portfolio Diversification in Volatile Markets</a>
+                                <div class="meta-data" style="margin-bottom: 1rem;">
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Investment Strategy</a> |
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 12, 2025</a>
                                 </div>
-                                <p>Iaculis lacus vel, posuere ipsum. Sed faucibus mauris vitae urna consectetur, sit amet maximus nisl sagittis. Ut in iaculis enim.</p>
+                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Expert strategies for managing cryptocurrency portfolio risk through intelligent diversification and strategic asset allocation methodologies.</p>
                             </div>
                         </div>
+                        
                         <!-- Single Blog Area -->
-                        <div class="single-blog-area d-flex align-items-start">
+                        <div class="crypto-card d-flex align-items-start">
                             <!-- Thumbnail -->
-                            <div class="blog-thumbnail">
-                                <img src="/img/blog-img/3.jpg" alt="">
+                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
+                                <img src="/img/blog-img/3.jpg" alt="Technology Update" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
                             </div>
                             <!-- Content -->
                             <div class="blog-content">
-                                <a href="#" class="post-title">This Platform Aims to Disrupt the Market</a>
-                                <div class="meta-data">
-                                    <a href="#">Crypto News</a> |
-                                    <a href="#">March 18, 2018</a>
+                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Blockchain Innovation and Investment Opportunities</a>
+                                <div class="meta-data" style="margin-bottom: 1rem;">
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Technology</a> |
+                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 10, 2025</a>
                                 </div>
-                                <p>Morbi vel arcu gravida, iaculis lacus vel, posuere ipsum. Sed faucibus mauris vitae urna consectetur, sit amet maximus nisl sagittis.</p>
+                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Exploring cutting-edge blockchain technologies and their potential impact on investment strategies and market development opportunities.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-lg-5">
-                    <div class="cryptos-prices-table">
+                    <div style="background: linear-gradient(145deg, #1e1e2e, #2d2d44); border-radius: 20px; padding: 2rem; border: 1px solid rgba(0,212,255,0.2);">
+                        <h4 style="color: white; margin-bottom: 2rem; text-align: center;">Top Cryptocurrencies</h4>
 
                         <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
+                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
                             <div class="p-content d-flex align-items-center">
-                                <span>01</span>
-                                <img src="/img/bg-img/bitcoin.png" alt="">
-                                <p>Bitcoin <span>BTC</span></p>
+                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">01</span>
+                                <img src="/img/bg-img/bitcoin.png" alt="Bitcoin" style="width: 40px; height: 40px; margin-right: 1rem;">
+                                <div>
+                                    <p style="color: white; margin: 0; font-weight: 600;">Bitcoin</p>
+                                    <small style="color: rgba(255,255,255,0.6);">BTC</small>
+                                </div>
                             </div>
-                            <div class="price increase">
-                                <p>$12 456.78</p>
+                            <div class="price" style="text-align: right;">
+                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$42,156.78</p>
+                                <small style="color: #4CAF50;">+2.4%</small>
                             </div>
                         </div>
 
                         <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
+                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
                             <div class="p-content d-flex align-items-center">
-                                <span>02</span>
-                                <img src="/img/bg-img/ethereum.png" alt="">
-                                <p>Ethereum <span>ETH</span></p>
+                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">02</span>
+                                <img src="/img/bg-img/ethereum.png" alt="Ethereum" style="width: 40px; height: 40px; margin-right: 1rem;">
+                                <div>
+                                    <p style="color: white; margin: 0; font-weight: 600;">Ethereum</p>
+                                    <small style="color: rgba(255,255,255,0.6);">ETH</small>
+                                </div>
                             </div>
-                            <div class="price increase">
-                                <p>$1051.98</p>
+                            <div class="price" style="text-align: right;">
+                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$2,851.98</p>
+                                <small style="color: #4CAF50;">+1.8%</small>
                             </div>
                         </div>
 
                         <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
+                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
                             <div class="p-content d-flex align-items-center">
-                                <span>03</span>
-                                <img src="/img/bg-img/bitcoin-cash.png" alt="">
-                                <p>Bitcoin Cash <span>BCH</span></p>
+                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">03</span>
+                                <img src="/img/bg-img/cardano.png" alt="Cardano" style="width: 40px; height: 40px; margin-right: 1rem;">
+                                <div>
+                                    <p style="color: white; margin: 0; font-weight: 600;">Cardano</p>
+                                    <small style="color: rgba(255,255,255,0.6);">ADA</small>
+                                </div>
                             </div>
-                            <div class="price decrease">
-                                <p>$2256.78</p>
+                            <div class="price" style="text-align: right;">
+                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.89</p>
+                                <small style="color: #4CAF50;">+3.2%</small>
                             </div>
                         </div>
 
                         <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
+                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
                             <div class="p-content d-flex align-items-center">
-                                <span>04</span>
-                                <img src="/img/bg-img/ripple.png" alt="">
-                                <p>Ripple <span>XRP</span></p>
+                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">04</span>
+                                <img src="/img/bg-img/stellar.png" alt="Stellar" style="width: 40px; height: 40px; margin-right: 1rem;">
+                                <div>
+                                    <p style="color: white; margin: 0; font-weight: 600;">Stellar</p>
+                                    <small style="color: rgba(255,255,255,0.6);">XLM</small>
+                                </div>
                             </div>
-                            <div class="price increase">
-                                <p>$2.03</p>
+                            <div class="price" style="text-align: right;">
+                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.67</p>
+                                <small style="color: #4CAF50;">+0.9%</small>
                             </div>
                         </div>
 
                         <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
+                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
                             <div class="p-content d-flex align-items-center">
-                                <span>05</span>
-                                <img src="/img/bg-img/litecoin.png" alt="">
-                                <p>Litecoin <span>LTC</span></p>
+                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">05</span>
+                                <img src="/img/bg-img/litecoin.png" alt="Litecoin" style="width: 40px; height: 40px; margin-right: 1rem;">
+                                <div>
+                                    <p style="color: white; margin: 0; font-weight: 600;">Litecoin</p>
+                                    <small style="color: rgba(255,255,255,0.6);">LTC</small>
+                                </div>
                             </div>
-                            <div class="price increase">
-                                <p>$321.98</p>
+                            <div class="price" style="text-align: right;">
+                                <p style="color: #F44336; margin: 0; font-weight: 600;">$321.98</p>
+                                <small style="color: #F44336;">-1.2%</small>
                             </div>
                         </div>
 
-                        <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
-                            <div class="p-content d-flex align-items-center">
-                                <span>06</span>
-                                <img src="/img/bg-img/cardano.png" alt="">
-                                <p>Cardano <span>ADA</span></p>
-                            </div>
-                            <div class="price increase">
-                                <p>$0.75</p>
-                            </div>
+                        <div class="text-center mt-4">
+                            <a href="/analysis" class="btn modern-btn">View Full Analysis</a>
                         </div>
-
-                        <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
-                            <div class="p-content d-flex align-items-center">
-                                <span>07</span>
-                                <img src="/img/bg-img/nem.png" alt="">
-                                <p>NEM <span>XEM</span></p>
-                            </div>
-                            <div class="price increase">
-                                <p>$0.89</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
-                            <div class="p-content d-flex align-items-center">
-                                <span>08</span>
-                                <img src="/img/bg-img/neo.png" alt="">
-                                <p>NEO <span>NEO</span></p>
-                            </div>
-                            <div class="price decrease">
-                                <p>$123.90</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
-                            <div class="p-content d-flex align-items-center">
-                                <span>09</span>
-                                <img src="/img/bg-img/stellar.png" alt="">
-                                <p>Stellar <span>XLM</span></p>
-                            </div>
-                            <div class="price increase">
-                                <p>$0.67</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="single-price-table d-flex align-items-center justify-content-between">
-                            <div class="p-content d-flex align-items-center">
-                                <span>10</span>
-                                <img src="/img/bg-img/iota.png" alt="">
-                                <p>IOTA <span>IOT</span></p>
-                            </div>
-                            <div class="price increase">
-                                <p>$3.55</p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -448,9 +596,34 @@
     </section>
     <!-- ##### Blog Area End ##### -->
 
+    <!-- ##### Call to Action Section ##### -->
+    <section style="background: var(--primary-gradient); padding: 80px 0;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
+                        Ready to Start Your Crypto Investment Journey?
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="/contact" class="btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                            Get Started Today
+                        </a>
+                        <a href="/analysis" class="btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Call to Action Section End ##### -->
+
     <!-- ##### Footer Area Start ##### -->
-   <%-include('partials/footer'); %>
-    <!-- ##### Footer Area Start ##### -->
+    <%-include('partials/footer'); %>
+    <!-- ##### Footer Area End ##### -->
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -463,6 +636,44 @@
     <script src="/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
+    
+    <script>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add loading animation for crypto cards
+        window.addEventListener('load', function() {
+            const cryptoCards = document.querySelectorAll('.crypto-card');
+            cryptoCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+        
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+            
+            parallax.forEach(element => {
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    </script>
 </body>
 
 </html>
