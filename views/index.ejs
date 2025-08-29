@@ -7,40 +7,144 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <%-include('partials/header'); %>
+       
+    <!-- Title -->
+    <title>CDT-Index</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/core-img/logo_smallbg.png">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+   <!-- ##### Preloader ##### -->
+    <div id="preloader" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
+        <i class="circle-preloader"></i>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
+
+        <!-- Top Header Area -->
+        <div class="top-header" style="background: rgba(0,0,0,0.3); padding: 8px 0;">
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 h-100">
+                        <div class="top-header-content h-100 d-flex align-items-center justify-content-between">
+                            <div class="top-headline">
+                                <p style="color: rgba(255,255,255,0.9);">Welcome to <span style="color: #FFD700;">CDT-Index</span></p>
+                            </div>
+                            <div class="login-faq-earn-money">
+                                <a href="#" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">Login | Register</a>
+                                <a href="/faq" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">FAQs</a>
+                                <a href="/tnc" style="color: rgba(255,255,255,0.9); text-decoration: none;">T&C</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="cryptos-main-menu" style="background: rgba(0,0,0,0.2); padding: 10px 0;">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="cryptosNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="/">
+                          <img src="/img/core-img/logo_bg.png" alt="Logo" style="width:250px; height:auto; margin-left:-35px;">
+                        </a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/" style="color: rgba(255,255,255,0.9);">Home</a></li>
+                                    <li><a href="/analysis" style="color: rgba(255,255,255,0.9);">Analysis</a>
+                                    <li><a href="/services" style="color: rgba(255,255,255,0.9);">Services</a></li>
+                                    <li><a href="/about-us" style="color: rgba(255,255,255,0.9);">About Us</a></li>
+                                    <li><a href="/contact" style="color: rgba(255,255,255,0.9);">Contact</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
     
     <style>
         /* Modern Futuristic Styles */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
             --glow-color: #00d4ff;
             --text-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+            --gold-color: #FFD700;
         }
         
-        /* Animated Background */
+        /* Hero area without grid background */
         .hero-area {
-            background: var(--dark-gradient);
+            background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);
             position: relative;
             overflow: hidden;
         }
         
-        .hero-area::before {
-            content: '';
+        /* Rotating atom images */
+        .atom-bg-large {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: gridMove 20s linear infinite;
-            opacity: 0.3;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 300px;
+            animation: rotateAtom 20s linear infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+            z-index: 1;
         }
         
-        @keyframes gridMove {
-            0% { transform: translateX(0) translateY(0); }
-            100% { transform: translateX(10px) translateY(10px); }
+        .atom-bg-small {
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 200px;
+            animation: rotateAtom 15s linear infinite reverse;
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+            z-index: 2;
+        }
+        
+        .main-logo {
+            position: relative;
+            z-index: 3;
+            right: -50px;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+        }
+        
+        @keyframes rotateAtom {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
         }
         
         /* Glowing text effects */
@@ -50,8 +154,8 @@
         }
         
         @keyframes pulseGlow {
-            from { text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            to { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8); }
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
         }
         
         /* Modern Cards */
@@ -165,38 +269,83 @@
 
 <body>
     <!-- ##### Hero Area Start ##### -->
-    <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center;">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 col-md-7">
-                    <div class="hero-slides-content">
-                        <h2 class="glow-text" style="font-size: 3.5rem; font-weight: 700; color: white; margin-bottom: 2rem;">
-                            Enter the Future of <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Investment</span>
-                        </h2>
-                        <h6 style="font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
-                            Professional-grade cryptocurrency investment solutions designed for the modern investor. Access diversified digital asset portfolios with institutional-level security and transparency.
-                        </h6>
-                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="/about-us" class="btn modern-btn">Learn More</a>
-                            <a href="#performance" class="btn" style="background: transparent; border: 2px solid var(--glow-color); color: var(--glow-color); border-radius: 50px; padding: 12px 30px; text-decoration: none; transition: all 0.3s ease;">
-                                View Performance
-                            </a>
-                        </div>
+ <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <!-- Text Content -->
+            <div class="col-12 col-md-6" style="padding-left: 0; margin-left: -100px; z-index: 10; position: relative;">
+                <div class="hero-slides-content">
+                    <h2 style="font-size: 2.8rem; font-weight: 700; color: white; margin-bottom: 2rem; position: relative; z-index: 10;">
+                        Enter the Future of <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Investment</span>
+                    </h2>
+                    <h6 style="font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
+                        Professional-grade cryptocurrency investment solutions designed for the modern investor. Access diversified digital asset portfolios with institutional-level security and transparency.
+                    </h6>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="/about-us" class="btn modern-btn">Learn More</a>
                     </div>
+
+                    <!-- Floating shapes scattered with 3-4 on left portion -->
+                    <div class="floating-element" style="position: absolute; top: -15%; left: -20%; width: 30px; height: 30px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 30%; left: -25%; width: 25px; height: 25px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 60%; left: -15%; width: 35px; height: 35px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 80%; left: -30%; width: 28px; height: 28px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 10%; left: 75%; width: 32px; height: 32px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 45%; left: 85%; width: 26px; height: 26px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 70%; left: 90%; width: 29px; height: 29px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+                    <div class="floating-element" style="position: absolute; top: 25%; left: 50%; width: 33px; height: 33px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
                 </div>
-                <div class="col-12 col-md-5">
-                    <div class="hero-slides-thumb" style="position: relative; text-align: center;">
-                        <!-- Floating geometric shapes -->
-                        <div class="floating-element" style="top: 10%; left: 10%; width: 60px; height: 60px; background: var(--glow-color); border-radius: 50%; animation-delay: 0s;"></div>
-                        <div class="floating-element" style="top: 60%; right: 10%; width: 40px; height: 40px; background: var(--accent-gradient); border-radius: 20%; animation-delay: 2s;"></div>
-                        <div class="floating-element" style="top: 30%; right: 30%; width: 80px; height: 80px; border: 2px solid var(--glow-color); border-radius: 50%; animation-delay: 4s;"></div>
-                        
-                        <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" style="max-width: 100%; filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));">
-                    </div>
+            </div>
+
+            <!-- Image Stack + Floating Elements -->
+            <div class="col-12 col-md-6">
+                <div class="hero-slides-thumb" style="position: relative; height: 500px; display: flex; justify-content: flex-end; align-items: center;">
+
+                    <!-- Largest rotating atom background (anti-clockwise) -->
+                    <img src="/img/bg-img/bgi-big.png" alt="Large Atom" 
+                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 650px; height: auto; z-index: 2; animation: rotateCounterClockwise 25s linear infinite;">
+                    
+                    <!-- Middle rotating atom background (clockwise) -->
+                    <img src="/img/bg-img/bgi-small.png" alt="Small Atom" 
+                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 600px; height: auto; z-index: 3; animation: rotateClockwise 18s linear infinite;">
+                    
+                    <!-- Top main logo image with white shadow -->
+                    <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" 
+                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 80%; z-index: 1; filter: drop-shadow(0 0 50px rgba(255,255,255,0.8));">
+
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <style>
+        /* Rotation animations */
+        @keyframes rotateClockwise {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes rotateCounterClockwise {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+
+        /* Floating subtle movement */
+        .floating-element {
+            animation: floatMove 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatMove {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-15px) translateX(10px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+    </style>
+</section>
+
+
+
+
     <!-- ##### Hero Area End ##### -->
 
     <!-- ##### Features Area Start ##### -->
@@ -222,7 +371,7 @@
                         <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
                             <i class="icon-safebox"></i>
                         </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Professional Management</h3>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Asset Management</h3>
                         <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
                             Expert portfolio management with continuous monitoring and rebalancing to optimize returns while managing risk in volatile crypto markets.
                         </p>
@@ -281,7 +430,7 @@
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
+                    <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
                     <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Track our fund's performance with real-time data and comprehensive analytics</p>
                 </div>
             </div>
@@ -289,13 +438,6 @@
                 <div class="col-md-4">
                     <div class="metric-card">
                         <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">24.7%</h2>
-                        <p style="color: white; font-size: 1.1rem;">Annual Growth Rate</p>
-                        <small style="color: rgba(255,255,255,0.6);">Last 12 months</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="metric-card">
-                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">$50M+</h2>
                         <p style="color: white; font-size: 1.1rem;">Assets Under Management</p>
                         <small style="color: rgba(255,255,255,0.6);">As of current date</small>
                     </div>
@@ -307,8 +449,16 @@
                         <small style="color: rgba(255,255,255,0.6);">Growing community</small>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="metric-card">
+                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">2,500+</h2>
+                        <p style="color: white; font-size: 1.1rem;">Active Investors</p>
+                        <small style="color: rgba(255,255,255,0.6);">Growing community</small>
+                    </div>
+                </div>
             </div>
         </div>
+        
     </section>
     <!-- ##### Performance Metrics End ##### -->
 
@@ -362,7 +512,7 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
-                            <img src="/img/icons8-award-100-4.png" alt="Global Recognition" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
+                            <img src="/img/icons8-award-100.png" alt="Global Recognition" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
                             <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Global Growth Recognition</h5>
                             <p style="color: white; line-height: 1.7;">Recognized as one of the fastest-growing crypto investment platforms across 15+ countries with consistent performance delivery.</p>
                         </div>
@@ -622,7 +772,72 @@
     <!-- ##### Call to Action Section End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
-    <%-include('partials/footer'); %>
+   <footer class="footer-area">
+    <!-- Main Footer Area -->
+    <div class="main-footer-area bg-img bg-overlay" 
+         style="background-image: url(/img/bg-img/bg-1.jpg); padding: 60px 0 30px 0; color: #fff;">
+        <div class="container">
+            <div class="row">
+
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="footer-widget mb-60">
+                        <div class="widget-title" style="margin-bottom: 20px;">
+                            <a href="#">
+                                <img src="/img/core-img/footer.png" alt="Logo" 
+                                     style="display:block; margin-top: -20px; width:250px; height:auto; 
+                                     filter: drop-shadow(0px 0px 12px rgba(24, 26, 156, 0.6));">
+                            </a>
+                            <p style="line-height:1.6; font-size:14px; color:#ddd; margin-top: 15px;">
+                                CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
+                            </p>
+                        </div>
+                        <div class="footer-social-info" style="margin-top:15px;">
+                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-facebook"></i></a>
+                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-twitter"></i></a>
+                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-dribbble"></i></a>
+                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-behance"></i></a>
+                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-widget mb-60">
+                        <div class="widget-title">
+                            <h6 style="font-size:18px; font-weight:bold; margin-bottom:15px;">Quick Links</h6>
+                        </div>
+                        <nav>
+                            <ul class="useful-links d-flex justify-content-between flex-wrap" 
+                                style="list-style:none; padding:0; margin:0; font-size:14px;">
+                                <li><a href="/" style="color:#ddd; text-decoration:none;">Home</a></li>
+                                <li><a href="/faq" style="color:#ddd; text-decoration:none;">Faq</a></li>
+                                <li><a href="/about-us" style="color:#ddd; text-decoration:none;">About us</a></li>
+                                <li><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
+                                <li><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
+                                <li><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
+                                <li><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Footer Area -->
+    <div class="bottom-footer-area" style="background:#111; padding:15px 0; text-align:center; color:#aaa; font-size:13px;">
+        <div class="container">
+            <p>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
+                All rights reserved by <b style="color:#fff;">Aman Chhetri</b> &AMP; <b style="color:#ffffff;">CDT-Index</b>
+            </p>
+        </div>
+    </div>
+</footer>
+
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### All Javascript Script ##### -->
