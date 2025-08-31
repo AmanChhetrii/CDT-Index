@@ -1,24 +1,40 @@
-project-name/
-│── app.js
-│── package.json
-│── public/              # All static assets (served by Express)
-│   ├── css/
-│   ├── js/
-│   ├── img/
-│   ├── fonts/
-│   ├── style.css
-│   └── style.css.map
-
-└── views/               # All EJS templates
-    ├── partials/        # Shared UI components
-    │   ├── header.ejs
-    │   └── footer.ejs
-    │
-    ├── index.ejs
-    ├── about-us.ejs
-    ├── blog.ejs
-    ├── contact.ejs
-    └── elements.ejs
+CDT-Index/
+│
+├── app.js                 # Main Express app
+├── package.json
+│
+├── routes/                # Route handlers
+│   ├── landing.js
+│   ├── auth.js
+│   └── dashboard.js
+│
+├── views/                 # EJS templates
+│   ├── landing/           # Landing pages
+│   │   ├── index.ejs
+│   │   ├── about.ejs
+│   │   └── contact.ejs
+│   │
+│   ├── auth/              # Auth pages
+│   │   ├── login.ejs
+│   │   └── signup.ejs
+│   │
+│   └── dashboard/         # Dashboard pages
+│       ├── index.ejs      # Main dashboard (converted from template index.html)
+│       ├── settings.ejs   # (if your template has more pages, add here)
+│       └── profile.ejs
+│
+├── public/                # Static files (accessible in browser)
+│   ├── css/               # Landing CSS
+│   ├── js/                # Landing JS
+│   ├── images/            # Landing images
+│   │
+│   └── dashboard/         # Dashboard assets from template
+│       ├── css/
+│       ├── js/
+│       ├── fonts/
+│       └── images/
+│
+└── node_modules/
 
 
 **improvements in landing site-- Header & footer 
