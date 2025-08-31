@@ -20,94 +20,51 @@
 </head>
 
 <body>
-   <!-- ##### Preloader ##### -->
-    <div id="preloader" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-        <i class="circle-preloader"></i>
-    </div>
-
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-
-        <!-- Top Header Area -->
-        <div class="top-header" style="background: rgba(0,0,0,0.3); padding: 8px 0;">
-            <div class="container h-100">
-                <div class="row h-100">
-                    <div class="col-12 h-100">
-                        <div class="top-header-content h-100 d-flex align-items-center justify-content-between">
-                            <div class="top-headline">
-                                <p style="color: rgba(255,255,255,0.9);">Welcome to <span style="color: #FFD700;">CDT-Index</span></p>
-                            </div>
-                            <div class="login-faq-earn-money">
-                                <a href="#" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">Login | Register</a>
-                                <a href="/faq" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">FAQs</a>
-                                <a href="/tnc" style="color: rgba(255,255,255,0.9); text-decoration: none;">T&C</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navbar Area -->
-        <div class="cryptos-main-menu" style="background: rgba(0,0,0,0.2); padding: 10px 0;">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="cryptosNav">
-
-                        <!-- Logo -->
-                        <a class="nav-brand" href="/">
-                          <img src="/img/core-img/logo_bg.png" alt="Logo" style="width:250px; height:auto; margin-left:-35px;">
-                        </a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- close btn -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/" style="color: rgba(255,255,255,0.9);">Home</a></li>
-                                    <li><a href="/analysis" style="color: rgba(255,255,255,0.9);">Analysis</a>
-                                    <li><a href="/services" style="color: rgba(255,255,255,0.9);">Services</a></li>
-                                    <li><a href="/about-us" style="color: rgba(255,255,255,0.9);">About Us</a></li>
-                                    <li><a href="/contact" style="color: rgba(255,255,255,0.9);">Contact</a></li>
-                                </ul>
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+   <!-- header starts here -->
+    <%- include('partials/header') %>
     <!-- ##### Header Area End ##### -->
     
     <style>
+
+        /* For images with transparent backgrounds (best-looking glow) */
+img.glow {
+  filter: drop-shadow(0 0 3px rgba(255,255,255,0.6))
+          drop-shadow(0 0 6px rgba(255,255,255,0.4));
+}
+
         /* Modern Futuristic Styles */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
-            --glow-color: #00d4ff;
-            --text-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+            --glow-color: #f8d733;
+            --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
             --gold-color: #FFD700;
         }
         
-        /* Hero area without grid background */
+        /* Navigation hover effects */
+        .nav-hover:hover {
+            color: #FFD700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Hero area with much darker blue tones */
         .hero-area {
-            background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);
+            background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
             position: relative;
             overflow: hidden;
+        }
+        
+        /* Particle.js container */
+        #particles-hero,
+        #particles-performance,
+        #particles-insights {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
         
         /* Rotating atom images */
@@ -139,7 +96,7 @@
             position: relative;
             z-index: 3;
             right: -50px;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+            filter: drop-shadow(0 0 30px rgba(7, 3, 255, 0.4));
         }
         
         @keyframes rotateAtom {
@@ -158,7 +115,7 @@
             to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
         }
         
-        /* Modern Cards */
+        /* Modern Cards with uniform height */
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -168,6 +125,10 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .feature-card::before {
@@ -187,7 +148,7 @@
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 40px rgb(197, 152, 3);
             border-color: var(--glow-color);
         }
         
@@ -264,12 +225,236 @@
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: subtract;
         }
+        
+        /* Scroll to top button with logo and ripple animation */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+        
+        .scroll-top img {
+            width: 30px;
+            height: auto;
+            filter: brightness(0) invert(1);
+            animation: logoFloat 2s ease-in-out infinite;
+        }
+
+ /* Ripple animation */
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3);
+            transform: translate(-50%, -50%);
+            animation: ripple 2s infinite;
+        }
+        
+        @keyframes ripple {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 80px;
+                height: 80px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+ .scroll-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .scroll-top img {
+                width: 24px;
+            }
+        
+        /* Professional live chart styling */
+        .live-chart {
+            background: linear-gradient(145deg, rgba(10, 26, 63, 0.9), rgba(30, 10, 63, 0.9)) !important;
+            border: 2px solid rgba(255, 215, 0, 0.3) !important;
+        }
+        
+        .tradingview-widget-container {
+            background: transparent !important;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-area {
+                text-align: center;
+            }
+            
+            .hero-area h2 {
+                font-size: 2rem !important;
+            }
+            
+            .hero-area h6 {
+                font-size: 1rem !important;
+            }
+            
+            .hero-area .col-md-6:first-child {
+                margin-left: 0 !important;
+                padding-left: 1rem !important;
+                text-align: center;
+            }
+            
+            .hero-slides-thumb {
+                display: flex;
+                justify-content: center !important;
+                align-items: center;
+            }
+            
+            .hero-slides-thumb img {
+                max-width: 250px !important;
+                left: 50% !important;
+            }
+            
+            .nav-brand {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .nav-brand img {
+                width: 200px !important;
+                margin-left: 0 !important;
+            }
+            
+            .classy-navbar {
+                justify-content: center !important;
+            }
+            
+            .feature-card {
+                height: auto !important;
+                min-height: 300px;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+            
+            
+            .scroll-arrow {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <!-- ##### Hero Area Start ##### -->
- <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
+<!-- Add this CSS override right after your existing style tag in the hero section -->
+<style>
+    /* Override external CSS max-width limitation for background images */
+    .hero-bg-image {
+        max-width: none !important;
+        width: auto !important;
+    }
+
+    /* Ensure proper z-index layering and sizing */
+    .hero-image-stack {
+        position: relative;
+        height: 500px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    /* small atom background (furthest back) */
+    .atom-bg-large {
+        position: absolute;
+        top: 50%;
+        left: 75%;
+        width: 530px !important;
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        animation: rotateCounterClockwise 25s linear infinite;
+        filter: drop-shadow(0 0 50px rgba(69, 23, 255, 0.8));
+
+        object-fit: contain;
+        max-width: none !important;
+    }
+
+    /* large atom background (middle layer) */
+    .atom-bg-small {
+        position: absolute;
+        top: 50%;
+        left: 75%;
+        width: 650px !important; 
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        animation: rotateClockwise 18s linear infinite;
+        filter: drop-shadow(0 0 50px rgba(63, 15, 255, 0.8));
+
+        object-fit: contain;
+        max-width: none !important;
+    }
+
+    /* Main logo (front layer) */
+    .main-logo-front {
+        position: absolute;
+        top: 50%;
+        left: 75%;
+        width: 400px !important; /* Increased from 400px */
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+        filter: drop-shadow(0 0 50px rgba(159, 156, 171, 0.8));
+        max-width: none !important;
+    }
+
+    /* Rotation animations */
+    @keyframes rotateClockwise {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes rotateCounterClockwise {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+</style>
+
+<!--  Hero Section  -->
+<!-- <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #041235 0%, #480a60 100%);"> -->
+<section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background-image: url('/img/web-img/image.png');">
+    <div id="particles-hero"></div>
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <!-- Text Content -->
@@ -297,52 +482,22 @@
                 </div>
             </div>
 
-            <!-- Image Stack + Floating Elements -->
+            <!-- Image Stack with Fixed Sizing -->
             <div class="col-12 col-md-6">
-                <div class="hero-slides-thumb" style="position: relative; height: 500px; display: flex; justify-content: flex-end; align-items: center;">
-
-                    <!-- Largest rotating atom background (anti-clockwise) -->
-                    <img src="/img/bg-img/bgi-big.png" alt="Large Atom" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 650px; height: auto; z-index: 2; animation: rotateCounterClockwise 25s linear infinite;">
+                <div class="hero-image-stack">
+                    <!-- Largest rotating atom background (furthest back) -->
+                    <img src="/img/bg-img/image.png" alt="Large Atom" class="hero-bg-image atom-bg-large">
                     
-                    <!-- Middle rotating atom background (clockwise) -->
-                    <img src="/img/bg-img/bgi-small.png" alt="Small Atom" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 600px; height: auto; z-index: 3; animation: rotateClockwise 18s linear infinite;">
+                    <!-- Smaller rotating atom background (middle layer) -->
+                    <img src="/img/bg-img/image2.png" alt="Small Atom" class="hero-bg-image atom-bg-small">
                     
-                    <!-- Top main logo image with white shadow -->
-                    <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 80%; z-index: 1; filter: drop-shadow(0 0 50px rgba(255,255,255,0.8));">
-
+                    <!-- Main logo image (front layer) -->
+                    <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" class="hero-bg-image main-logo-front">
                 </div>
             </div>
         </div>
     </div>
-
-    <style>
-        /* Rotation animations */
-        @keyframes rotateClockwise {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes rotateCounterClockwise {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(-360deg); }
-        }
-
-        /* Floating subtle movement */
-        .floating-element {
-            animation: floatMove 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatMove {
-            0% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-15px) translateX(10px); }
-            100% { transform: translateY(0) translateX(0); }
-        }
-    </style>
 </section>
-
 
 
 
@@ -375,7 +530,6 @@
                         <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
                             Expert portfolio management with continuous monitoring and rebalancing to optimize returns while managing risk in volatile crypto markets.
                         </p>
-                        <a href="/services" class="btn modern-btn mt-3">Explore Services</a>
                     </div>
                 </div>
 
@@ -389,7 +543,6 @@
                         <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
                             Access a carefully curated portfolio of leading cryptocurrencies, reducing single-asset risk while capturing market growth opportunities.
                         </p>
-                        <a href="/analysis" class="btn modern-btn mt-3">View Analysis</a>
                     </div>
                 </div>
 
@@ -399,11 +552,11 @@
                         <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
                             <i class="icon-exchange"></i>
                         </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Competitive Fees</h3>
+                        <h3 style="color: white; margin-bottom: 1.5rem;">Competitive Charges</h3>
                         <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
                             Transparent, competitive fee structure designed to maximize your returns. No hidden costs, just straightforward professional service.
                         </p>
-                        <a href="/services" class="btn modern-btn mt-3">Fee Structure</a>
+                       
                     </div>
                 </div>
 
@@ -417,7 +570,7 @@
                         <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
                             Multi-signature wallets, cold storage, and institutional-grade security protocols protect your investments with the highest standards.
                         </p>
-                        <a href="/about-us" class="btn modern-btn mt-3">Security Details</a>
+                        
                     </div>
                 </div>
             </div>
@@ -426,8 +579,9 @@
     <!-- ##### Features Area End ##### -->
 
     <!-- ##### Performance Metrics Start ##### -->
-    <section id="performance" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 100px 0;">
-        <div class="container">
+    <section id="performance" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 100px 0; position: relative;">
+        <div id="particles-performance"></div>
+        <div class="container" style="position: relative; z-index: 10;">
             <div class="row text-center mb-5">
                 <div class="col-12">
                     <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
@@ -547,20 +701,20 @@
 
     <!-- ##### Live Chart Section ##### -->
     <section class="live-chart" id="live-chart" 
-             style="width:95vw; margin:50px auto; padding:20px; 
-                    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1)); 
+             style="width:95vw; margin:50px auto; padding:30px; 
+                    background: linear-gradient(145deg, rgba(10, 26, 63, 0.95), rgba(30, 10, 63, 0.95)); 
                     backdrop-filter: blur(20px);
                     border-radius:20px; 
-                    box-shadow:0 8px 32px rgba(0,212,255,0.1);
-                    border: 1px solid rgba(0,212,255,0.2);">
+                    box-shadow:0 8px 32px rgba(255, 215, 0, 0.15);
+                    border: 2px solid rgba(255, 215, 0, 0.3);">
         
         <div class="text-center mb-4">
-            <h3 style="color: white; margin-bottom: 1rem;">Market Overview</h3>
-            <p style="color: rgba(255,255,255,0.7);">Real-time market data and trends</p>
+            <h3 style="color: #FFD700; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);">Market Overview</h3>
+            <p style="color: rgba(255,255,255,0.9);">Real-time market data and trends</p>
         </div>
         
         <div class="tradingview-widget-container" 
-             style="width:100%; height:auto; overflow:hidden; border-radius: 15px;">
+             style="width:100%; height:auto; overflow:hidden; border-radius: 15px; background: rgba(0,0,0,0.3); padding: 10px;">
              
             <div class="tradingview-widget-container__widget"></div>
             
@@ -577,7 +731,7 @@
               ],
               "showSymbolLogo": true,
               "colorTheme": "dark",
-              "isTransparent": true,
+              "isTransparent": false,
               "displayMode": "adaptive",
               "locale": "en"
             }
@@ -585,12 +739,20 @@
         </div>
     </section>
 
+    <!-- Scroll to Top Button with Logo -->
+    <div class="scroll-top" id="scrollTop">
+        <img src="/img/core-img/logo_smallbg.png" alt="Scroll to Top">
+    </div>
+
+
+
     <!-- ##### Blog Area Start ##### -->
-    <section class="cryptos-blog-area section-padding-100" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
-        <div class="container">
+    <section class="cryptos-blog-area section-padding-100" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%); position: relative;">
+        <div id="particles-insights"></div>
+        <div class="container" style="position: relative; z-index: 10;">
             <div class="row mb-5">
                 <div class="col-12 text-center">
-                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Latest <span class="glow-text">Insights</span></h3>
+                    <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Latest <span class="glow-text">Insights</span></h3>
                     <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Stay informed with market analysis, investment strategies, and crypto industry developments</p>
                 </div>
             </div>
@@ -758,10 +920,10 @@
                         Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.
                     </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="/contact" class="btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                        <a href="/contact" class="btn modern-btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
                             Get Started Today
                         </a>
-                        <a href="/analysis" class="btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                        <a href="/analysis" class="btn modern-btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
                             Learn More
                         </a>
                     </div>
@@ -772,72 +934,7 @@
     <!-- ##### Call to Action Section End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
-   <footer class="footer-area">
-    <!-- Main Footer Area -->
-    <div class="main-footer-area bg-img bg-overlay" 
-         style="background-image: url(/img/bg-img/bg-1.jpg); padding: 60px 0 30px 0; color: #fff;">
-        <div class="container">
-            <div class="row">
-
-                <!-- Footer Widget Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="footer-widget mb-60">
-                        <div class="widget-title" style="margin-bottom: 20px;">
-                            <a href="#">
-                                <img src="/img/core-img/footer.png" alt="Logo" 
-                                     style="display:block; margin-top: -20px; width:250px; height:auto; 
-                                     filter: drop-shadow(0px 0px 12px rgba(24, 26, 156, 0.6));">
-                            </a>
-                            <p style="line-height:1.6; font-size:14px; color:#ddd; margin-top: 15px;">
-                                CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
-                            </p>
-                        </div>
-                        <div class="footer-social-info" style="margin-top:15px;">
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-facebook"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-twitter"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-dribbble"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-behance"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Widget Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="footer-widget mb-60">
-                        <div class="widget-title">
-                            <h6 style="font-size:18px; font-weight:bold; margin-bottom:15px;">Quick Links</h6>
-                        </div>
-                        <nav>
-                            <ul class="useful-links d-flex justify-content-between flex-wrap" 
-                                style="list-style:none; padding:0; margin:0; font-size:14px;">
-                                <li><a href="/" style="color:#ddd; text-decoration:none;">Home</a></li>
-                                <li><a href="/faq" style="color:#ddd; text-decoration:none;">Faq</a></li>
-                                <li><a href="/about-us" style="color:#ddd; text-decoration:none;">About us</a></li>
-                                <li><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
-                                <li><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
-                                <li><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
-                                <li><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Footer Area -->
-    <div class="bottom-footer-area" style="background:#111; padding:15px 0; text-align:center; color:#aaa; font-size:13px;">
-        <div class="container">
-            <p>
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
-                All rights reserved by <b style="color:#fff;">Aman Chhetri</b> &AMP; <b style="color:#ffffff;">CDT-Index</b>
-            </p>
-        </div>
-    </div>
-</footer>
-
+           <%- include('partials/footer') %>
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### All Javascript Script ##### -->
@@ -849,17 +946,112 @@
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins js -->
     <script src="/js/plugins/plugins.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <!-- Active js -->
     <script src="/js/active.js"></script>
     
     <script>
+        // Enhanced Particles.js configuration matching user's exact spec with golden colors
+  const particleConfig = {
+    "particles": {
+        "number": {
+            "value": 90, // Slightly more particles for a fuller feel
+            "density": {
+                "enable": true,
+                "value_area": 800
+            }
+        },
+        "color": {
+            "value": ["#FFFFFF", "#FFD700"] // White and yellow colors
+        },
+        "shape": {
+            "type": "circle" // Nodes are circles only
+        },
+        "opacity": {
+            "value": 0.5, // --- Nodes are now visible but still subtle
+            "random": true,
+            "anim": {
+                "enable": true,
+                "speed": 0.4,
+                "opacity_min": 0.2,
+                "sync": false
+            }
+        },
+        "size": {
+            "value": 2.5, // --- Small, but clearly visible size
+            "random": true
+        },
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#FFFFFF",
+            "opacity": 0.2, // Lines remain faint and subtle
+            "width": 1
+        },
+        "move": {
+            "enable": true,
+            "speed": 2.5, // --- Increased speed for a noticeable but gentle drift
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+            "onhover": {
+                "enable": false // Interactivity remains disabled
+            },
+            "onclick": {
+                "enable": false
+            },
+            "resize": true
+        }
+    },
+    "retina_detect": true
+};
+
+
+// Your initialization code remains the same
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.particlesJS) {
+        particlesJS('particles-hero', particleConfig);
+        
+        // You can apply the same config to other sections as well
+        particlesJS('particles-performance', particleConfig);
+        particlesJS('particles-insights', particleConfig);
+    }
+});
+        // Scroll to top functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.style.display = 'flex';
+            } else {
+                scrollTop.style.display = 'none';
+            }
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
         // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
         

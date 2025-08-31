@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="CDT Index Services - Professional Crypto Index Funds">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Title -->
+    <title>Our Services - CDT Index</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/core-img/logo_smallbg.png">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+   <!-- header starts here -->
+    <%- include('partials/header') %>
+    <!-- ##### Header Area End ##### -->
+    
+    <style>
+        /* Modern Futuristic Styles matching home page */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
+            --glow-color: #f8d733;
+            --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
+            --gold-color: #FFD700;
+        }
+        
+        /* Hero area with deep blue tones */
+        .hero-area {
+            background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Particle.js container */
+        #particles-hero,
+        #particles-funds,
+        #particles-services {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        /* Glowing text effects */
+        .glow-text {
+            text-shadow: var(--text-glow);
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+        }
+        
+        /* Fund Cards matching home page style */
+        .fund-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .fund-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .fund-card:hover::before {
+            left: 100%;
+        }
+        
+        .fund-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(197, 152, 3, 0.3);
+            border-color: var(--glow-color);
+        }
+        
+        .fund-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .fund-name {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .fund-tagline {
+            color: var(--glow-color);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .fund-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .fund-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .fund-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .fund-detail-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .fund-detail-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .risk-level {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+        
+        .risk-aggressive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+        
+        .risk-moderate {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.4);
+        }
+        
+        .risk-conservative {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+        
+        .risk-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+        
+        /* Modern buttons matching home page */
+        .modern-btn {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .modern-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Service Cards */
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--glow-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .service-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-link {
+            color: var(--glow-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+        
+        .service-link:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .service-link::after {
+            content: '→';
+            margin-left: 8px;
+            transition: transform 0.2s ease;
+        }
+        
+        .service-link:hover::after {
+            transform: translateX(4px);
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-area {
+                text-align: center;
+            }
+            
+            .hero-area h2 {
+                font-size: 2.5rem !important;
+            }
+            
+            .hero-area h6 {
+                font-size: 1rem !important;
+            }
+            
+            .fund-card, .service-card {
+                margin-bottom: 2rem;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area" style="min-height: 70vh; display: flex; align-items: center; position: relative; overflow: hidden; background-image: url('/img/web-img/image.png');">
+        <div id="particles-hero"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center" style="z-index: 10; position: relative;">
+                    <h2 style="font-size: 3.5rem; font-weight: 700; color: white; margin-bottom: 1.5rem;">
+                        Our <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Services</span>
+                    </h2>
+                    <h6 style="font-size: 1.25rem; color: rgba(255,255,255,0.9); line-height: 1.8; max-width: 700px; margin: 0 auto;">
+                        CDT Index provides professionally managed crypto index funds and institutional-grade investment solutions.
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Flagship Funds Section Start ##### -->
+    <section class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); position: relative;">
+        <div id="particles-funds"></div>
+        <div class="container-fluid" style="position: relative; z-index: 10;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto" style="margin-bottom: 5rem;">
+                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
+                            Our Flagship <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Index Funds</span>
+                        </h3>
+                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                            Professional crypto investment solutions designed for different risk profiles and investment objectives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- CDT Growth Fund -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="fund-card mb-100">
+                        <div>
+                            <div class="fund-header">
+                                <h4 class="fund-name">CDT Growth Fund</h4>
+                                <p class="fund-tagline">Focused on high-growth digital assets.</p>
+                            </div>
+                            
+                            <p class="fund-description">
+                                Capture upside from leading cryptocurrencies through concentrated exposure to top performers.
+                            </p>
+                            
+                            <div class="fund-details">
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Objective:</span>
+                                    <span class="fund-detail-value">Capture upside potential</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Strategy:</span>
+                                    <span class="fund-detail-value">Concentrated exposure</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Risk Level:</span>
+                                    <span class="risk-level risk-aggressive">Aggressive</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="/funds/growth" class="modern-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- CDT Balanced Fund -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="fund-card mb-100">
+                        <div>
+                            <div class="fund-header">
+                                <h4 class="fund-name">CDT Balanced Fund</h4>
+                                <p class="fund-tagline">Diversified mix of growth and stability.</p>
+                            </div>
+                            
+                            <p class="fund-description">
+                                Blend growth with risk control through balanced allocation between volatile and stable assets.
+                            </p>
+                            
+                            <div class="fund-details">
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Objective:</span>
+                                    <span class="fund-detail-value">Blend growth with control</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Strategy:</span>
+                                    <span class="fund-detail-value">Balanced allocation</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Risk Level:</span>
+                                    <span class="risk-level risk-moderate">Moderate</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="/funds/balanced" class="modern-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- CDT Income Fund -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="fund-card mb-100">
+                        <div>
+                            <div class="fund-header">
+                                <h4 class="fund-name">CDT Income Fund</h4>
+                                <p class="fund-tagline">Yield-focused strategy for steady returns.</p>
+                            </div>
+                            
+                            <p class="fund-description">
+                                Generate consistent income through allocation to yield-bearing crypto assets.
+                            </p>
+                            
+                            <div class="fund-details">
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Objective:</span>
+                                    <span class="fund-detail-value">Generate consistent income</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Strategy:</span>
+                                    <span class="fund-detail-value">Yield-bearing assets</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Risk Level:</span>
+                                    <span class="risk-level risk-conservative">Conservative</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="/funds/income" class="modern-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- CDT Innovation Fund -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="fund-card mb-100">
+                        <div>
+                            <div class="fund-header">
+                                <h4 class="fund-name">CDT Innovation Fund</h4>
+                                <p class="fund-tagline">Exposure to emerging blockchain projects.</p>
+                            </div>
+                            
+                            <p class="fund-description">
+                                Invest in the future of blockchain innovation through exposure to new tokens, protocols, and early-stage opportunities.
+                            </p>
+                            
+                            <div class="fund-details">
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Objective:</span>
+                                    <span class="fund-detail-value">Future of blockchain</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Strategy:</span>
+                                    <span class="fund-detail-value">Early-stage opportunities</span>
+                                </div>
+                                <div class="fund-detail">
+                                    <span class="fund-detail-label">Risk Level:</span>
+                                    <span class="risk-level risk-high">High</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="/funds/innovation" class="modern-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Flagship Funds Section End ##### -->
+
+    <!-- ##### Additional Services Section Start ##### -->
+    <section class="cryptos-about-area section-padding-100-0" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%); position: relative;">
+        <div id="particles-services"></div>
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto" style="margin-bottom: 4rem;">
+                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
+                            Beyond <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Index Funds</span>
+                        </h3>
+                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                            Comprehensive investment solutions and advisory services for institutional and individual clients.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Portfolio Advisory -->
+                <div class="col-12 col-lg-4">
+                    <div class="service-card mb-100">
+                        <div class="service-icon">
+                            <i class="icon-chart"></i>
+                        </div>
+                        <h4 class="service-title">Portfolio Advisory</h4>
+                        <p class="service-description">
+                            Tailored investment strategies designed to meet client financial goals through personalized portfolio construction and ongoing management.
+                        </p>
+                        <a href="/services/advisory" class="service-link">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Risk Management Tools -->
+                <div class="col-12 col-lg-4">
+                    <div class="service-card mb-100">
+                        <div class="service-icon">
+                            <i class="icon-shield"></i>
+                        </div>
+                        <h4 class="service-title">Risk Management Tools</h4>
+                        <p class="service-description">
+                            Advanced portfolio analytics and downside protection strategies to help manage volatility and preserve capital during market downturns.
+                        </p>
+                        <a href="/services/risk-management" class="service-link">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Research & Insights -->
+                <div class="col-12 col-lg-4">
+                    <div class="service-card mb-100">
+                        <div class="service-icon">
+                            <i class="icon-search"></i>
+                        </div>
+                        <h4 class="service-title">Research & Insights</h4>
+                        <p class="service-description">
+                            Institutional-grade crypto market research and intelligence reports providing deep analysis of market trends and investment opportunities.
+                        </p>
+                        <a href="/services/research" class="service-link">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating shapes scattered -->
+        <div class="floating-element" style="position: absolute; top: 20%; left: 10%; width: 30px; height: 30px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+        <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 25px; height: 25px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
+        <div class="floating-element" style="position: absolute; bottom: 30%; left: 20%; width: 35px; height: 35px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
+        <div class="floating-element" style="position: absolute; top: 40%; right: 80%; width: 28px; height: 28px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
+    </section>
+    <!-- ##### Additional Services Section End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <%- include('partials/footer') %>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/js/plugins/plugins.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Active js -->
+    <script src="/js/active.js"></script>
+    
+    <script>
+        // Particles.js configuration matching home page
+        const particleConfig = {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#FFFFFF", "#FFD700"]
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 0.4,
+                        "opacity_min": 0.2,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2.5,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#FFFFFF",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false
+                    },
+                    "onclick": {
+                        "enable": false
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        };
+
+        // Initialize particles for different sections
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.particlesJS) {
+                particleConfig.particles.number.value = 60;
+                particlesJS('particles-hero', particleConfig);
+                
+                particleConfig.particles.number.value = 70;
+                particlesJS('particles-funds', particleConfig);
+                
+                particleConfig.particles.number.value = 50;
+                particlesJS('particles-services', particleConfig);
+            }
+        });
+        
+        // Add loading animation for cards
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.fund-card, .service-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+        
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+            
+            parallax.forEach(element => {
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>

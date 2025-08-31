@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="About CDT Index - Professional Crypto Investment Solutions">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Title -->
+    <title>About CDT Index - Simplifying Crypto Investment</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/core-img/logo_smallbg.png">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+   <!-- header starts here -->
+    <%- include('partials/header') %>
+    <!-- ##### Header Area End ##### -->
+    
+    <style>
+        /* Modern Futuristic Styles */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
+            --glow-color: #f8d733;
+            --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
+            --gold-color: #FFD700;
+        }
+        
+        /* Navigation hover effects */
+        .nav-hover:hover {
+            color: #FFD700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Hero area with deep blue tones */
+        .hero-area {
+            background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Particle.js container */
+        #particles-hero,
+        #particles-mission,
+        #particles-contact {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        /* Rotating atom images */
+        .atom-bg-large {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 300px;
+            animation: rotateAtom 20s linear infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+            z-index: 1;
+        }
+        
+        .atom-bg-small {
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 200px;
+            animation: rotateAtom 15s linear infinite reverse;
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+            z-index: 2;
+        }
+        
+        .main-logo {
+            position: relative;
+            z-index: 3;
+            right: -50px;
+            filter: drop-shadow(0 0 30px rgba(7, 3, 255, 0.4));
+        }
+        
+        @keyframes rotateAtom {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        /* Glowing text effects */
+        .glow-text {
+            text-shadow: var(--text-glow);
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+        }
+        
+        /* Modern Cards with uniform height */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgb(197, 152, 3);
+            border-color: var(--glow-color);
+        }
+        
+        /* Modern buttons */
+        .modern-btn {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Step cards for How It Works */
+        .step-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(197, 152, 3, 0.3);
+            border-color: var(--glow-color);
+        }
+        
+        .step-number {
+            background: var(--primary-gradient);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+        
+        /* Video section styling */
+        .video-section {
+            background: linear-gradient(145deg, rgba(10, 26, 63, 0.9), rgba(30, 10, 63, 0.9));
+            border-radius: 20px;
+            padding: 3rem;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-placeholder {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            padding: 4rem 2rem;
+            border: 2px dashed rgba(255, 215, 0, 0.5);
+            margin-top: 2rem;
+        }
+        
+        /* Contact form styling */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+        
+        .contact-form .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .contact-form .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--glow-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+        }
+        
+        /* Social links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--glow-color);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-area {
+                text-align: center;
+            }
+            
+            .hero-area h2 {
+                font-size: 2rem !important;
+            }
+            
+            .hero-area h6 {
+                font-size: 1rem !important;
+            }
+            
+            .feature-card, .step-card {
+                height: auto !important;
+                min-height: 300px;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+            
+            .video-placeholder {
+                padding: 2rem 1rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area" style="min-height: 70vh; display: flex; align-items: center; position: relative; overflow: hidden; background-image: url('/img/web-img/image.png');">
+        <div id="particles-hero"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center" style="z-index: 10; position: relative;">
+                    <h2 style="font-size: 3.5rem; font-weight: 700; color: white; margin-bottom: 1.5rem;">
+                        About <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CDT Index</span>
+                    </h2>
+                    <h6 style="font-size: 1.3rem; color: rgba(255,255,255,0.9); line-height: 1.8; max-width: 600px; margin: 0 auto;">
+                        Simplifying Crypto, Amplifying Growth
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Our Mission Area Start ##### -->
+    <section class="cryptos-about-area section-padding-100-0" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); position: relative;">
+        <div id="particles-mission"></div>
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <div class="about-thumbnail mb-100" style="position: relative;">
+                        <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; border: 2px solid var(--glow-color); border-radius: 50%; opacity: 0.3; animation: float 4s ease-in-out infinite;"></div>
+                        <img src="/img/bg-img/about.png" alt="About CDT Index" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="about-content mb-100">
+                        <div class="section-heading">
+                            <h3 style="color: white; font-size: 2.8rem; margin-bottom: 2rem;">
+                                Who <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">We Are</span>
+                            </h3>
+                            <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 2rem; font-size: 1.1rem;">
+                                CDT Index was founded with a single vision — to make cryptocurrency investment as simple, transparent, and secure as traditional mutual funds. By pooling the top 5 performing cryptocurrencies into a single diversified portfolio, we give investors an easy, low-risk way to participate in the digital economy.
+                            </p>
+                            <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem; font-size: 1.1rem;">
+                                Our proprietary NAV calculation provides real-time portfolio value, so investors always know where they stand. With institutional-level security and professional portfolio management, CDT bridges the gap between traditional finance and the blockchain world.
+                            </p>
+                            <a href="/contact" class="btn modern-btn">Start Investing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Our Mission Area End ##### -->
+
+    <!-- ##### How It Works Section Start ##### -->
+    <section class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto" style="margin-bottom: 5rem;">
+                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
+                            How <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">It Works</span>
+                        </h3>
+                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                            Three simple steps to start your professional cryptocurrency investment journey with CDT Index.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Step 1 -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="step-card mb-100">
+                        <div>
+                            <div class="step-number">01</div>
+                            <h4 style="color: white; margin-bottom: 1.5rem;">Invest in CDT Index</h4>
+                            <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                                Start with an amount of your choice. Our minimum investment makes professional crypto portfolio management accessible to everyone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="step-card mb-100">
+                        <div>
+                            <div class="step-number">02</div>
+                            <h4 style="color: white; margin-bottom: 1.5rem;">We Manage Top 5 Coins</h4>
+                            <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                                Automatic allocation and rebalancing across the top 5 performing cryptocurrencies, managed by our expert team.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="step-card mb-100">
+                        <div>
+                            <div class="step-number">03</div>
+                            <h4 style="color: white; margin-bottom: 1.5rem;">Track Your NAV</h4>
+                            <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                                Transparent daily NAV updates keep you informed of your investment's real-time value and performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### How It Works Section End ##### -->
+
+    <!-- ##### Why Choose CDT Section Start ##### -->
+    <section class="cryptos-video-area section-padding-100-0" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <div class="about-content mb-100">
+                        <div class="section-heading">
+                            <h3 style="color: white; font-size: 2.8rem; margin-bottom: 2rem;">
+                                Why Investors <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Trust CDT</span>
+                            </h3>
+                            <h5 style="color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.8;">
+                                We combine financial expertise with blockchain technology to deliver a secure, reliable, and transparent investment experience.
+                            </h5>
+                            <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 3rem;">
+                                Our professional team continuously monitors market trends, manages risk exposure, and optimizes portfolio performance. With institutional-grade security and transparent operations, CDT Index provides the peace of mind that comes with professional cryptocurrency investment management.
+                            </p>
+                            <a href="/analysis" class="btn modern-btn">View Performance</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="video-section mb-100">
+                        <h4 style="color: white; margin-bottom: 1.5rem;">Investment Philosophy</h4>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                            Learn about our approach to cryptocurrency portfolio management and risk mitigation strategies.
+                        </p>
+                        <div class="video-placeholder">
+                            <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1rem;">
+                                <i class="fa fa-play-circle-o"></i>
+                            </div>
+                            <h5 style="color: white; margin-bottom: 1rem;">Coming Soon</h5>
+                            <p style="color: rgba(255,255,255,0.6);">
+                                Detailed video explanation of our investment methodology and portfolio management approach.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Why Choose CDT Section End ##### -->
+
+    <!-- ##### Contact Section Start ##### -->
+    <section class="contact-area section-padding-100-0" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); position: relative;">
+        <div id="particles-contact"></div>
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto" style="margin-bottom: 5rem;">
+                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
+                            Get in Touch <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">With Us</span>
+                        </h3>
+                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 700px; margin: 0 auto; line-height: 1.8;">
+                            We'd love to hear from you. Whether you're an investor, a partner, or just exploring, the CDT Index team is here to help.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Contact Information -->
+                <div class="col-12 col-lg-6">
+                    <div class="contact-information mb-100">
+                        <!-- Contact Logo -->
+                        <div class="contact-logo mb-50">
+                            <a href="/"><img src="/img/core-img/logo.png" alt="CDT Index" style="filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));"></a>
+                        </div>
+
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem; font-size: 1.1rem;">
+                            Professional cryptocurrency investment management designed for the modern digital economy. Join thousands of investors who trust CDT Index for transparent, secure, and profitable crypto portfolio solutions.
+                        </p>
+
+                        <!-- Contact Social Info -->
+                        <div class="social-links">
+                            <a href="#" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#" title="Telegram"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                            <a href="#" title="Discord"><i class="fa fa-discord" aria-hidden="true"></i></a>
+                        </div>
+
+                        <!-- Single Contact Info -->
+                        <div class="single-contact-info d-flex" style="margin-top: 3rem; margin-bottom: 1.5rem;">
+                            <div class="contact-icon mr-15" style="color: var(--glow-color);">
+                                <i class="fa fa-map"></i>
+                            </div>
+                            <p style="color: rgba(255,255,255,0.9);">Global Operations — Remote Headquarters</p>
+                        </div>
+
+                        <!-- Single Contact Info -->
+                        <div class="single-contact-info d-flex" style="margin-bottom: 1.5rem;">
+                            <div class="contact-icon mr-15" style="color: var(--glow-color);">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <p style="color: rgba(255,255,255,0.9);">+91-98765-43210</p>
+                        </div>
+
+                        <!-- Single Contact Info -->
+                        <div class="single-contact-info d-flex">
+                            <div class="contact-icon mr-15" style="color: var(--glow-color);">
+                                <i class="fa fa-envelope-o"></i>
+                            </div>
+                            <p style="color: rgba(255,255,255,0.9);">support@cdtindex.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Area -->
+                <div class="col-12 col-lg-6">
+                    <div class="contact-form mb-100">
+                        <h4 style="color: white; margin-bottom: 1.5rem; text-align: center;">Send us a Message</h4>
+                        <p style="color: rgba(255,255,255,0.7); text-align: center; margin-bottom: 3rem;">
+                            Send us a message and we'll get back to you within 24 hours.
+                        </p>
+                        <form action="#" method="post">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                            <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                            <textarea name="message" class="form-control" id="message" cols="30" rows="8" placeholder="Your Message" required></textarea>
+                            <div class="text-center">
+                                <button class="btn modern-btn mt-30" type="submit">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Section End ##### -->
+
+    <!-- ##### Call to Action Section ##### -->
+    <section style="background: var(--primary-gradient); padding: 80px 0;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
+                        Ready to Simplify Your Crypto Investment?
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Join the CDT Index community and experience professional cryptocurrency portfolio management.
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="/contact" class="btn modern-btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                            Start Investing
+                        </a>
+                        <a href="/" class="btn modern-btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Call to Action Section End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <%- include('partials/footer') %>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/js/plugins/plugins.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Active js -->
+    <script src="/js/active.js"></script>
+    
+    <script>
+        // Particles.js configuration matching home page
+        const particleConfig = {
+            "particles": {
+                "number": {
+                    "value": 90,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#FFFFFF", "#FFD700"]
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 0.4,
+                        "opacity_min": 0.2,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2.5,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#FFFFFF",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false
+                    },
+                    "onclick": {
+                        "enable": false
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        };
+
+        // Initialize particles for different sections
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.particlesJS) {
+                particlesJS('particles-hero', particleConfig);
+                particlesJS('particles-mission', particleConfig);
+                particlesJS('particles-contact', particleConfig);
+            }
+        });
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add loading animation for cards
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.feature-card, .step-card, .contact-form');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+        
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+            
+            parallax.forEach(element => {
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Form validation and enhancement
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (name && email && subject && message) {
+                // Show success message (you can replace this with actual form submission)
+                alert('Thank you for your message! We will get back to you within 24 hours.');
+                this.reset();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+    </script>
+</body>
+
+</html>

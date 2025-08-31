@@ -274,7 +274,7 @@ textarea:focus {
   border-color: transparent; }
 
 /* ScrollUp */
-#scrollUp {
+/* #scrollUp {
   background-color: #ffaf02;
   border-radius: 0;
   bottom: 60px;
@@ -293,7 +293,7 @@ textarea:focus {
   @media only screen and (max-width: 767px) {
     #scrollUp {
       bottom: 30px;
-      right: 30px; } }
+      right: 30px; } } */
 
 /* Button */
 .cryptos-btn {
