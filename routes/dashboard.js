@@ -16,6 +16,15 @@ router.get('/dashboard', (req, res) => {
     });
 });
 
-// Add more dashboard routes as needed...
+router.get('/dashboard/widgets', (req, res) => {
+    res.render('dashboard/widgets');
+});
+
+router.get('/dashboard/template', (req, res) => {
+    res.render('dashboard/template');
+});
+
+
+
 
 module.exports = router;
