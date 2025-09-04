@@ -17,6 +17,10 @@ router.get('/services', function(req, res) {
     res.render('landing/services');
 });
 
+router.get('/policy', function(req, res) {
+    res.render('landing/policy');
+});
+
 router.get('/analysis', function(req, res) {
     res.render('landing/analysis');
 });

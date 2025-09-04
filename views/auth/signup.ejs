@@ -17,33 +17,12 @@
     <link rel="stylesheet" href="/style.css">
     <!-- Auth Stylesheet -->
     <link rel="stylesheet" href="/auth/auth.css">
-     <style>
-        /* Fix name field sizing issue */
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-        
-        .form-row .form-group {
-            flex: 1;
-            width: 50%;
-        }
-        
-        .form-row .form-control {
-            width: 100% !important;
-            padding: 14px 18px !important;
-            height: 50px !important;
-            box-sizing: border-box !important;
-            font-size: 0.95rem !important;
-            line-height: 1.2 !important;
-        }
-        
-        /* Ensure other form controls match */
-        .form-control {
-            height: 50px !important;
-            padding: 14px 18px !important;
-            box-sizing: border-box !important;
+    <style>
+        #firstName::placeholder,
+        #lastName::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+            font-weight: normal !important;
+            opacity: 1 !important;
         }
     </style>
 
@@ -63,36 +42,42 @@
             <h2 class="auth-title">Create Account</h2>
             <p class="auth-subtitle">Start your crypto investment journey</p>
 
-            <!-- Flash Messages -->
+            <!-- Flash Messages - Only show first message -->
             <% if (typeof error !== 'undefined' && error.length > 0) { %>
-                <% error.forEach(function(err) { %>
-                    <div class="flash-message flash-error"><%= err %></div>
-                <% }); %>
+                <div class="flash-message flash-error"><%= error[0] %></div>
             <% } %>
 
             <% if (typeof success !== 'undefined' && success.length > 0) { %>
-                <% success.forEach(function(msg) { %>
-                    <div class="flash-message flash-success"><%= msg %></div>
-                <% }); %>
+                <div class="flash-message flash-success"><%= success[0] %></div>
             <% } %>
             
             <!-- Signup Form -->
-            <form id="signupForm" method="POST" action="/signup">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required>
-                        <div class="error-message" id="firstNameError">First name is required</div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" required>
-                        <div class="error-message" id="lastNameError">Last name is required</div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
-                    <div class="error-message" id="emailError">Please enter a valid email address</div>
-                </div>
+           <form id="signupForm" method="POST" action="/signup">
+    <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <div style="flex: 1;">
+            <input type="text" 
+                   style="height: 52px; padding: 14px 18px; width: 100%; box-sizing: border-box; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 0.95rem; transition: all 0.3s ease;" 
+                   name="firstName" 
+                   id="firstName" 
+                   placeholder="First Name" 
+                   required>
+            <div class="error-message" id="firstNameError">First name is required</div>
+        </div>
+        <div style="flex: 1;">
+            <input type="text" 
+                   style="height: 52px; padding: 14px 18px; width: 100%; box-sizing: border-box; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 0.95rem; transition: all 0.3s ease;" 
+                   name="lastName" 
+                   id="lastName" 
+                   placeholder="Last Name" 
+                   required>
+            <div class="error-message" id="lastNameError">Last name is required</div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
+    </div>
                 
                 <div class="form-group">
                     <input type="password" class="form-control" name="password" id="password" placeholder="Create Password" required>
@@ -113,7 +98,7 @@
                 <div class="terms-checkbox">
                     <input type="checkbox" id="terms" name="terms" required>
                     <label for="terms">
-                        I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+                        I agree to the <a href="/policy">Terms of Service</a> and <a href="/policy">Privacy Policy</a>
                     </label>
                 </div>
                 

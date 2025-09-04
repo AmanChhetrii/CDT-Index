@@ -1,10 +1,10 @@
-// Common Auth JavaScript Functions
+// Common Auth JavaScript Functions - Single instance initialization
 
 // Particle configuration for all auth pages
 const authParticleConfig = {
     "particles": {
         "number": {
-            "value": 60,  //
+            "value": 60,
             "density": {
                 "enable": true,
                 "value_area": 800
@@ -17,7 +17,7 @@ const authParticleConfig = {
             "type": "circle"
         },
         "opacity": {
-            "value": 0.3, 
+            "value": 0.3,
             "random": true
         },
         "size": {
@@ -52,12 +52,15 @@ const authParticleConfig = {
     "retina_detect": true
 };
 
+// Track initialization to prevent multiple setups
+let authInitialized = false;
+
 // Initialize particles on all auth pages
-document.addEventListener('DOMContentLoaded', function() {
+function initParticles() {
     if (window.particlesJS && document.getElementById('particles-auth')) {
         particlesJS('particles-auth', authParticleConfig);
     }
-});
+}
 
 // Common validation functions
 function validateEmail(email) {
@@ -190,15 +193,17 @@ function initLoginForm() {
         if (isValid) {
             // Show loading state
             const submitBtn = document.querySelector('.auth-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Signing In...';
+            if (submitBtn && !submitBtn.disabled) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Signing In...';
+            }
         } else {
             e.preventDefault();
         }
     });
 }
 
-// Signup form validation
+// Signup form validation - NO ALERTS
 function initSignupForm() {
     const form = document.getElementById('signupForm');
     if (!form) return;
@@ -254,17 +259,20 @@ function initSignupForm() {
             showFieldSuccess(confirmPassword, document.getElementById('confirmPasswordError'));
         }
         
-        // Validate terms
+        // Validate terms - NO ALERT, just prevent submission
         if (!terms.checked) {
-            alert('Please accept the Terms of Service and Privacy Policy to continue.');
+            // Focus on terms checkbox instead of showing alert
+            terms.focus();
             isValid = false;
         }
         
         if (isValid) {
             // Show loading state
             const submitBtn = document.querySelector('.auth-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating Account...';
+            if (submitBtn && !submitBtn.disabled) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Creating Account...';
+            }
         } else {
             e.preventDefault();
         }
@@ -367,7 +375,8 @@ function resendEmail() {
         resendBtn.textContent = 'Sending...';
         
         setTimeout(() => {
-            alert('Password reset email sent successfully!');
+            // Instead of alert, could show a flash message or console log
+            console.log('Password reset email sent successfully!');
             startResendTimer();
         }, 1000);
     }
@@ -378,50 +387,33 @@ function initFormFieldInteractions() {
     document.querySelectorAll('.form-control').forEach(input => {
         // Add focus animations
         input.addEventListener('focus', function() {
-            this.parentElement.classList.add('focused');
+            if (this.parentElement) {
+                this.parentElement.classList.add('focused');
+            }
         });
         
         input.addEventListener('blur', function() {
-            this.parentElement.classList.remove('focused');
+            if (this.parentElement) {
+                this.parentElement.classList.remove('focused');
+            }
         });
     });
 }
 
-// Card entrance animation
-// Better card entrance animation
-function initCardAnimation() {
-    // Set initial state immediately when DOM is ready (before page is visible)
-    document.addEventListener('DOMContentLoaded', function() {
-        const authCard = document.querySelector('.auth-card');
-        if (authCard) {
-            authCard.style.opacity = '0';
-            authCard.style.transform = 'translateY(30px)';
-        }
-    });
-    
-    // Trigger animation after page is fully loaded
-    window.addEventListener('load', function() {
-        const authCard = document.querySelector('.auth-card');
-        if (authCard) {
-            setTimeout(() => {
-                authCard.style.transition = 'all 0.6s ease';
-                authCard.style.opacity = '1';
-                authCard.style.transform = 'translateY(0)';
-            }, 100);
-        }
-    });
-}
-
-// Initialize all common functionality
+// Initialize all common functionality - SINGLE INSTANCE
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize components based on what's available on the page
+    // Prevent multiple initializations
+    if (authInitialized) return;
+    authInitialized = true;
+    
+    // Initialize all components
+    initParticles();
     initPasswordStrength();
     initPasswordConfirmation();
     initLoginForm();
     initSignupForm();
     initForgotPasswordForm();
     initFormFieldInteractions();
-    initCardAnimation();
 });
 
 // Make resendEmail function available globally for onclick handlers
