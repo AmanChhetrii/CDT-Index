@@ -1,0 +1,412 @@
+/* Modern Minimalistic Auth Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glow-color: #FFD700;
+    --error-color: #ff4757;
+    --success-color: #2ed573;
+}
+
+.auth-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle particle background */
+#particles-auth {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardEntrance 0.8s ease forwards 0.2s;
+}
+
+@keyframes cardEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Forgot password specific styling */
+.auth-card.forgot-password {
+    max-width: 420px;
+    text-align: center;
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-logo img {
+    max-width: 160px;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+}
+
+/* Login page logo styling */
+.auth-card.login .auth-logo {
+    margin-bottom: 2.5rem;
+}
+
+.auth-card.login .auth-logo img {
+    max-width: 180px;
+}
+
+.auth-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 215, 0, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.auth-icon i {
+    font-size: 2rem;
+    color: var(--glow-color);
+}
+
+.auth-title {
+    text-align: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.auth-card.forgot-password .auth-title {
+    margin-bottom: 0.75rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.auth-card.forgot-password .auth-subtitle {
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.auth-card.login .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.auth-card.forgot-password .form-group {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: white;
+    width: 100%;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.auth-card.login .form-control {
+    padding: 15px 20px;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--glow-color);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15);
+    outline: none;
+}
+
+.form-control.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15);
+}
+
+.form-control.valid {
+    border-color: var(--success-color);
+}
+
+.form-control.success {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.15);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    display: none;
+}
+
+.auth-card.login .error-message {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.success-message {
+    color: var(--success-color);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.password-strength {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.strength-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 0.25rem;
+}
+
+.strength-fill {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-weak { background: var(--error-color); width: 33%; }
+.strength-medium { background: #ffa502; width: 66%; }
+.strength-strong { background: var(--success-color); width: 100%; }
+
+.auth-btn {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.auth-card.forgot-password .auth-btn {
+    margin-bottom: 1.5rem;
+}
+
+.auth-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.auth-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: var(--glow-color);
+}
+
+.auth-divider {
+    margin: 1.5rem 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.remember-me input {
+    margin-right: 0.5rem;
+}
+
+.forgot-password {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--glow-color);
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.terms-checkbox input {
+    margin-right: 0.75rem;
+    margin-top: 0.15rem;
+}
+
+.terms-checkbox a {
+    color: var(--glow-color);
+    text-decoration: none;
+}
+
+.terms-checkbox a:hover {
+    text-decoration: underline;
+}
+
+/* Flash Message Styles */
+.flash-message {
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.flash-error {
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    color: #ff4757;
+}
+
+.flash-success {
+    background: rgba(46, 213, 115, 0.15);
+    border: 1px solid rgba(46, 213, 115, 0.3);
+    color: #2ed573;
+}
+
+/* Forgot Password Specific Styles */
+.success-state {
+    display: none;
+}
+
+.success-state.active {
+    display: block;
+}
+
+.form-state.hidden {
+    display: none;
+}
+
+.resend-timer {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
+.back-to-login {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px 30px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.back-to-login:hover {
+    border-color: var(--glow-color);
+    color: white;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+        margin: 10px;
+        max-width: 100%;
+    }
+    
+    .auth-title {
+        font-size: 1.6rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .auth-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .auth-icon i {
+        font-size: 1.75rem;
+    }
+}
