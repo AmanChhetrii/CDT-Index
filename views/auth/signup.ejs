@@ -17,6 +17,35 @@
     <link rel="stylesheet" href="/style.css">
     <!-- Auth Stylesheet -->
     <link rel="stylesheet" href="/auth/auth.css">
+     <style>
+        /* Fix name field sizing issue */
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            width: 50%;
+        }
+        
+        .form-row .form-control {
+            width: 100% !important;
+            padding: 14px 18px !important;
+            height: 50px !important;
+            box-sizing: border-box !important;
+            font-size: 0.95rem !important;
+            line-height: 1.2 !important;
+        }
+        
+        /* Ensure other form controls match */
+        .form-control {
+            height: 50px !important;
+            padding: 14px 18px !important;
+            box-sizing: border-box !important;
+        }
+    </style>
 
 </head>
 

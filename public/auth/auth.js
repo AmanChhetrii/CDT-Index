@@ -4,7 +4,7 @@
 const authParticleConfig = {
     "particles": {
         "number": {
-            "value": 40,
+            "value": 60,  //
             "density": {
                 "enable": true,
                 "value_area": 800
@@ -17,7 +17,7 @@ const authParticleConfig = {
             "type": "circle"
         },
         "opacity": {
-            "value": 0.2,
+            "value": 0.3, 
             "random": true
         },
         "size": {
