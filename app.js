@@ -30,7 +30,7 @@ app.use(session({
         collectionName: 'sessions'
     }),
     cookie: {
-        secure: false, // Set to true in production with HTTPS
+        secure: false, //to be Set to true in production with HTTPS
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     }
