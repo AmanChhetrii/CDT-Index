@@ -1,3 +1,4 @@
+// models/Fund.js - Updated fund schema for new 7-crypto approach
 const mongoose = require('mongoose');
 
 const compositionSchema = new mongoose.Schema({
@@ -30,7 +31,8 @@ const fundSchema = new mongoose.Schema({
         required: true,
         unique: true,
         uppercase: true,
-        trim: true
+        trim: true,
+        index: true
     },
     slug: {
         type: String,
@@ -39,37 +41,26 @@ const fundSchema = new mongoose.Schema({
         lowercase: true,
         trim: true
     },
-    
-    // Marketing content
     summary: {
         type: String,
         required: true,
-        maxlength: 200
+        maxlength: 300
     },
     description: {
         type: String,
         required: true,
-        maxlength: 1000
+        maxlength: 1500
     },
     riskLevel: {
         type: String,
         required: true,
-        enum: ['High Growth Potential', 'Stable with Upside', 'Future-Oriented Potential', 'Dynamic & Diverse']
+        enum: ['Conservative Growth', 'Stable Growth', 'High Risk Alternative', 'Premium Diversified']
     },
     riskIcon: {
         type: String,
         required: true
     },
-    investorType: {
-        type: String,
-        required: true,
-        maxlength: 300
-    },
-    
-    // Fund composition
     composition: [compositionSchema],
-    
-    // Performance tracking
     currentNAV: {
         type: Number,
         required: true,
@@ -85,29 +76,10 @@ const fundSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    totalAssets: {
-        type: Number,
-        default: 0,
-        min: 0
-    },
-    totalShares: {
-        type: Number,
-        default: 0,
-        min: 0
-    },
-    
-    // Fund management
-    minimumInvestment: {
-        type: Number,
-        default: 100,
-        min: 1
-    },
     isActive: {
         type: Boolean,
         default: true
     },
-    
-    // Display settings
     featured: {
         type: Boolean,
         default: false
@@ -120,13 +92,24 @@ const fundSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Pre-save validation to ensure weights sum to 1
+// Indexes for performance
+fundSchema.index({ symbol: 1, isActive: 1 });
+fundSchema.index({ featured: 1, displayOrder: 1 });
+fundSchema.index({ displayOrder: 1 });
+
+// Pre-save validation to ensure weights sum to 1 (100%)
 fundSchema.pre('save', function(next) {
     const totalWeight = this.composition.reduce((sum, coin) => sum + coin.weight, 0);
     if (Math.abs(totalWeight - 1) > 0.001) {
-        return next(new Error('Fund composition weights must sum to 100%. Current total: ' + (totalWeight * 100).toFixed(2) + '%'));
+        return next(new Error(`Fund composition weights must sum to 100%. Current total: ${(totalWeight * 100).toFixed(2)}%`));
     }
     next();
+});
+
+// Virtual for total return calculation
+fundSchema.virtual('totalReturn').get(function() {
+    if (this.inceptionNAV <= 0) return 0;
+    return ((this.currentNAV - this.inceptionNAV) / this.inceptionNAV) * 100;
 });
 
 // Virtual for total weight validation
@@ -134,10 +117,14 @@ fundSchema.virtual('totalWeight').get(function() {
     return this.composition.reduce((sum, coin) => sum + coin.weight, 0);
 });
 
-// Virtual for performance since inception
-fundSchema.virtual('totalReturn').get(function() {
-    if (this.inceptionNAV <= 0) return 0;
-    return ((this.currentNAV - this.inceptionNAV) / this.inceptionNAV) * 100;
+// Virtual for composition symbols (for quick access)
+fundSchema.virtual('compositionSymbols').get(function() {
+    return this.composition.map(coin => coin.symbol);
+});
+
+// Virtual for formatted NAV
+fundSchema.virtual('formattedNAV').get(function() {
+    return '$' + this.currentNAV.toFixed(4);
 });
 
 // Static method to get active funds
@@ -150,51 +137,71 @@ fundSchema.statics.getFeaturedFunds = function() {
     return this.find({ isActive: true, featured: true }).sort({ displayOrder: 1 });
 };
 
-// Instance method to calculate NAV based on percentage changes
-fundSchema.methods.calculateNAVFromChanges = async function(priceChanges) {
-    try {
-        let weightedChange = 0;
-        
-        for (const coin of this.composition) {
-            const change = priceChanges[coin.symbol] || 0;
-            weightedChange += change * coin.weight;
-        }
-        
-        // Apply percentage change to current NAV
-        this.currentNAV = this.currentNAV * (1 + weightedChange / 100);
-        
-        return this.save();
-    } catch (error) {
-        console.error('Error calculating NAV for ' + this.name + ':', error);
-        throw error;
-    }
+// Static method to get fund by symbol
+fundSchema.statics.getBySymbol = function(symbol) {
+    return this.findOne({ 
+        symbol: symbol.toUpperCase(), 
+        isActive: true 
+    });
 };
 
-// Instance method to calculate NAV from absolute prices (for historical setup)
-fundSchema.methods.calculateNAVFromPrices = async function(previousPrices, currentPrices) {
-    try {
-        const CryptoAsset = mongoose.model('CryptoAsset');
-        let weightedChange = 0;
-        
-        for (const coin of this.composition) {
-            const prevPrice = previousPrices[coin.symbol];
-            const currPrice = currentPrices[coin.symbol];
-            
-            if (prevPrice && currPrice && prevPrice > 0) {
-                const change = ((currPrice - prevPrice) / prevPrice) * 100;
-                weightedChange += change * coin.weight;
-            }
+// Static method to get all unique cryptocurrency symbols used across funds
+fundSchema.statics.getAllRequiredCryptos = async function() {
+    const funds = await this.find({ isActive: true });
+    const cryptoSet = new Set();
+    
+    funds.forEach(fund => {
+        fund.composition.forEach(coin => {
+            cryptoSet.add(coin.symbol);
+        });
+    });
+    
+    return Array.from(cryptoSet);
+};
+
+// Instance method to calculate NAV from cryptocurrency price changes
+fundSchema.methods.calculateNAVFromPriceChanges = function(priceChanges) {
+    let weightedChange = 0;
+    let validChanges = 0;
+    
+    for (const coin of this.composition) {
+        const change = priceChanges[coin.symbol];
+        if (typeof change === 'number' && !isNaN(change)) {
+            weightedChange += change * coin.weight;
+            validChanges++;
         }
-        
-        // Apply percentage change to current NAV
+    }
+    
+    // Only update NAV if we have price changes for all components
+    if (validChanges === this.composition.length) {
         const newNAV = this.currentNAV * (1 + weightedChange / 100);
         this.currentNAV = Math.max(newNAV, 0.01); // Prevent negative NAV
-        
-        return this.save();
-    } catch (error) {
-        console.error('Error calculating NAV for ' + this.name + ':', error);
-        throw error;
+        return { success: true, newNAV: this.currentNAV, weightedChange };
     }
+    
+    return { success: false, message: 'Incomplete price data' };
+};
+
+// Instance method to calculate NAV from absolute prices
+fundSchema.methods.calculateNAVFromPrices = function(currentPrices, previousPrices) {
+    const priceChanges = {};
+    let validChanges = 0;
+    
+    for (const coin of this.composition) {
+        const currentPrice = currentPrices[coin.symbol];
+        const previousPrice = previousPrices[coin.symbol];
+        
+        if (currentPrice && previousPrice && previousPrice > 0) {
+            priceChanges[coin.symbol] = ((currentPrice - previousPrice) / previousPrice) * 100;
+            validChanges++;
+        }
+    }
+    
+    if (validChanges === this.composition.length) {
+        return this.calculateNAVFromPriceChanges(priceChanges);
+    }
+    
+    return { success: false, message: 'Incomplete price data for NAV calculation' };
 };
 
 // Instance method to reset to inception values
@@ -203,16 +210,61 @@ fundSchema.methods.resetToInception = function() {
     return this.save();
 };
 
-// Instance method to get fund performance
-fundSchema.methods.getPerformance = function(days = 30) {
+// Instance method to get fund performance summary
+fundSchema.methods.getPerformanceSummary = function() {
     return {
         fundId: this._id,
         symbol: this.symbol,
+        name: this.name,
         currentNAV: this.currentNAV,
         inceptionNAV: this.inceptionNAV,
         totalReturn: this.totalReturn,
-        period: days + 'd'
+        riskLevel: this.riskLevel,
+        composition: this.composition
     };
 };
 
-module.exports = mongoose.model('Fund', fundSchema);
+// Instance method to validate fund composition
+fundSchema.methods.validateComposition = async function() {
+    const CryptoAsset = mongoose.model('CryptoAsset');
+    const errors = [];
+    
+    // Check if all cryptocurrencies exist in the database
+    for (const coin of this.composition) {
+        const crypto = await CryptoAsset.findOne({ 
+            symbol: coin.symbol, 
+            isActive: true 
+        });
+        if (!crypto) {
+            errors.push(`Cryptocurrency ${coin.symbol} not found or inactive`);
+        }
+    }
+    
+    // Check weight sum
+    const totalWeight = this.composition.reduce((sum, coin) => sum + coin.weight, 0);
+    if (Math.abs(totalWeight - 1) > 0.001) {
+        errors.push(`Composition weights must sum to 100%. Current: ${(totalWeight * 100).toFixed(2)}%`);
+    }
+    
+    return errors;
+};
+
+// Instance method to get display data for frontend
+fundSchema.methods.getDisplayData = function() {
+    return {
+        id: this._id,
+        name: this.name,
+        symbol: this.symbol,
+        slug: this.slug,
+        summary: this.summary,
+        description: this.description,
+        riskLevel: this.riskLevel,
+        riskIcon: this.riskIcon,
+        currentNAV: this.formattedNAV,
+        totalReturn: this.totalReturn.toFixed(2),
+        composition: this.composition,
+        featured: this.featured
+    };
+};
+
+module.exports = mongoose.models.Fund || mongoose.model('Fund', fundSchema);
