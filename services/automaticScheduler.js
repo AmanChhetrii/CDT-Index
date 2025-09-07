@@ -1,8 +1,9 @@
-// services/automaticScheduler.js - Single daily job with downtime resilience
+// services/automaticScheduler.js - Automated data management with NAV calculation
 const cron = require('node-cron');
 const mongoose = require('mongoose');
 const CryptoAsset = require('../models/CryptoAsset');
 const CryptoPrice = require('../models/CryptoPrice');
+const NAV = require('../models/NAV');
 
 if (!global.fetch) {
     global.fetch = require('node-fetch');
@@ -12,6 +13,29 @@ class AutomaticScheduler {
     constructor() {
         this.isRunning = false;
         this.job = null;
+        
+        // Fund configurations for NAV calculation
+        this.fundConfigs = {
+            'CDTGR': {
+                inceptionNAV: 120,
+                composition: { 'BTC': 0.60, 'ETH': 0.25, 'SOL': 0.15 }
+            },
+            'CDTBAL': {
+                inceptionNAV: 100,
+                composition: { 'BTC': 0.30, 'ETH': 0.30, 'AVAX': 0.20, 'LINK': 0.20 }
+            },
+            'CDTPIO': {
+                inceptionNAV: 90,
+                composition: { 'DOGE': 0.50, 'MANA': 0.35, 'AVAX': 0.15 }
+            },
+            'CDTARC': {
+                inceptionNAV: 150,
+                composition: { 'BTC': 0.40, 'ETH': 0.25, 'SOL': 0.20, 'LINK': 0.15 }
+            }
+        };
+
+        this.inceptionPrices = {};
+        this.inceptionDate = null;
     }
 
     async start() {
@@ -23,8 +47,8 @@ class AutomaticScheduler {
         console.log('Starting automatic data management scheduler...');
         this.isRunning = true;
 
-        // Single daily job - every day at 6 AM
-        this.job = cron.schedule('0 6 * * *', async () => {
+        // Single daily job - every day at 2 PM IST
+        this.job = cron.schedule('0 14 * * *', async () => {
             console.log('Running daily data management tasks...');
             await this.runDailyTasks();
         }, { scheduled: false });
@@ -38,32 +62,43 @@ class AutomaticScheduler {
 
     async runDailyTasks() {
         try {
-            console.log('=== Starting Daily Data Management ===');
+            console.log('=== Starting Automated Daily Data Management ===');
             
-            // Step 1: Always fetch current prices
+            // Step 1: Always fetch current crypto prices
             await this.fetchDailyPrices();
             
-            // Step 2: Always cleanup old data
+            // Step 2: Initialize NAV calculation data (once per run)
+            await this.initializeNAVData();
+            
+            // Step 3: Calculate today's NAV for all funds
+            await this.calculateTodayNAV();
+            
+            // Step 4: Always cleanup old data
             await this.cleanupOldDailyData();
             
-            // Step 3: Check for missed weekly sampling (Tuesday or catch-up)
+            // Step 5: Check for missed weekly sampling (Tuesday or catch-up)
             const needsWeeklySampling = await this.checkNeedsWeeklySampling();
             if (needsWeeklySampling) {
                 console.log('Weekly sampling needed - running now...');
                 await this.sampleWeeklyData();
+                await this.sampleWeeklyNAV();
             }
             
-            // Step 4: Check for missed monthly sampling (1st or catch-up)
+            // Step 6: Check for missed monthly sampling (1st or catch-up)
             const needsMonthlySampling = await this.checkNeedsMonthlySampling();
             if (needsMonthlySampling) {
                 console.log('Monthly sampling needed - running now...');
                 await this.sampleMonthlyData();
+                await this.sampleMonthlyNAV();
             }
             
-            console.log('=== Daily Tasks Completed Successfully ===');
+            // Step 7: Cleanup old NAV data
+            await this.cleanupOldDailyNAV();
+            
+            console.log('=== Automated Daily Tasks Completed Successfully ===');
             
         } catch (error) {
-            console.error('Daily tasks failed:', error);
+            console.error('Automated daily tasks failed:', error);
         }
     }
 
@@ -126,6 +161,217 @@ class AutomaticScheduler {
         console.log(`Daily price fetch completed: ${successCount}/${cryptos.length} successful`);
     }
 
+    async initializeNAVData() {
+        try {
+            // Find oldest monthly crypto price date for inception
+            const oldestPrice = await CryptoPrice.findOne({
+                granularity: 'monthly'
+            }).sort({ date: 1 });
+
+            this.inceptionDate = oldestPrice.date;
+            
+            // Get inception prices from the oldest date
+            const inceptionPrices = await this.getCryptoPricesForDate(this.inceptionDate, 'monthly');
+            this.inceptionPrices = inceptionPrices;
+            
+            console.log(`NAV inception date: ${this.inceptionDate.toDateString()}`);
+
+        } catch (error) {
+            console.error('Error initializing NAV data:', error);
+            throw error;
+        }
+    }
+
+    async getCryptoPricesForDate(date, granularity) {
+        try {
+            const prices = {};
+            const priceRecords = await CryptoPrice.find({
+                date: date,
+                granularity: granularity
+            });
+
+            priceRecords.forEach(record => {
+                prices[record.symbol] = record.price;
+            });
+
+            return prices;
+
+        } catch (error) {
+            console.error('Error getting crypto prices:', error);
+            throw error;
+        }
+    }
+
+    calculateNAV(fundSymbol, currentPrices) {
+        const config = this.fundConfigs[fundSymbol];
+        if (!config) {
+            throw new Error(`Unknown fund symbol: ${fundSymbol}`);
+        }
+
+        // Define substitution logic for each fund
+        const substitutionLogic = {
+            'CDTGR': { 'SOL': 'ETH' },      // If SOL is $0, use ETH
+            'CDTBAL': { 'AVAX': 'BTC' },    // If AVAX is $0, use BTC
+            'CDTPIO': { 'AVAX': 'DOGE' },   // If AVAX is $0, use DOGE
+            'CDTARC': { 'SOL': 'ETH' }      // If SOL is $0, use ETH
+        };
+
+        const adjustedComposition = { ...config.composition };
+        const substitutions = [];
+
+        // Check for zero prices and apply substitutions
+        for (const [crypto, weight] of Object.entries(config.composition)) {
+            const currentPrice = currentPrices[crypto];
+            const inceptionPrice = this.inceptionPrices[crypto];
+
+            // If crypto has zero price or missing data
+            if (!currentPrice || !inceptionPrice || currentPrice <= 0 || inceptionPrice <= 0) {
+                const substitute = substitutionLogic[fundSymbol]?.[crypto];
+                
+                if (substitute && currentPrices[substitute] && this.inceptionPrices[substitute] && 
+                    currentPrices[substitute] > 0 && this.inceptionPrices[substitute] > 0) {
+                    
+                    // Add this crypto's weight to the substitute crypto
+                    adjustedComposition[substitute] += weight;
+                    delete adjustedComposition[crypto];
+                    substitutions.push(`${crypto} → ${substitute}`);
+                } else {
+                    throw new Error(`Cannot substitute ${crypto} in ${fundSymbol} - substitute ${substitute} also unavailable`);
+                }
+            }
+        }
+
+        // Log substitutions if any were made
+        if (substitutions.length > 0) {
+            console.log(`${fundSymbol}: Substituted ${substitutions.join(', ')}`);
+        }
+
+        // Calculate weighted sum using adjusted composition
+        let weightedSum = 0;
+        for (const [crypto, adjustedWeight] of Object.entries(adjustedComposition)) {
+            const currentPrice = currentPrices[crypto];
+            const inceptionPrice = this.inceptionPrices[crypto];
+
+            const priceRatio = currentPrice / inceptionPrice;
+            weightedSum += adjustedWeight * priceRatio;
+        }
+
+        return config.inceptionNAV * weightedSum;
+    }
+
+    async calculateTodayNAV() {
+        try {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            console.log(`Calculating NAV for ${today.toDateString()}...`);
+
+            // Get today's crypto prices
+            const cryptoPrices = await this.getTodaysCryptoPrices();
+            
+            if (Object.keys(cryptoPrices).length === 0) {
+                throw new Error('No crypto price data available for NAV calculation');
+            }
+
+            let successCount = 0;
+
+            // Calculate NAV for each fund
+            for (const fundSymbol of Object.keys(this.fundConfigs)) {
+                try {
+                    const nav = this.calculateNAV(fundSymbol, cryptoPrices);
+                    
+                    // Get previous NAV for daily change calculation
+                    const previousNAV = await this.getPreviousNAV(fundSymbol, today, 'daily');
+                    
+                    let dailyChange = 0;
+                    let dailyChangePercent = 0;
+                    if (previousNAV) {
+                        dailyChange = nav - previousNAV.nav;
+                        dailyChangePercent = previousNAV.nav > 0 ? (dailyChange / previousNAV.nav) * 100 : 0;
+                    }
+
+                    // Calculate total return
+                    const inceptionNAV = this.fundConfigs[fundSymbol].inceptionNAV;
+                    const totalReturn = nav - inceptionNAV;
+                    const totalReturnPercent = (totalReturn / inceptionNAV) * 100;
+
+                    const navRecord = {
+                        fundSymbol,
+                        date: today,
+                        nav,
+                        dailyChange,
+                        dailyChangePercent,
+                        totalReturn,
+                        totalReturnPercent,
+                        granularity: 'daily',
+                        source: 'auto_calculated'
+                    };
+
+                    // Upsert to prevent duplicates
+                    await NAV.findOneAndUpdate(
+                        {
+                            fundSymbol,
+                            date: today,
+                            granularity: 'daily'
+                        },
+                        navRecord,
+                        { upsert: true, new: true }
+                    );
+
+                    console.log(`${fundSymbol}: NAV = $${nav.toFixed(4)} (${dailyChangePercent >= 0 ? '+' : ''}${dailyChangePercent.toFixed(2)}%)`);
+                    successCount++;
+
+                } catch (error) {
+                    console.error(`Failed to calculate NAV for ${fundSymbol}:`, error.message);
+                }
+            }
+
+            console.log(`Daily NAV calculation completed: ${successCount}/${Object.keys(this.fundConfigs).length} successful`);
+
+        } catch (error) {
+            console.error('Error calculating today\'s NAV:', error);
+            throw error;
+        }
+    }
+
+    async getTodaysCryptoPrices() {
+        try {
+            const prices = {};
+            const allCryptos = ['BTC', 'ETH', 'SOL', 'AVAX', 'DOGE', 'LINK', 'MANA'];
+
+            for (const crypto of allCryptos) {
+                // Get the most recent daily price
+                const latestDaily = await CryptoPrice.findOne({
+                    symbol: crypto,
+                    granularity: 'daily'
+                }).sort({ date: -1 });
+
+                if (latestDaily) {
+                    prices[crypto] = latestDaily.price;
+                }
+            }
+
+            return prices;
+
+        } catch (error) {
+            console.error('Error getting today\'s crypto prices:', error);
+            throw error;
+        }
+    }
+
+    async getPreviousNAV(fundSymbol, date, granularity) {
+        try {
+            return await NAV.findOne({
+                fundSymbol,
+                date: { $lt: date },
+                granularity
+            }).sort({ date: -1 });
+
+        } catch (error) {
+            return null;
+        }
+    }
+
     async cleanupOldDailyData() {
         const cutoffDate = new Date();
         cutoffDate.setDate(cutoffDate.getDate() - 90); // 90 days ago
@@ -135,7 +381,19 @@ class AutomaticScheduler {
             date: { $lt: cutoffDate }
         });
 
-        console.log(`Cleaned up ${deleteResult.deletedCount} old daily records (older than 90 days)`);
+        console.log(`Cleaned up ${deleteResult.deletedCount} old daily crypto price records (older than 90 days)`);
+    }
+
+    async cleanupOldDailyNAV() {
+        const cutoffDate = new Date();
+        cutoffDate.setDate(cutoffDate.getDate() - 90); // 90 days ago
+
+        const deleteResult = await NAV.deleteMany({
+            granularity: 'daily',
+            date: { $lt: cutoffDate }
+        });
+
+        console.log(`Cleaned up ${deleteResult.deletedCount} old daily NAV records (older than 90 days)`);
     }
 
     async checkNeedsWeeklySampling() {
@@ -232,7 +490,7 @@ class AutomaticScheduler {
             }
         }
 
-        console.log(`Weekly sampling completed: ${sampledCount} records created`);
+        console.log(`Weekly crypto price sampling completed: ${sampledCount} records created`);
     }
 
     async sampleMonthlyData() {
@@ -275,7 +533,107 @@ class AutomaticScheduler {
             }
         }
 
-        console.log(`Monthly sampling completed: ${sampledCount} records created`);
+        console.log(`Monthly crypto price sampling completed: ${sampledCount} records created`);
+    }
+
+    async sampleWeeklyNAV() {
+        try {
+            let sampledCount = 0;
+
+            for (const fundSymbol of Object.keys(this.fundConfigs)) {
+                try {
+                    // Get the most recent daily NAV
+                    const latestDaily = await NAV.findOne({
+                        fundSymbol,
+                        granularity: 'daily'
+                    }).sort({ date: -1 });
+
+                    if (latestDaily) {
+                        const weeklyRecord = {
+                            fundSymbol,
+                            date: latestDaily.date,
+                            nav: latestDaily.nav,
+                            dailyChange: latestDaily.dailyChange,
+                            dailyChangePercent: latestDaily.dailyChangePercent,
+                            totalReturn: latestDaily.totalReturn,
+                            totalReturnPercent: latestDaily.totalReturnPercent,
+                            granularity: 'weekly',
+                            source: 'weekly_sample'
+                        };
+
+                        await NAV.findOneAndUpdate(
+                            {
+                                fundSymbol,
+                                date: latestDaily.date,
+                                granularity: 'weekly'
+                            },
+                            weeklyRecord,
+                            { upsert: true, new: true }
+                        );
+
+                        sampledCount++;
+                    }
+                } catch (error) {
+                    console.error(`Failed to sample weekly NAV for ${fundSymbol}:`, error.message);
+                }
+            }
+
+            console.log(`Weekly NAV sampling completed: ${sampledCount} records created`);
+
+        } catch (error) {
+            console.error('Error in weekly NAV sampling:', error);
+            throw error;
+        }
+    }
+
+    async sampleMonthlyNAV() {
+        try {
+            let sampledCount = 0;
+
+            for (const fundSymbol of Object.keys(this.fundConfigs)) {
+                try {
+                    // Get the most recent daily NAV
+                    const latestDaily = await NAV.findOne({
+                        fundSymbol,
+                        granularity: 'daily'
+                    }).sort({ date: -1 });
+
+                    if (latestDaily) {
+                        const monthlyRecord = {
+                            fundSymbol,
+                            date: latestDaily.date,
+                            nav: latestDaily.nav,
+                            dailyChange: latestDaily.dailyChange,
+                            dailyChangePercent: latestDaily.dailyChangePercent,
+                            totalReturn: latestDaily.totalReturn,
+                            totalReturnPercent: latestDaily.totalReturnPercent,
+                            granularity: 'monthly',
+                            source: 'monthly_sample'
+                        };
+
+                        await NAV.findOneAndUpdate(
+                            {
+                                fundSymbol,
+                                date: latestDaily.date,
+                                granularity: 'monthly'
+                            },
+                            monthlyRecord,
+                            { upsert: true, new: true }
+                        );
+
+                        sampledCount++;
+                    }
+                } catch (error) {
+                    console.error(`Failed to sample monthly NAV for ${fundSymbol}:`, error.message);
+                }
+            }
+
+            console.log(`Monthly NAV sampling completed: ${sampledCount} records created`);
+
+        } catch (error) {
+            console.error('Error in monthly NAV sampling:', error);
+            throw error;
+        }
     }
 
     stop() {

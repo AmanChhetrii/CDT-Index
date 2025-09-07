@@ -1,4 +1,4 @@
-# CDT Index - Complete Knowledge Transfer Document
+# CDT Index - Complete Knowledge Transfer Document (Updated)
 
 ## Project Overview
 
@@ -6,7 +6,7 @@
 **Type:** Crypto Index Fund Investment Platform  
 **Description:** A web platform where users can invest in cryptocurrency index funds  
 **Database:** MongoDB (`cdtindex`)  
-**Current Status:** Backend complete with API integration, ready for frontend development
+**Current Status:** Backend complete with automated crypto price fetching and NAV calculations
 
 ---
 
@@ -18,13 +18,14 @@
 - **Database:** MongoDB with Mongoose ODM
 - **Authentication:** Session-based with bcryptjs password hashing
 - **Session Storage:** MongoDB sessions via connect-mongo
-- **APIs:** CoinGecko API for crypto price data
+- **APIs:** CryptoCompare API for crypto price data
+- **Automation:** Node-cron for scheduled tasks
 
 ### Frontend
-- **UI Framework:** Custom Bootstrap templates
+- **UI Framework:** Custom Bootstrap templates + Kaiadmin dashboard
 - **Design:** Glassmorphism with particle.js effects
 - **Styling:** Modern dark theme with gradient accents
-- **Animations:** CSS transitions and entrance effects
+- **Dashboard:** Professional admin template with charts and widgets
 
 ### Dependencies
 ```json
@@ -37,30 +38,30 @@
   "express": "Web framework",
   "express-session": "Session management",
   "mongoose": "MongoDB ODM",
-  "node-fetch": "API requests"
+  "node-fetch": "API requests",
+  "node-cron": "Task scheduling"
 }
 ```
 
 ---
 
-## Project Structure
+## Current Project Structure
 
 ```
 cdt-index/
-│
 ├── app.js                     # Main Express server
 ├── package.json               # Dependencies & scripts
 ├── .env                       # Environment variables
-│
-├── config/                    # Configuration files
-│   └── database.js           # MongoDB connection (optional)
+├── startAutomation.js         # Automated system starter
+├── manualDataFetch.js         # Manual crypto+NAV fetch script
+├── testNAVData.js            # NAV data testing script
 │
 ├── models/                    # Database schemas
-│   ├── User.js               # User model with auth methods
+│   ├── User.js               # User authentication model
 │   ├── Fund.js               # Investment fund model
 │   ├── CryptoAsset.js        # Cryptocurrency asset model
-│   ├── PriceHistory.js       # Historical price data
-│   └── NAVHistory.js         # Fund NAV history tracking
+│   ├── CryptoPrice.js        # Crypto price history (daily/weekly/monthly)
+│   └── NAV.js                # Fund NAV history (daily/weekly/monthly)
 │
 ├── middleware/                # Custom middleware
 │   └── auth.js               # Authentication middleware
@@ -71,71 +72,59 @@ cdt-index/
 │   └── dashboard.js          # Protected dashboard routes
 │
 ├── services/                  # Business logic services
-│   ├── cryptoApi.js          # CoinGecko API integration
-│   └── historicalDataService.js # Historical data processing
+│   ├── automaticScheduler.js # Automated crypto+NAV fetching (2 PM IST daily)
+│   └── nav/
+│       └── navCalculationService.js # Historical NAV processing
 │
-├── seeds/                     # Database seeding
-│   └── fundData.js           # Initial fund and crypto data
-│
-├── test/                      # Testing files
-│   └── completeTest.js       # Backend integration test
+├── test/                      # Testing and diagnostics
+│   ├── databaseDiagnostic.js # Database inspection tool
+│   ├── testInceptionPrices.js # NAV calculation testing
+│   └── debugSpecificDate.js  # Date-specific debugging
 │
 ├── views/                     # EJS templates
-│   ├── landing/              # Public pages
-│   │   ├── index.ejs
-│   │   ├── services.ejs
-│   │   ├── analysis.ejs
-│   │   └── partials/
+│   ├── landing/              # Public pages (glassmorphism design)
 │   ├── auth/                 # Authentication pages
-│   │   ├── login.ejs         # Modern glassmorphism login
-│   │   ├── signup.ejs        # Modern glassmorphism signup
-│   │   └── forgot-password.ejs
-│   └── dashboard/            # Protected dashboard
-│       ├── index.ejs
-│       └── partials/
+│   └── dashboard/            # Protected dashboard (Kaiadmin template)
 │
 └── public/                   # Static assets
-    ├── css/                  # Stylesheets
-    ├── js/                   # Client-side JavaScript
-    ├── img/                  # Images & logos
-    └── dashboard/            # Dashboard assets
-        ├── css/
-        ├── js/
-        ├── fonts/
-        └── img/
+    ├── css/, js/, img/       # Landing page assets
+    └── dashboard/            # Kaiadmin dashboard assets
+        ├── css/, js/, fonts/, img/
 ```
 
 ---
 
-## Database Schema
-
-### Users Collection
-```javascript
-{
-  _id: ObjectId,              // Auto-generated MongoDB ID
-  firstName: String,          // Required, trimmed
-  lastName: String,           // Required, trimmed
-  email: String,              // Required, unique, lowercase
-  password: String,           // Hashed with bcrypt (min 6 chars)
-  isVerified: Boolean,        // Default: false
-  createdAt: Date,            // Auto timestamp
-  updatedAt: Date             // Auto timestamp
-}
-```
+## Database Schema (Current Implementation)
 
 ### CryptoAssets Collection
 ```javascript
 {
   _id: ObjectId,
-  name: String,               // "Bitcoin"
-  symbol: String,             // "BTC"
-  apiId: String,              // "bitcoin" (CoinGecko ID)
-  currentPrice: Number,       // Live price in USD
-  marketCap: Number,          // Market capitalization
-  volume24h: Number,          // 24h trading volume
-  priceChange24h: Number,     // 24h price change %
-  isActive: Boolean,          // Default: true
-  lastUpdated: Date
+  symbol: String,               // "BTC", "ETH", etc.
+  name: String,                 // "Bitcoin", "Ethereum"
+  currentPrice: Number,         // Live price in USD
+  marketCap: Number,            // Market capitalization
+  rank: Number,                 // Market ranking
+  volume24h: Number,            // 24h trading volume
+  priceChange24h: Number,       // 24h price change
+  priceChangePercentage24h: Number, // 24h change %
+  lastUpdated: Date,
+  isActive: Boolean,            // Default: true
+  apiId: String                 // For API compatibility
+}
+```
+
+### CryptoPrice Collection (Price History)
+```javascript
+{
+  _id: ObjectId,
+  symbol: String,               // "BTC", "ETH", etc.
+  date: Date,                   // Price date (normalized to 00:00:00)
+  price: Number,                // USD price
+  volume: Number,               // Trading volume
+  marketCap: Number,            // Market cap
+  granularity: String,          // "daily", "weekly", "monthly"
+  source: String                // "cryptocompare_auto", "cryptocompare_manual"
 }
 ```
 
@@ -143,387 +132,319 @@ cdt-index/
 ```javascript
 {
   _id: ObjectId,
-  name: String,               // "CDT Growth Index"
-  symbol: String,             // "CDTGR"
-  slug: String,               // "cdt-growth-index"
-  summary: String,            // Short description
-  description: String,        // Full description
-  riskLevel: String,          // Risk category
-  riskIcon: String,           // Icon class
-  investorType: String,       // Target investor
-  composition: [{             // Fund holdings
-    symbol: String,           // "BTC"
-    name: String,             // "Bitcoin"
-    weight: Number            // 0.25 (25%)
+  name: String,                 // "CDT Growth Index"
+  symbol: String,               // "CDTGR"
+  slug: String,                 // "cdt-growth-index"
+  summary: String,              // Short description
+  description: String,          // Full description
+  riskLevel: String,            // "Conservative Growth", "Stable Growth", etc.
+  riskIcon: String,             // Icon class
+  composition: [{               // Fund holdings
+    symbol: String,             // "BTC"
+    name: String,               // "Bitcoin"
+    weight: Number              // 0.60 (60%)
   }],
-  currentNAV: Number,         // Current Net Asset Value
-  inceptionNAV: Number,       // Starting NAV
-  inceptionDate: Date,        // Fund start date
-  totalAssets: Number,        // Total fund assets
-  totalShares: Number,        // Outstanding shares
-  minimumInvestment: Number,  // Min investment amount
-  isActive: Boolean,          // Fund status
-  featured: Boolean,          // Featured on homepage
-  displayOrder: Number        // Sort order
+  currentNAV: Number,           // Current Net Asset Value
+  inceptionNAV: Number,         // Starting NAV
+  inceptionDate: Date,          // Fund start date
+  isActive: Boolean,            // Fund status
+  featured: Boolean,            // Featured on homepage
+  displayOrder: Number          // Sort order
 }
 ```
 
-### PriceHistory Collection
+### NAV Collection (Fund NAV History)
 ```javascript
 {
   _id: ObjectId,
-  cryptoId: ObjectId,         // Reference to CryptoAsset
-  symbol: String,             // "BTC"
-  date: Date,                 // Price date
-  price: Number,              // USD price
-  volume: Number,             // Trading volume
-  marketCap: Number,          // Market cap
-  granularity: String,        // "daily", "weekly", "monthly"
-  createdAt: Date             // TTL index (2 years)
+  fundSymbol: String,           // "CDTGR", "CDTBAL", "CDTPIO", "CDTARC"
+  date: Date,                   // NAV date (normalized to 00:00:00)
+  nav: Number,                  // Net Asset Value
+  dailyChange: Number,          // Change from previous day
+  dailyChangePercent: Number,   // % change from previous day
+  totalReturn: Number,          // Total return since inception
+  totalReturnPercent: Number,   // % return since inception
+  granularity: String,          // "daily", "weekly", "monthly"
+  source: String                // "auto_calculated", "manual_calculated", "weekly_sample", "monthly_sample"
 }
 ```
 
-### NAVHistory Collection
+### Users Collection
 ```javascript
 {
   _id: ObjectId,
-  fundId: ObjectId,           // Reference to Fund
-  fundSymbol: String,         // "CDTGR"
-  date: Date,                 // NAV date
-  nav: Number,                // Net Asset Value
-  dailyChange: Number,        // Change from previous day
-  dailyChangePercent: Number, // % change from previous day
-  totalReturn: Number,        // Total return since inception
-  totalReturnPercent: Number, // % return since inception
-  totalAssets: Number         // Fund total assets
-}
-```
-
-### Sessions Collection
-```javascript
-{
-  _id: String,                // Session ID
-  expires: Date,              // Session expiration
-  session: {
-    userId: ObjectId,         // Reference to user
-    user: {                   // Cached user data
-      id: ObjectId,
-      firstName: String,
-      lastName: String,
-      email: String,
-      fullName: String
-    }
-  }
+  firstName: String,            // Required, trimmed
+  lastName: String,             // Required, trimmed
+  email: String,                // Required, unique, lowercase
+  password: String,             // Hashed with bcrypt
+  isVerified: Boolean,          // Default: false
+  createdAt: Date,              // Auto timestamp
+  updatedAt: Date               // Auto timestamp
 }
 ```
 
 ---
 
-## Current Functionality
+## Current Fund Configurations
 
-### Phase 1: ✅ Complete - Authentication System
-- [x] User registration with validation
-- [x] User login with session management
-- [x] Password hashing using bcryptjs
-- [x] Session persistence in MongoDB
-- [x] Route protection middleware
-- [x] Flash messages for user feedback
-- [x] Beautiful glassmorphism UI
+### 4 Active Index Funds
 
-### Phase 2: ✅ Complete - Data Management System
-- [x] CoinGecko API integration
-- [x] Real-time crypto price fetching
-- [x] Historical price data import
-- [x] Fund composition management
-- [x] NAV calculation engine
-- [x] Performance tracking
-- [x] Database seeding system
+| Fund | Symbol | Inception NAV | Risk Level | Composition |
+|------|--------|---------------|------------|-------------|
+| **CDT Growth Index** | CDTGR | $120 | Conservative Growth | BTC 60%, ETH 25%, SOL 15% |
+| **CDT Balanced Index** | CDTBAL | $100 | Stable Growth | BTC 30%, ETH 30%, AVAX 20%, LINK 20% |
+| **CDT Pioneer Index** | CDTPIO | $90 | High Risk Alternative | DOGE 50%, MANA 35%, AVAX 15% |
+| **CDT AmanRC Index** | CDTARC | $150 | Premium Diversified | BTC 40%, ETH 25%, SOL 20%, LINK 15% |
 
-### Phase 3: 🚧 In Progress - Frontend Development
-- [ ] Dashboard UI enhancement
-- [ ] Fund detail pages
-- [ ] Investment interface
-- [ ] Portfolio management
-- [ ] Performance charts
+### 7 Supported Cryptocurrencies
+- **BTC** (Bitcoin)
+- **ETH** (Ethereum)
+- **SOL** (Solana)
+- **AVAX** (Avalanche)
+- **DOGE** (Dogecoin)
+- **LINK** (Chainlink)
+- **MANA** (Decentraland)
+
+---
+
+## Automated Data Management System
+
+### Core Automation Features
+
+**Main Scheduler:** `services/automaticScheduler.js`
+- **Schedule:** Daily at 2:00 PM IST
+- **Integrated Workflow:** Crypto prices → NAV calculation → Data management
+
+**Manual Alternative:** `manualDataFetch.js`
+- Same functionality as automated system
+- Run on-demand for testing/backup
+
+### Daily Workflow (Automated)
+1. **Fetch Crypto Prices** (7 API calls to CryptoCompare)
+2. **Initialize NAV Data** (get inception prices from oldest monthly data)
+3. **Calculate Fund NAVs** (4 fund calculations using price ratios)
+4. **Data Cleanup** (remove crypto prices older than 90 days)
+5. **Conditional Sampling:**
+   - **Tuesday:** Sample daily data → weekly granularity
+   - **1st of month:** Sample daily data → monthly granularity
+6. **NAV Cleanup** (remove NAV data older than 90 days)
+
+### NAV Calculation Logic
+
+**Formula:** `NAV(t) = Inception NAV × Σ wi × Pi(t)/Pi(0)`
+
+**Substitution Rules** (for zero-price scenarios):
+- **CDTGR:** If SOL = $0 → use ETH
+- **CDTBAL:** If AVAX = $0 → use BTC  
+- **CDTPIO:** If AVAX = $0 → use DOGE
+- **CDTARC:** If SOL = $0 → use ETH
+
+**Inception Date:** March 16, 2020 (oldest monthly crypto data)
+
+### Data Granularity System
+- **Daily:** 90-day rolling window (current + 89 historical days)
+- **Weekly:** Permanent storage (sampled from daily data)
+- **Monthly:** Permanent storage (sampled from daily data)
 
 ---
 
 ## API Integration
 
-### CoinGecko API
-- **Base URL:** `https://api.coingecko.com/api/v3`
-- **Rate Limit:** 10-50 requests/minute (free tier)
-- **Current Usage:**
-  - `/simple/price` - Real-time prices
-  - `/coins/{id}/market_chart` - Historical data
+### CryptoCompare API
+- **Base URL:** `https://min-api.cryptocompare.com/data/v2`
+- **Endpoint:** `/histoday?fsym={SYMBOL}&tsym=USD&limit=1`
+- **Rate Limiting:** 2-second delays between requests
+- **Sources:** 'cryptocompare_auto' (automated), 'cryptocompare_manual' (manual)
 
-### Services Implementation
-
-#### CryptoAPI Service (`services/cryptoApi.js`)
-- Fetches current prices for all active cryptocurrencies
-- Updates database with latest market data
-- Handles API errors and rate limiting
-
-#### Historical Data Service (`services/historicalDataService.js`)
-- Imports historical price data (daily, weekly, monthly)
-- Calculates fund NAV history
-- Processes 2,888+ historical data points
-- Rate limited to 2-2.5 seconds between requests
+### Downtime Resilience
+- **Missed Tuesday:** Weekly sampling catches up on Wednesday/Thursday
+- **Missed 1st:** Monthly sampling catches up on 2nd/3rd
+- **API Failures:** Error logging with system continuation
 
 ---
 
-## Current Fund Performance
+## Current Functionality Status
 
-Based on latest test run:
+### ✅ Completed Systems
 
-| Fund | Symbol | Current NAV | Inception NAV | Total Return | Risk Level |
-|------|--------|-------------|---------------|--------------|------------|
-| CDT Growth Index | CDTGR | $121.14 | $115.00 | +5.34% | High Growth Potential |
-| CDT Balanced Index | CDTBAL | $103.59 | $100.00 | +3.59% | Stable with Upside |
-| CDT AmanRC Index | CDTARC | $107.95 | $100.00 | +7.95% | Dynamic & Diverse |
-| CDT Pioneer Index | CDTPIO | $52.00 | $52.00 | 0.00% | Future-Oriented Potential |
+**Authentication & Security:**
+- User registration/login with bcrypt password hashing
+- Session-based authentication with MongoDB storage
+- Route protection middleware
+- Flash message system
 
-**Database Status:**
-- 4 funds
-- 15 crypto assets
-- 11,555 NAV history records
-- 2,888 price history records
+**Data Collection & Management:**
+- Real-time crypto price fetching (7 cryptocurrencies)
+- Historical price data (daily/weekly/monthly granularity)
+- 90-day rolling window for daily data
+- Automated weekly/monthly sampling
 
----
+**NAV Calculation Engine:**
+- Mathematical NAV calculation using price ratios
+- Intelligent crypto substitution for zero-price scenarios
+- Daily/weekly/monthly NAV history tracking
+- Performance metrics (daily change, total return)
 
-## Environment Configuration
+**Automation System:**
+- Cron-based scheduling (2 PM IST daily)
+- Integrated crypto + NAV workflow
+- Manual backup system
+- Downtime resilience and catch-up logic
 
-### .env File
-```env
-MONGODB_URI=mongodb://127.0.0.1:27017/cdtindex
-SESSION_SECRET=your-super-secret-session-key-here
-PORT=3000
-CRYPTO_API_KEY=your-coingecko-api-key-here
-```
+**Database & Models:**
+- Complete MongoDB schema with proper indexing
+- 5 collections: Users, CryptoAssets, CryptoPrice, Funds, NAV
+- Data validation and relationship management
+- TTL indexes for automatic cleanup
 
-### Configuration Details
-- **MONGODB_URI:** Database connection string
-- **SESSION_SECRET:** Session encryption key (change in production)
-- **PORT:** Server port (defaults to 3000)
-- **CRYPTO_API_KEY:** CoinGecko API key (optional for free tier)
+**Testing & Diagnostics:**
+- Database diagnostic tools
+- NAV calculation testing
+- Date-specific debugging utilities
+- Data verification scripts
 
----
+### 🚧 In Progress
 
-## API Endpoints
+**Frontend Development:**
+- Landing pages with glassmorphism design
+- Dashboard template integration (Kaiadmin)
+- Authentication UI completed
 
-### Public Routes
-```
-GET  /                    # Landing page
-GET  /about-us           # About page
-GET  /faq               # FAQ page
-GET  /services          # Services page
-GET  /analysis          # Analysis page
-```
+### 📋 Next Phase Priorities
 
-### Authentication Routes
-```
-GET  /login             # Login page
-POST /login             # Process login
-GET  /signup            # Signup page
-POST /signup            # Process registration
-POST /logout            # Process logout
-```
-
-### Protected Routes
-```
-GET  /dashboard         # Main dashboard (auth required)
-```
-
-### Future API Routes (To Implement)
-```
-GET  /api/funds         # Get all funds
-GET  /api/funds/:id     # Get specific fund
-GET  /api/funds/:id/nav # Get fund NAV history
-GET  /api/crypto        # Get crypto prices
-POST /api/invest        # Make investment
-GET  /api/portfolio     # User portfolio
-```
-
----
-
-## Testing
-
-### Current Test Status
-The `test/completeTest.js` successfully validates:
-- Database connection
-- Data seeding (4 funds, 15 cryptos)
-- API integration (15 cryptocurrencies)
-- Historical data import (2,888 records)
-- NAV calculations (11,555 NAV entries)
-- Performance tracking
-
-### Manual Testing Checklist
-- [x] User registration and login
-- [x] Session persistence
-- [x] API data fetching
-- [x] Historical data processing
-- [x] Fund NAV calculations
-- [x] Database operations
-- [ ] Frontend fund displays
-- [ ] Investment workflows
-- [ ] Portfolio management
-
----
-
-## Security Implementation
-
-### Current Security Measures
-- **Password Security:** bcrypt hashing with salt
-- **Session Security:** MongoDB session store
-- **Input Validation:** Server-side form validation
-- **Route Protection:** Authentication middleware
-- **API Security:** Rate limiting for external APIs
-
-### Production Recommendations
-- Enable HTTPS
-- Add CSRF protection
-- Implement API rate limiting
-- Add request logging
-- Set secure cookie flags
-- Environment-specific configurations
-- Input sanitization enhancement
-
----
-
-## Known Issues & Solutions
-
-### Issue 1: API Rate Limiting
-**Problem:** CoinGecko 429 errors during data import  
-**Solution:** Increased delays to 2-2.5 seconds between requests  
-**Status:** ✅ Resolved
-
-### Issue 2: CDT Pioneer Index Static Performance
-**Problem:** 0.00% return, NAV unchanged  
-**Solution:** Investigate fund composition and price data availability  
-**Status:** 🔍 Under investigation
-
-### Issue 3: Frontend Integration
-**Problem:** Dashboard needs enhancement for fund management  
-**Solution:** Develop fund detail pages and investment interface  
-**Status:** 📋 Next phase
-
----
-
-## Next Development Phase
-
-### Priority 1: Enhanced Dashboard
-- Fund performance charts
-- Real-time NAV displays
-- Investment interface
-- Portfolio overview
-
-### Priority 2: Investment System
-- User investment tracking
-- Buy/sell functionality
-- Transaction history
-- Portfolio analytics
-
-### Priority 3: Advanced Features
-- Email notifications
-- Automated rebalancing
-- Performance alerts
-- Admin panel
-
----
-
-## How to Run
-
-### Prerequisites
-- Node.js (v16+)
-- MongoDB running locally or MongoDB Atlas
-- CoinGecko API access (free tier available)
-
-### Setup Steps
-1. **Clone and install:**
-   ```bash
-   git clone <repository>
-   cd cdt-index
-   npm install
+**Immediate (Frontend Enhancement):**
+1. **API Endpoints Creation**
+   ```
+   GET  /api/funds              # Get all funds with current NAV
+   GET  /api/funds/:symbol      # Get specific fund details
+   GET  /api/funds/:symbol/nav  # Get fund NAV history (charts)
+   GET  /api/crypto            # Get crypto price data
+   GET  /api/performance       # Fund performance comparison
    ```
 
-2. **Environment setup:**
-   ```bash
-   # Create .env file
-   MONGODB_URI=mongodb://127.0.0.1:27017/cdtindex
-   SESSION_SECRET=your-secret-key
-   PORT=3000
-   CRYPTO_API_KEY=optional-api-key
-   ```
+2. **Dashboard Implementation**
+   - Fund performance overview
+   - Interactive NAV charts (daily/weekly/monthly views)
+   - Real-time fund data display
+   - Fund comparison tools
 
-3. **Run initial setup:**
-   ```bash
-   # Test backend functionality
-   node test/completeTest.js
-   ```
+3. **Fund Detail Pages**
+   - Individual fund performance
+   - Composition breakdowns
+   - Historical performance charts
+   - Risk metrics display
 
-4. **Start development server:**
-   ```bash
-   node app.js
-   ```
+**Medium-term (Investment System):**
+4. **User Investment Tracking**
+   - Portfolio management interface
+   - Investment history
+   - Performance tracking per user
+   - Buy/sell simulation (for portfolio demonstration)
 
-5. **Access application:**
-   - Home: http://localhost:3000
-   - Login: http://localhost:3000/login
-   - Dashboard: http://localhost:3000/dashboard
+5. **Advanced Analytics**
+   - Volatility calculations
+   - Sharpe ratios and risk metrics
+   - Correlation analysis
+   - Market comparison tools
+
+**Long-term (Production Features):**
+6. **Admin Panel**
+   - System health monitoring
+   - Data collection status
+   - Manual override capabilities
+   - Fund management interface
+
+7. **Enhanced User Experience**
+   - Email notifications for significant movements
+   - Mobile responsiveness
+   - Performance optimization
+   - Advanced charting libraries
 
 ---
 
-## File Locations Reference
+## File Structure Reference
 
-### Critical Configuration Files
+### Core Application Files
 - **Main Server:** `app.js`
-- **Environment:** `.env`
-- **Dependencies:** `package.json`
+- **Automation Starter:** `startAutomation.js`
+- **Manual Data Fetch:** `manualDataFetch.js`
+- **Environment Config:** `.env`
+
+### Data Management
+- **Automated System:** `services/automaticScheduler.js`
+- **Historical Processing:** `services/nav/navCalculationService.js`
+- **NAV Testing:** `testNAVData.js`
 
 ### Database Models
-- **User Model:** `models/User.js`
-- **Fund Model:** `models/Fund.js`
-- **Crypto Model:** `models/CryptoAsset.js`
-- **Price History:** `models/PriceHistory.js`
-- **NAV History:** `models/NAVHistory.js`
+- **Users:** `models/User.js`
+- **Funds:** `models/Fund.js`
+- **Crypto Assets:** `models/CryptoAsset.js`
+- **Price History:** `models/CryptoPrice.js`
+- **NAV History:** `models/NAV.js`
 
-### Business Logic
-- **Crypto API Service:** `services/cryptoApi.js`
-- **Historical Data Service:** `services/historicalDataService.js`
-- **Fund Seeding:** `seeds/fundData.js`
-
-### Authentication
-- **Auth Middleware:** `middleware/auth.js`
-- **Auth Routes:** `routes/auth.js`
-- **Login Template:** `views/auth/login.ejs`
-- **Signup Template:** `views/auth/signup.ejs`
-
-### Testing
-- **Complete Test:** `test/completeTest.js`
+### Testing & Diagnostics
+- **Database Inspector:** `test/databaseDiagnostic.js`
+- **NAV Tester:** `test/testInceptionPrices.js`
+- **Date Debugger:** `test/debugSpecificDate.js`
 
 ---
 
-## Development Status Summary
+## Deployment Requirements
 
-**✅ Completed (Ready for Production):**
-- User authentication system
-- Database schema and models
-- API integration with CoinGecko
-- Historical data processing
-- Fund NAV calculations
-- Performance tracking
-- Security implementation
+### Environment Variables
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/cdtindex
+SESSION_SECRET=your-super-secret-session-key
+PORT=3000
+CRYPTO_API_KEY=optional-cryptocompare-key
+```
 
-**🚧 In Progress:**
-- Dashboard enhancement
-- Fund detail pages
-- Investment interface
+### Production Considerations
+- **24/7 Server:** Cloud deployment required for automation
+- **Database:** MongoDB Atlas or dedicated MongoDB instance
+- **Monitoring:** System health checks and alerting
+- **Security:** HTTPS, CSRF protection, rate limiting
+- **Backup:** Automated database backups
 
-**📋 Planned:**
-- Payment integration
-- Email notifications
-- Admin panel
-- Mobile responsiveness
-- Advanced analytics
+### Current Run Commands
+```bash
+# Manual data fetch
+node manualDataFetch.js              # Run once
+node manualDataFetch.js preview      # Preview mode
 
-**Current State:** Backend is production-ready with real crypto data integration. Frontend development can proceed with confidence in the data layer.
+# Automated system
+node startAutomation.js              # Start 24/7 automation
+node startAutomation.js test         # Test run
+
+# Testing/Diagnostics
+node testNAVData.js summary          # NAV data overview
+node testNAVData.js latest CDTGR     # Latest fund NAV
+node test/databaseDiagnostic.js      # Database inspection
+
+# Development server
+node app.js                          # Start web application
+```
+
+---
+
+## Technical Architecture Summary
+
+**Data Flow:**
+```
+CryptoCompare API → CryptoPrice Collection → NAV Calculation → NAV Collection
+                                ↓
+                         User Dashboard Display
+```
+
+**Automation Flow:**
+```
+Cron Scheduler (2 PM IST) → Fetch Prices → Calculate NAVs → Sample Data → Cleanup
+```
+
+**Storage Strategy:**
+```
+Daily Data: 90-day rolling window (efficient for current operations)
+Weekly/Monthly: Permanent storage (efficient for long-term charts)
+```
+
+This system provides a complete, production-ready backend for a cryptocurrency index fund platform with automated data management, accurate NAV calculations, and comprehensive historical tracking.
