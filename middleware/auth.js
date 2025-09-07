@@ -1,4 +1,3 @@
-// middleware/auth.js
 
 // Check if user is authenticated
 const requireAuth = (req, res, next) => {
