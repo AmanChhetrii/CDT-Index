@@ -1,69 +1,427 @@
-<!-- ##### Preloader ##### -->
-    <div id="preloader" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-        <i class="circle-preloader"></i>
+<!-- CSS Styles -->
+<style>
+    /* Reset and override existing styles with maximum specificity */
+    .header-area, .header-area *, .cdt-main-nav, .cdt-main-nav *, .cdt-logo, .cdt-logo * {
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Header Styles - Clean implementation with maximum specificity */
+    .header-area {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 1000 !important;
+        /* Navy dark blue to royal purple with crimson shade (only 10% purple) */
+        background: linear-gradient(135deg, #0a0e34 0%, #260e44 50%, #32002c 100%) !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .cdt-container {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Main Navigation - Static navbar with increased height */
+    .cdt-main-nav {
+        background: rgba(0,0,0,0.3) !important;
+        padding: 0 !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        height: 80px !important; /* Increased by 10px */
+        width: 100% !important;
+    }
+
+    .cdt-nav-content {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Logo positioned towards right from extreme left */
+    .cdt-logo {
+        position: absolute !important;
+        left: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin-left: 100px !important; 
+        padding-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        z-index: 1001 !important;
+    }
+
+    .cdt-logo img {
+        width: 190px !important; /* Increased by 10px */
+        height: auto !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Desktop Navigation Menu - Moved further to the right */
+    .cdt-nav-menu {
+        display: flex !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        align-items: center !important;
+        gap: 20px !important; /* REDUCED from 25px - controls spacing between menu items */
+        margin-left: auto !important;
+        padding-right: 40px !important; /* Increased from 15px */
+        position: relative !important;
+        z-index: 1002 !important;
+    }
+
+    .cdt-nav-menu a {
+        color: rgba(255,255,255,0.9) !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+        font-size: 14px !important; /* REDUCED from 15px - makes menu items smaller */
+        font-weight: 500 !important;
+        transform: none !important;
+        white-space: nowrap !important;
+    }
+
+    .cdt-nav-menu a:hover {
+        color: #DAA520 !important; /* Darker golden yellow instead of lemon */
+        transform: none !important;
+    }
+
+    /* Investor Login Button - Sharp corners and ONLY border color change */
+    .cdt-login-btn {
+        color: white !important;
+        background: transparent !important;
+        border: 1.5px solid white !important;
+        padding: 6px 12px !important; /* REDUCED from 8px 16px - makes button smaller */
+        border-radius: 0px !important;
+        font-size: 12px !important; /* REDUCED from 13px - makes button text smaller */
+        font-weight: 500 !important;
+        transition: border-color 0.3s ease !important;
+        text-decoration: none !important;
+        margin-left: 12px !important; /* REDUCED from 15px - less spacing from other menu items */
+        white-space: nowrap !important;
+    }
+
+    .cdt-login-btn:hover {
+        background: transparent !important;
+        border-color: #DAA520 !important; /* Only border changes */
+        color: white !important; /* Text remains white */
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Mobile Toggle Button - Hidden on desktop */
+    .cdt-mobile-toggle {
+        display: none !important;
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
+        font-size: 35px !important;
+        cursor: pointer !important;
+        padding: 8px 12px !important;
+        margin-left: auto !important;
+        margin-right: 25px !important; /* Moved right */
+        min-width: 44px !important;
+        text-align: center !important;
+        z-index: 1003 !important;
+    }
+
+    /* Mobile Menu Modal */
+    .cdt-mobile-menu {
+        position: fixed !important;
+        top: 80px !important; /* Updated for new navbar height */
+        left: 0 !important;
+        width: 100% !important;
+        background: linear-gradient(135deg, #0a0e34 0%, #1c0a32 50%, #290124 100%) !important;
+        backdrop-filter: blur(10px) !important;
+        transform: translateY(-100%) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        z-index: 999 !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+    }
+
+    .cdt-mobile-menu.active {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .cdt-mobile-menu-content {
+        padding: 10px 15px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .cdt-mobile-menu a {
+        color: rgba(255,255,255,0.9) !important;
+        text-decoration: none !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        padding: 12px 0 !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    .cdt-mobile-menu a:last-child {
+        border-bottom: none !important;
+    }
+
+    /* Body margin to prevent content overlap */
+    body {
+        margin-top: 80px !important; /* Updated for new navbar height */
+        transition: margin-top 0.4s ease !important;
+    }
+
+    /* Tablet Responsive */
+    @media (max-width: 991px) and (min-width: 769px) {
+        .cdt-logo {
+            margin-left: 30px !important; /* Adjusted for tablet */
+        }
+        
+        .cdt-logo img {
+            width: 170px !important; /* Increased proportionally */
+        }
+        
+        .cdt-nav-menu {
+            gap: 18px !important; /* REDUCED from 20px */
+            padding-right: 30px !important; /* Moved further right */
+        }
+        
+        .cdt-nav-menu a {
+            font-size: 13px !important; /* REDUCED from 14px */
+        }
+        
+        .cdt-login-btn {
+            padding: 5px 10px !important; /* REDUCED from 6px 12px */
+            font-size: 11px !important; /* REDUCED from 12px */
+        }
+    }
+
+    /* Mobile Responsive - NO HOVER EFFECTS */
+    @media (max-width: 768px) {
+        .cdt-logo {
+            margin-left: 25px !important; /* Moved right on mobile */
+        }
+        
+        .cdt-logo img {
+            width: 150px !important; /* Increased by 10px */
+        }
+
+        .cdt-nav-menu {
+            display: none !important;
+        }
+
+        .cdt-mobile-toggle {
+            display: block !important;
+            margin-right: 20px !important;
+        }
+
+        .cdt-main-nav {
+            height: 70px !important; /* Increased by 10px */
+        }
+
+        .cdt-mobile-menu {
+            top: 70px !important;
+        }
+
+        body {
+            margin-top: 70px !important;
+        }
+        
+        /* Add back the golden yellow click effect on mobile toggle */
+        .cdt-mobile-toggle:hover {
+            color: #DAA520 !important; /* Golden yellow on hover/click */
+        }
+    }
+
+    /* Small Mobile */
+    @media (max-width: 480px) {
+        .cdt-container {
+            padding: 0 !important;
+        }
+        
+        .cdt-logo {
+            margin-left: 20px !important; /* Moved right on small mobile */
+        }
+        
+        .cdt-logo img {
+            width: 130px !important; /* Increased by 10px */
+        }
+        
+        .cdt-main-nav {
+            height: 65px !important; /* Increased by 10px */
+        }
+
+        .cdt-mobile-menu {
+            top: 65px !important;
+        }
+        
+        body {
+            margin-top: 65px !important;
+        }
+
+        .cdt-mobile-toggle {
+            margin-right: 15px !important;
+        }
+    }
+
+    /* Large Desktop */
+    @media (min-width: 1400px) {
+        .cdt-container {
+            max-width: 1320px !important;
+        }
+        
+        .cdt-logo {
+            margin-left: 100px !important; /* Moved further right on large screens */
+        }
+        
+        .cdt-logo img {
+            width: 210px !important; /* Increased by 10px */
+        }
+        
+        .cdt-nav-menu {
+            gap: 25px !important; /* REDUCED from 30px */
+            padding-right: 50px !important; /* Moved further right */
+        }
+        
+        .cdt-nav-menu a {
+            font-size: 15px !important; /* REDUCED from 16px */
+        } 
+        
+        .cdt-login-btn {
+            padding: 8px 14px !important; /* REDUCED from 10px 18px */
+            font-size: 13px !important; /* REDUCED from 14px */
+        }
+    }
+
+    /* Force hide mobile menu on desktop */
+    @media (min-width: 769px) {
+        .cdt-mobile-menu {
+            display: none !important;
+        }
+        
+        .cdt-mobile-toggle {
+            display: none !important;
+        }
+    }
+
+    /* Additional overrides to ensure logo positioning */
+    header .cdt-logo,
+    .header-area .cdt-logo,
+    #header .cdt-logo {
+        position: absolute !important;
+        left: 0 !important;
+        margin-left: 40px !important;
+        transform: translateY(-50%) !important;
+        top: 50% !important;
+    }
+
+    /* Force navigation to the right with absolute positioning */
+    header .cdt-nav-menu,
+    .header-area .cdt-nav-menu,
+    #header .cdt-nav-menu {
+        position: absolute !important;
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin-right: 25px !important;
+        margin-left: 0 !important;
+        padding-right: 0 !important;
+    }
+</style>
+
+<!-- Header Area Start -->
+<header class="header-area" id="header">
+    <!-- Navbar Area -->
+    <div class="cdt-main-nav">
+        <div class="cdt-container">
+            <div class="cdt-nav-content">
+                <!-- Logo -->
+                <a class="cdt-logo" href="/">
+                    <img src="/img/core-img/logolight.png" alt="Logo">
+                </a>
+                
+                <!-- Desktop Navigation Menu -->
+                <nav class="cdt-nav-menu">
+                    <a href="/">HOME</a>
+                    <a href="/analysis">ANALYSIS</a>
+                    <a href="/services">SERVICES</a>
+                    <a href="/about-us">ABOUT US</a>
+                    <a href="/login" class="cdt-login-btn">INVESTOR LOGIN</a>
+                </nav>
+
+                <!-- Mobile Toggle Button -->
+                <button class="cdt-mobile-toggle" id="mobileToggle">
+                    <span>&#9776;</span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-
-        <!-- Top Header Area -->
-        <div class="top-header" style="background: rgba(0,0,0,0.3); padding: 8px 0;">
-            <div class="container h-100">
-                <div class="row h-100">
-                    <div class="col-12 h-100">
-                        <div class="top-header-content h-100 d-flex align-items-center justify-content-between">
-                            <div class="top-headline">
-                                <p style="color: rgba(255,255,255,0.9);">Welcome to <span style="color: #FFD700;">CDT-Index</span></p>
-                            </div>
-                            <div class="login-faq-earn-money">
-                                <a href="/login" class="nav-hover" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px; transition: all 0.3s ease;">Login | Register</a>
-                                <a href="/faq" class="nav-hover" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px; transition: all 0.3s ease;">FAQs</a>
-                                <a href="/tnc" class="nav-hover" style="color: rgba(255,255,255,0.9); text-decoration: none; transition: all 0.3s ease;">T&C</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Mobile Menu Modal -->
+    <div class="cdt-mobile-menu" id="mobileMenu">
+        <div class="cdt-mobile-menu-content">
+            <a href="/">HOME</a>
+            <a href="/analysis">ANALYSIS</a>
+            <a href="/services">SERVICES</a>
+            <a href="/about-us">ABOUT US</a>
+            <a href="/login">INVESTOR LOGIN</a>
         </div>
+    </div>
+</header>
 
-                                <!-- Navbar Area -->
-        <div class="cryptos-main-menu" style="background: rgba(0,0,0,0.2); padding: 10px 0;">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="cryptosNav">
+<!-- JavaScript for Mobile Menu -->
+<script>
+    const header = document.getElementById('header');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // Mobile menu toggle functionality
+    mobileToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+    });
 
-                        <!-- Logo -->
-                        <a class="nav-brand" href="/">
-                          <img  src="/img/core-img/logolight.png" alt="Logo" style="width:250px; height:auto; margin-left:-35px;">
-                        </a>
+    // Close mobile menu when clicking on a link
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+            mobileMenu.classList.remove('active');
+        }
+    });
 
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- close btn -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/" class="nav-hover" style="color: rgba(255,255,255,0.9); transition: all 0.3s ease;">Home</a></li>
-                                    <li><a href="/analysis" class="nav-hover" style="color: rgba(255,255,255,0.9); transition: all 0.3s ease;">Analysis</a>
-                                    <li><a href="/services" class="nav-hover" style="color: rgba(255,255,255,0.9); transition: all 0.3s ease;">Services</a></li>
-                                    <li><a href="/about-us" class="nav-hover" style="color: rgba(255,255,255,0.9); transition: all 0.3s ease;">About-us</a></li>
-                                </ul>
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!header.contains(e.target)) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        // Close mobile menu on resize
+        mobileMenu.classList.remove('active');
+    });
+    
+    // Smooth scroll behavior for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>

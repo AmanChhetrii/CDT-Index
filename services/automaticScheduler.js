@@ -1,4 +1,4 @@
-// services/automaticScheduler.js - Automated data management with NAV calculation
+// services/automaticScheduler.js - Fixed automated data management with proper NAV calculation
 const cron = require('node-cron');
 const mongoose = require('mongoose');
 const CryptoAsset = require('../models/CryptoAsset');
@@ -172,8 +172,19 @@ class AutomaticScheduler {
             
             // Get inception prices from the oldest date
             const inceptionPrices = await this.getCryptoPricesForDate(this.inceptionDate, 'monthly');
-            this.inceptionPrices = inceptionPrices;
             
+            // Handle cryptos that didn't exist at inception
+            const allCryptos = ['BTC', 'ETH', 'SOL', 'AVAX', 'DOGE', 'LINK', 'MANA'];
+            for (const crypto of allCryptos) {
+                if (!inceptionPrices[crypto] || inceptionPrices[crypto] <= 0) {
+                    inceptionPrices[crypto] = 0; // Mark as didn't exist
+                    console.log(`${crypto}: Not available at inception (will substitute)`);
+                } else {
+                    console.log(`${crypto}: $${inceptionPrices[crypto]} at inception`);
+                }
+            }
+            
+            this.inceptionPrices = inceptionPrices;
             console.log(`NAV inception date: ${this.inceptionDate.toDateString()}`);
 
         } catch (error) {
@@ -202,58 +213,80 @@ class AutomaticScheduler {
         }
     }
 
+    // Fixed NAV calculation with proper substitution logic
     calculateNAV(fundSymbol, currentPrices) {
         const config = this.fundConfigs[fundSymbol];
         if (!config) {
             throw new Error(`Unknown fund symbol: ${fundSymbol}`);
         }
 
-        // Define substitution logic for each fund
-        const substitutionLogic = {
-            'CDTGR': { 'SOL': 'ETH' },      // If SOL is $0, use ETH
-            'CDTBAL': { 'AVAX': 'BTC' },    // If AVAX is $0, use BTC
-            'CDTPIO': { 'AVAX': 'DOGE' },   // If AVAX is $0, use DOGE
-            'CDTARC': { 'SOL': 'ETH' }      // If SOL is $0, use ETH
+        const substitutionRules = {
+            'CDTGR': { 'SOL': 'ETH' },
+            'CDTBAL': { 'AVAX': 'BTC' },
+            'CDTPIO': { 'AVAX': 'DOGE' },
+            'CDTARC': { 'SOL': 'ETH' }
         };
 
         const adjustedComposition = { ...config.composition };
         const substitutions = [];
 
-        // Check for zero prices and apply substitutions
-        for (const [crypto, weight] of Object.entries(config.composition)) {
+        // Check each crypto in the fund
+        for (const [crypto, originalWeight] of Object.entries(config.composition)) {
+            const currentPrice = currentPrices[crypto];
+            const inceptionPrice = this.inceptionPrices[crypto];
+            
+            // Case 1: Crypto didn't exist at inception (inception price = 0) - always substitute
+            if (!inceptionPrice || inceptionPrice <= 0) {
+                const substitute = substitutionRules[fundSymbol]?.[crypto];
+                if (substitute && currentPrices[substitute] > 0 && this.inceptionPrices[substitute] > 0) {
+                    adjustedComposition[substitute] += originalWeight;
+                    delete adjustedComposition[crypto];
+                    substitutions.push(`${crypto} → ${substitute} (not launched)`);
+                } else {
+                    throw new Error(`Cannot substitute ${crypto} in ${fundSymbol} - substitute unavailable`);
+                }
+            }
+            // Case 2: Crypto exists but current price is missing - substitute for this date only
+            else if (!currentPrice || currentPrice <= 0) {
+                const substitute = substitutionRules[fundSymbol]?.[crypto];
+                if (substitute && currentPrices[substitute] > 0 && this.inceptionPrices[substitute] > 0) {
+                    adjustedComposition[substitute] += originalWeight;
+                    delete adjustedComposition[crypto];
+                    substitutions.push(`${crypto} → ${substitute} (price missing)`);
+                } else {
+                    throw new Error(`Cannot substitute ${crypto} in ${fundSymbol} - substitute unavailable`);
+                }
+            }
+            // Case 3: Valid crypto with both inception and current price - use normally
+        }
+
+        // Log substitutions
+        if (substitutions.length > 0) {
+            console.log(`  ${fundSymbol}: ${substitutions.join(', ')}`);
+        }
+
+        // Calculate weighted sum of price ratios
+        let weightedSum = 0;
+        let totalWeight = 0;
+
+        for (const [crypto, weight] of Object.entries(adjustedComposition)) {
             const currentPrice = currentPrices[crypto];
             const inceptionPrice = this.inceptionPrices[crypto];
 
-            // If crypto has zero price or missing data
-            if (!currentPrice || !inceptionPrice || currentPrice <= 0 || inceptionPrice <= 0) {
-                const substitute = substitutionLogic[fundSymbol]?.[crypto];
-                
-                if (substitute && currentPrices[substitute] && this.inceptionPrices[substitute] && 
-                    currentPrices[substitute] > 0 && this.inceptionPrices[substitute] > 0) {
-                    
-                    // Add this crypto's weight to the substitute crypto
-                    adjustedComposition[substitute] += weight;
-                    delete adjustedComposition[crypto];
-                    substitutions.push(`${crypto} → ${substitute}`);
-                } else {
-                    throw new Error(`Cannot substitute ${crypto} in ${fundSymbol} - substitute ${substitute} also unavailable`);
-                }
+            if (currentPrice > 0 && inceptionPrice > 0) {
+                const priceRatio = currentPrice / inceptionPrice;
+                weightedSum += weight * priceRatio;
+                totalWeight += weight;
             }
         }
 
-        // Log substitutions if any were made
-        if (substitutions.length > 0) {
-            console.log(`${fundSymbol}: Substituted ${substitutions.join(', ')}`);
+        if (totalWeight === 0) {
+            throw new Error(`No valid cryptos for ${fundSymbol} calculation`);
         }
 
-        // Calculate weighted sum using adjusted composition
-        let weightedSum = 0;
-        for (const [crypto, adjustedWeight] of Object.entries(adjustedComposition)) {
-            const currentPrice = currentPrices[crypto];
-            const inceptionPrice = this.inceptionPrices[crypto];
-
-            const priceRatio = currentPrice / inceptionPrice;
-            weightedSum += adjustedWeight * priceRatio;
+        // Normalize if weights don't add to 1 due to exclusions
+        if (Math.abs(totalWeight - 1.0) > 0.001) {
+            weightedSum = weightedSum / totalWeight;
         }
 
         return config.inceptionNAV * weightedSum;

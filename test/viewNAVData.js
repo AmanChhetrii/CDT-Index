@@ -10,6 +10,14 @@ class NAVDataViewer {
             'CDTPIO': 'CDT Pioneer Fund',
             'CDTARC': 'CDT Archer Fund'
         };
+
+        // Correct inception NAVs matching the calculation service
+        this.inceptionNAVs = {
+            'CDTGR': 120,
+            'CDTBAL': 100, 
+            'CDTPIO': 90,
+            'CDTARC': 150
+        };
     }
 
     // Display data in a formatted table
@@ -61,7 +69,7 @@ class NAVDataViewer {
         this.displaySummaryStats(data);
     }
 
-    // Display summary statistics
+    // Display summary statistics - FIXED VERSION
     displaySummaryStats(data) {
         if (data.length === 0) return;
 
@@ -70,7 +78,11 @@ class NAVDataViewer {
         
         const minNAV = Math.min(...navValues);
         const maxNAV = Math.max(...navValues);
-        const currentNAV = navValues[navValues.length - 1];
+        
+        // FIX: Data is sorted by date DESC (newest first), so first record is actually the most recent
+        const mostRecentNAV = navValues[0]; 
+        const mostRecentTotalReturn = data[0].totalReturnPercent;
+        
         const avgDailyChange = dailyChanges.length > 0 ? 
             dailyChanges.reduce((sum, val) => sum + val, 0) / dailyChanges.length : 0;
 
@@ -78,11 +90,12 @@ class NAVDataViewer {
         console.log('SUMMARY STATISTICS');
         console.log('-'.repeat(80));
         console.log(`Records Count: ${data.length}`);
-        console.log(`Current NAV: $${currentNAV.toFixed(2)}`);
+        console.log(`Current NAV: $${mostRecentNAV.toFixed(2)}`);
         console.log(`Min NAV: $${minNAV.toFixed(2)}`);
         console.log(`Max NAV: $${maxNAV.toFixed(2)}`);
         console.log(`Avg Daily Change: ${avgDailyChange.toFixed(2)}%`);
-        console.log(`Total Return: ${data[data.length - 1].totalReturnPercent.toFixed(2)}%`);
+        // FIX: Use the most recent total return, not the oldest
+        console.log(`Total Return: ${mostRecentTotalReturn.toFixed(2)}%`);
     }
 
     // Get NAV data with filters
@@ -333,7 +346,7 @@ class NAVDataViewer {
         }
     }
 
-    // View performance summary
+    // View performance summary - FIXED VERSION
     async viewPerformanceSummary() {
         console.log('\n' + '='.repeat(100));
         console.log('PERFORMANCE SUMMARY - ALL FUNDS');
@@ -346,13 +359,6 @@ class NAVDataViewer {
                    'Current Monthly'.padStart(16) + 
                    'Best Performance'.padStart(16));
         console.log('-'.repeat(100));
-
-        const inceptionNAVs = {
-            'CDTGR': 120,
-            'CDTBAL': 100, 
-            'CDTPIO': 90,
-            'CDTARC': 150
-        };
 
         for (const fundSymbol of Object.keys(this.fundNames)) {
             const dailyData = await this.getNAVData(fundSymbol, 'daily', 1);
@@ -372,7 +378,7 @@ class NAVDataViewer {
             const bestPerformance = allData.length > 0 ? `${Math.max(...allData).toFixed(2)}%` : 'N/A';
 
             console.log(fundSymbol.padEnd(10) + 
-                       `$${inceptionNAVs[fundSymbol]}`.padStart(13) + 
+                       `$${this.inceptionNAVs[fundSymbol]}`.padStart(13) + 
                        dailyNAV.padStart(13) + 
                        weeklyNAV.padStart(15) + 
                        monthlyNAV.padStart(16) + 

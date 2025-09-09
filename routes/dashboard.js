@@ -20,8 +20,8 @@ router.get('/dashboard/widgets', (req, res) => {
     res.render('dashboard/widgets');
 });
 
-router.get('/dashboard/template', (req, res) => {
-    res.render('dashboard/template');
+router.get('/dashboard/transactions', (req, res) => {
+    res.render('dashboard/transactions');
 });
 
 

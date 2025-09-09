@@ -448,3 +448,5 @@ Weekly/Monthly: Permanent storage (efficient for long-term charts)
 ```
 
 This system provides a complete, production-ready backend for a cryptocurrency index fund platform with automated data management, accurate NAV calculations, and comprehensive historical tracking.
+
+after the user is logged in , they enter the user-portal or and the first thing they see is the dashboard
