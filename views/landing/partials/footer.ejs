@@ -1,103 +1,334 @@
 <footer class="footer-area">
     <style>
-    /* Legal Footer Section Styles */
-    .legal-footer-area {
-        background: #050505dd;
-        padding: 50px 40px;
-        color: #ccc;
-        border-top: 1px solid #333;
-        font-family: 'Open Sans', sans-serif;
+    /* Scoped CSS - Only affect footer elements */
+
+    /* Desktop positioning (992px and above) */
+    @media (min-width: 992px) {
+        .footer-area .main-footer-area .container {
+            max-width: 1200px !important;
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+        
+        .footer-area .main-footer-area .row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            margin: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child {
+            flex: 0 0 55% !important;
+            max-width: 55% !important;
+            padding-right: 3rem !important;
+            padding-left: 15px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child {
+            flex: 0 0 40% !important;
+            max-width: 40% !important;
+            margin-left: auto !important;
+            padding-left: 2rem !important;
+        }
+        
+        /* Logo section - align with container */
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title {
+            text-align: left !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title img {
+            margin-left: 0 !important;
+            display: block !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title p {
+            text-align: left !important;
+            margin-left: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-social-info {
+            text-align: left !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-copyright {
+            text-align: left !important;
+        }
+        
+        /* Quick links - center title over the links area */
+        .footer-area .main-footer-area .col-lg-4:last-child .widget-title {
+            text-align: center !important;
+            margin-bottom: 20px !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .widget-title h6 {
+            text-align: center !important;
+            margin: 0 auto !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links {
+            display: flex !important;
+            justify-content: space-between !important;
+            flex-wrap: wrap !important;
+            text-align: left !important;
+            font-size: 14px !important;
+            gap: 5px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links li {
+            flex: 0 0 47% !important;
+            margin-bottom: 8px !important;
+            text-align: left !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links a {
+            font-size: 14px !important;
+        }
     }
 
-    .legal-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 35px;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+    /* Tablet positioning (768px to 991px) */
+    @media (min-width: 768px) and (max-width: 991px) {
+        .footer-area .main-footer-area {
+            padding: 50px 0 25px 0 !important;
+        }
+        
+        .footer-area .main-footer-area .row {
+            display: flex !important;
+            flex-direction: column !important;
+            margin: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child {
+            margin-bottom: 40px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title img {
+            width: 220px !important;
+            margin-left: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title p {
+            text-align: left !important;
+            font-size: 13px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-social-info {
+            text-align: left !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-copyright {
+            text-align: left !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .widget-title h6 {
+            text-align: left !important;
+            font-size: 16px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links {
+            display: flex !important;
+            justify-content: space-between !important;
+            flex-wrap: wrap !important;
+            font-size: 13px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links li {
+            flex: 0 0 48% !important;
+            margin-bottom: 8px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links a {
+            font-size: 13px !important;
+        }
     }
 
-    .legal-content {
-        font-size: 13px;
-        line-height: 1.8;
-        text-align: justify;
+    /* Mobile positioning (below 768px) */
+    @media (max-width: 767px) {
+        .footer-area .main-footer-area {
+            padding: 30px 0 20px 0 !important;
+        }
+        
+        .footer-area .main-footer-area .row {
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 0 15px !important;
+            margin: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child {
+            margin-bottom: 30px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title img {
+            width: 180px !important;
+            margin-left: 0 !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .widget-title p {
+            text-align: left !important;
+            font-size: 12px !important;
+            line-height: 1.5 !important;
+            margin-top: 10px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-social-info {
+            text-align: left !important;
+            margin-top: 10px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-social-info a {
+            font-size: 14px !important;
+            margin-right: 15px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:first-child .footer-copyright {
+            text-align: left !important;
+            margin-top: 10px !important;
+            font-size: 12px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .widget-title h6 {
+            text-align: left !important;
+            font-size: 14px !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links {
+            display: flex !important;
+            justify-content: space-between !important;
+            flex-wrap: wrap !important;
+            font-size: 12px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links li {
+            flex: 0 0 48% !important;
+            margin-bottom: 6px !important;
+        }
+        
+        .footer-area .main-footer-area .col-lg-4:last-child .useful-links a {
+            font-size: 12px !important;
+        }
     }
 
-    .legal-paragraph {
-        margin-bottom: 25px;
+    /* Legal Footer Section Styles - Remove white space */
+    .footer-area .legal-footer-area {
+        background: #0f0f0f !important;
+        padding: 28px 50px 10px 50px !important;
+        color: #ccc !important;
+        font-family: 'Open Sans', sans-serif !important;
+        margin: 0 !important;
     }
 
-    .legal-paragraph:last-child {
-        margin-bottom: 0;
+    .footer-area .legal-title {
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        color: #fff !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
     }
 
-    .legal-paragraph strong {
-        color: #fff;
-        font-weight: 600;
+    .footer-area .legal-content {
+        font-size: 13px !important;
+        line-height: 1.8 !important;
+        text-align: justify !important;
     }
 
-    .legal-paragraph a {
-        color: #4f46e5;
-        text-decoration: none;
+    .footer-area .legal-paragraph {
+        margin-bottom: 20px !important;
     }
 
-    .legal-paragraph a:hover {
-        color: #7c3aed;
+    .footer-area .legal-paragraph:last-child {
+        margin-bottom: 0 !important;
     }
 
-    .legal-copyright {
-        text-align: center;
-        margin-top: 40px;
-        padding-top: 30px;
-        border-top: 1px solid #121111;
-        font-size: 12px;
-        color: #313131;
+    .footer-area .legal-paragraph strong {
+        color: #fff !important;
+        font-weight: 600 !important;
     }
 
-    /* Responsive Design for Legal Section */
+    .footer-area .legal-paragraph a {
+        color: #4f46e5 !important;
+        text-decoration: none !important;
+        font-size: 13px !important;
+    }
+
+    .footer-area .legal-paragraph a:hover {
+        color: #7c3aed !important;
+    }
+
+    .footer-area .legal-copyright {
+        text-align: center !important;
+        margin: 25px 0 0 0 !important;
+        padding: 20px 0 0 0 !important;
+        border-top: 1px solid #121111 !important;
+        font-size: 12px !important;
+        color: #313131 !important;
+    }
+
+    /* Mobile responsive - Remove white space */
     @media (max-width: 768px) {
-        .legal-footer-area {
-            padding: 40px 40px;
+        .footer-area .legal-footer-area {
+            padding: 25px 25px 15px 25px !important;
         }
         
-        .legal-title {
-            font-size: 18px;
-            margin-bottom: 25px;
+        .footer-area .legal-title {
+            font-size: 18px !important;
+            margin-bottom: 20px !important;
         }
         
-        .legal-content {
-            font-size: 12px;
-            text-align: left;
-            line-height: 1.7;
+        .footer-area .legal-content {
+            font-size: 12px !important;
+            text-align: left !important;
+            line-height: 1.7 !important;
         }
         
-        .legal-paragraph {
-            margin-bottom: 20px;
+        .footer-area .legal-paragraph {
+            margin-bottom: 15px !important;
+        }
+        
+        .footer-area .legal-paragraph a {
+            font-size: 12px !important;
+        }
+        
+        .footer-area .legal-copyright {
+            margin: 20px 0 0 0 !important;
+            padding: 15px 0 0 0 !important;
         }
     }
 
     @media (max-width: 576px) {
-        .legal-footer-area {
-            padding: 30px 40px;
+        .footer-area .legal-footer-area {
+            padding: 20px 15px 10px 15px !important;
         }
         
-        .legal-title {
-            font-size: 16px;
-            margin-bottom: 20px;
+        .footer-area .legal-title {
+            font-size: 16px !important;
+            margin-bottom: 15px !important;
         }
         
-        .legal-content {
-            font-size: 11px;
-            line-height: 1.6;
+        .footer-area .legal-content {
+            font-size: 11px !important;
+            line-height: 1.6 !important;
         }
         
-        .legal-paragraph {
-            margin-bottom: 18px;
+        .footer-area .legal-paragraph {
+            margin-bottom: 12px !important;
+        }
+        
+        .footer-area .legal-paragraph a {
+            font-size: 11px !important;
+        }
+        
+        .footer-area .legal-copyright {
+            margin: 15px 0 0 0 !important;
+            padding: 12px 0 0 0 !important;
+            font-size: 10px !important;
         }
     }
-    
     </style>
 
     <!-- Main Footer Area -->
@@ -111,19 +342,19 @@
                     <div class="footer-widget mb-60">
                         <div class="widget-title" style="margin-bottom: 20px;">
                             <a href="#">
-                                <img src="/img/core-img/footer.png" alt="Logo" 
-                                     style="display:block; margin-top: -20px; width:250px; height:auto; 
-                                     filter: drop-shadow(0px 0px 12px rgba(24, 26, 156, 0.6));">
+                                <img src="/img/core-img/logo_darknobg.png" alt="Logo" 
+                                     style="display:block; margin-top: -20px; width:350px; height:auto;  
+                                     filter: drop-shadow(0px 0px 12px rgba(14, 15, 78, 0.927)); padding-left: -20px;">
                             </a>
                             <p style="line-height:1.6; font-size:14px; color:#ddd; margin-top: 15px;">
                                 CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
                             </p>
                         </div>
                         <div class="footer-social-info">
-                            <a href="#"><i class="fa fa-instagram" style="color: white;"></i></a>
-                            <a href="#"><i class="fa fa-twitter" style="color: white;"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" style="color: white;"></i></a>
-                            <a href="#"><i class="fa fa-medium" style="color: white;"></i></a>
+                            <a href="https://www.instagram.com/amanchhetriii/"><i class="fa fa-instagram" style="color: white;"></i></a>
+                            <a href="https://x.com/amanchhetrii"><i class="fa fa-twitter" style="color: white;"></i></a>
+                            <a href="https://www.linkedin.com/in/aman-chhetri-406943256/"><i class="fa fa-linkedin" style="color: white;"></i></a>
+                            <a href="https://medium.com/@amanchhetri"><i class="fa fa-medium" style="color: white;"></i></a>
                         </div>
 
                         <div class="footer-copyright" style="margin-top: 15px;">
@@ -134,9 +365,9 @@
 
                 <!-- Footer Widget Area -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="footer-widget mb-60">
-                        <div class="widget-title">
-                            <h6 style="font-size:18px; font-weight:bold; margin-bottom:15px;">Quick Links</h6>
+                    <div class="footer-widget mt-60 mb-60">
+                        <div>
+                            <h6 style="color: #fff; font-size:22px; font-weight:bold; margin-bottom:19px; " >Quick Links</h6>
                         </div>
                         <nav>
                             <ul class="useful-links d-flex justify-content-between flex-wrap" 
@@ -147,6 +378,7 @@
                                 <li><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
                                 <li><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
                                 <li><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
+                               
                                 <li><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
                             </ul>
                         </nav>
@@ -192,10 +424,6 @@
             <div class="legal-paragraph">
                 All of the content on our site - including text, software, scripts, code, designs, graphics, photos, sounds, music, videos, applications, interactive features, articles, news stories, sketches, animations, stickers, general artwork and other content ("Content") - is owned by CDT Index or others we license Content from, and is protected by copyright, patent and other laws. CDT Index reserves all rights not expressly described herein.
             </div>
-        </div>
-        
-        <div class="legal-copyright">
-            <p>© 2025 AMAN CHHETRI & CDT Index. All trademarks, service marks and/or trade names (e.g., CDT™, CDT INDEX®, CDT GROWTH INDEX™, and CDT INDEX INVESTMENTS®) are owned and/or registered by CDT Index.</p>
         </div>
     </div>
 
