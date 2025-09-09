@@ -118,7 +118,7 @@
         box-shadow: none !important;
     }
 
-    /* Mobile Toggle Button - Hidden on desktop */
+    /* Mobile Toggle Button - No effects, no color changes, no focus styles */
     .cdt-mobile-toggle {
         display: none !important;
         background: transparent !important;
@@ -128,10 +128,29 @@
         cursor: pointer !important;
         padding: 8px 12px !important;
         margin-left: auto !important;
-        margin-right: 25px !important; /* Moved right */
+        margin-right: 25px !important;
         min-width: 44px !important;
         text-align: center !important;
         z-index: 1003 !important;
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-focus-ring-color: transparent !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+
+    .cdt-mobile-toggle:focus,
+    .cdt-mobile-toggle:active,
+    .cdt-mobile-toggle:visited,
+    .cdt-mobile-toggle:hover {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-focus-ring-color: transparent !important;
+        color: white !important; /* Force white color always */
+        background: transparent !important;
     }
 
     /* Mobile Menu Modal */
@@ -238,9 +257,11 @@
             margin-top: 70px !important;
         }
         
-        /* Add back the golden yellow click effect on mobile toggle */
-        .cdt-mobile-toggle:hover {
-            color: #DAA520 !important; /* Golden yellow on hover/click */
+        /* Ensure no color change on mobile toggle */
+        .cdt-mobile-toggle:hover,
+        .cdt-mobile-toggle:active,
+        .cdt-mobile-toggle:focus {
+            color: white !important; /* Keep white always */
         }
     }
 
@@ -382,33 +403,12 @@
 
 <!-- JavaScript for Mobile Menu -->
 <script>
-    const header = document.getElementById('header');
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     
-    // Mobile menu toggle functionality
+    // Mobile menu toggle functionality - ONLY toggles menu, no other effects
     mobileToggle.addEventListener('click', function() {
         mobileMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    mobileMenu.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') {
-            mobileMenu.classList.remove('active');
-        }
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!header.contains(e.target)) {
-            mobileMenu.classList.remove('active');
-        }
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        // Close mobile menu on resize
-        mobileMenu.classList.remove('active');
     });
     
     // Smooth scroll behavior for navigation links

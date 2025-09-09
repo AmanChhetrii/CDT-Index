@@ -1,95 +1,155 @@
 <footer class="footer-area">
+    <style>
+    /* Legal Footer Section Styles */
+    .legal-footer-area {
+        background: #050505dd;
+        padding: 50px 40px;
+        color: #ccc;
+        border-top: 1px solid #333;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .legal-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 35px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .legal-content {
+        font-size: 13px;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    .legal-paragraph {
+        margin-bottom: 25px;
+    }
+
+    .legal-paragraph:last-child {
+        margin-bottom: 0;
+    }
+
+    .legal-paragraph strong {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .legal-paragraph a {
+        color: #4f46e5;
+        text-decoration: none;
+    }
+
+    .legal-paragraph a:hover {
+        color: #7c3aed;
+    }
+
+    .legal-copyright {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #121111;
+        font-size: 12px;
+        color: #313131;
+    }
+
+    /* Responsive Design for Legal Section */
+    @media (max-width: 768px) {
+        .legal-footer-area {
+            padding: 40px 40px;
+        }
+        
+        .legal-title {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .legal-content {
+            font-size: 12px;
+            text-align: left;
+            line-height: 1.7;
+        }
+        
+        .legal-paragraph {
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .legal-footer-area {
+            padding: 30px 40px;
+        }
+        
+        .legal-title {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .legal-content {
+            font-size: 11px;
+            line-height: 1.6;
+        }
+        
+        .legal-paragraph {
+            margin-bottom: 18px;
+        }
+    }
+    
+    </style>
+
     <!-- Main Footer Area -->
     <div class="main-footer-area bg-img bg-overlay" 
-         style="background-image: url(/img/bg-img/bg-1.jpg); padding: 40px 0 20px 0; color: #fff;">
-        <div class="container" style="max-width: 1400px;">
-            <div class="row" style="display: flex; align-items: flex-start;">
+         style="background-image: url(/img/bg-img/bg-1.jpg); padding: 60px 0 30px 0; color: #fff;">
+        <div class="container">
+            <div class="row">
 
-                <!-- Logo and Social Media Section -->
-                <div class="col-12 col-lg-4" style="padding-right: 40px;">
-                    <div class="footer-widget">
-                        <!-- Logo -->
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="footer-widget mb-60">
                         <div class="widget-title" style="margin-bottom: 20px;">
-                            <a href="/">
-                                <img src="/img/core-img/footer.png" alt="CDT Index Logo" 
-                                     style="display:block; width:220px; height:auto; 
+                            <a href="#">
+                                <img src="/img/core-img/footer.png" alt="Logo" 
+                                     style="display:block; margin-top: -20px; width:250px; height:auto; 
                                      filter: drop-shadow(0px 0px 12px rgba(24, 26, 156, 0.6));">
                             </a>
-                        </div>
-                        
-                        <!-- Social Media Icons -->
-                        <div class="footer-social-info" style="margin-top: 25px;">
-                            <a href="#" style="margin-right:15px; color:#fff; font-size:16px;"><i class="fab fa-instagram"></i></a>
-                            <a href="#" style="margin-right:15px; color:#fff; font-size:16px;"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" style="margin-right:15px; color:#fff; font-size:16px;"><i class="fab fa-medium"></i></a>
-                        </div>
-                        
-                        <!-- Copyright Text -->
-                        <div style="margin-top: 30px;">
-                            <p style="font-size:13px; color:#aaa; margin:0;">
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
-                                All rights reserved by <b style="color:#fff;">Aman Chhetri</b> &amp; <b style="color:#ffffff;">CDT-Index</b>
+                            <p style="line-height:1.6; font-size:14px; color:#ddd; margin-top: 15px;">
+                                CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
                             </p>
                         </div>
+                        <div class="footer-social-info">
+                            <a href="#"><i class="fa fa-instagram" style="color: white;"></i></a>
+                            <a href="#"><i class="fa fa-twitter" style="color: white;"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" style="color: white;"></i></a>
+                            <a href="#"><i class="fa fa-medium" style="color: white;"></i></a>
+                        </div>
+
+                        <div class="footer-copyright" style="margin-top: 15px;">
+                            <p>&copy;<script>document.write(new Date().getFullYear());</script> <b>Aman Chhetri</b> &amp; <b>CDT Index</b>. All rights reserved.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Navigation Links Section -->
-                <div class="col-12 col-lg-8" style="padding-left: 40px;">
-                    <div class="row">
-                        <!-- Quick Links -->
-                        <div class="col-12 col-md-3">
-                            <div class="footer-widget">
-                                <div class="widget-title">
-                                    <h6 style="font-size:14px; font-weight:600; margin-bottom:15px; color:#fff;">Quick Links</h6>
-                                </div>
-                                <nav>
-                                    <ul style="list-style:none; padding:0; margin:0; font-size:13px;">
-                                        <li style="margin-bottom: 6px;"><a href="/" style="color:#ddd; text-decoration:none;">Home</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/about-us" style="color:#ddd; text-decoration:none;">About us</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/faq" style="color:#ddd; text-decoration:none;">FAQ</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-widget mb-60">
+                        <div class="widget-title">
+                            <h6 style="font-size:18px; font-weight:bold; margin-bottom:15px;">Quick Links</h6>
                         </div>
-
-                        <!-- Index Funds -->
-                        <div class="col-12 col-md-4">
-                            <div class="footer-widget">
-                                <div class="widget-title">
-                                    <h6 style="font-size:14px; font-weight:600; margin-bottom:15px; color:#fff;">Index Funds</h6>
-                                </div>
-                                <nav>
-                                    <ul style="list-style:none; padding:0; margin:0; font-size:13px;">
-                                        <li style="margin-bottom: 6px;"><a href="/funds/cdtgr" style="color:#ddd; text-decoration:none;">CDT Growth Index (CDTGR)</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/funds/cdtbal" style="color:#ddd; text-decoration:none;">CDT Balanced Index (CDTBAL)</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/funds/cdtpio" style="color:#ddd; text-decoration:none;">CDT Pioneer Index (CDTPIO)</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/funds/cdtarc" style="color:#ddd; text-decoration:none;">CDT AmanRC Index (CDTARC)</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/performance" style="color:#ddd; text-decoration:none;">Performance</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-
-                        <!-- Legal & Support -->
-                        <div class="col-12 col-md-5">
-                            <div class="footer-widget">
-                                <div class="widget-title">
-                                    <h6 style="font-size:14px; font-weight:600; margin-bottom:15px; color:#fff;">Legal & Support</h6>
-                                </div>
-                                <nav>
-                                    <ul style="list-style:none; padding:0; margin:0; font-size:13px;">
-                                        <li style="margin-bottom: 6px;"><a href="/privacy-policy" style="color:#ddd; text-decoration:none;">Privacy Policy</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/risk-disclosure" style="color:#ddd; text-decoration:none;">Risk Disclosure</a></li>
-                                        <li style="margin-bottom: 6px;"><a href="/support" style="color:#ddd; text-decoration:none;">Customer Support</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+                        <nav>
+                            <ul class="useful-links d-flex justify-content-between flex-wrap" 
+                                style="list-style:none; padding:0; margin:0; font-size:14px;">
+                                <li><a href="/" style="color:#ddd; text-decoration:none;">Home</a></li>
+                                <li><a href="/faq" style="color:#ddd; text-decoration:none;">Faq</a></li>
+                                <li><a href="/about-us" style="color:#ddd; text-decoration:none;">About us</a></li>
+                                <li><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
+                                <li><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
+                                <li><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
+                                <li><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
@@ -97,250 +157,46 @@
         </div>
     </div>
 
-    <!-- Investment Disclaimer Section -->
-    <div class="disclaimer-area" style="background: rgba(10, 10, 10, 0.98); padding: 35px 0; border-top: 1px solid #333;">
-        <div class="container" style="max-width: 1400px;">
-            <div style="font-size: 11px; line-height: 1.5; color: #aaa; text-align: justify;">
-                <p style="margin-bottom: 15px;">
-                    CDT Index Technologies, LLC ("CDT" d/b/a CDT Index) is a cryptocurrency investment platform providing digital asset portfolio management and indexing services. CDT operates as a technology platform and is not registered as an investment adviser under the Investment Advisers Act of 1940. The index fund products ("Funds") mentioned on this platform, including CDT Growth Index (CDTGR), CDT Balanced Index (CDTBAL), CDT Pioneer Index (CDTPIO), and CDT AmanRC Index (CDTARC), are not registered under the Investment Company Act of 1940 and are not subject to regulation under traditional securities laws.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    <strong style="color: #fff;">Investments in cryptocurrency index funds are speculative investments that involve high degrees of risk, including a partial or total loss of invested funds.</strong> The digital asset products mentioned on this platform are not suitable for any investor that cannot afford loss of the entire investment. Cryptocurrency assets are highly volatile, speculative, and entail significant risk, including the risk that an investor could lose their entire investment. The Net Asset Value (NAV) calculations provided are for informational purposes only and may not reflect actual trading prices or market conditions.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Before making any investment decision, carefully consider the investment objectives, risk factors, fees, expenses, and other information associated with cryptocurrency investments. Cryptocurrency markets operate 24/7 and are subject to extreme price volatility, regulatory changes, technological risks, and market manipulation. Past performance does not guarantee future results. The price of cryptocurrencies may be impacted by the transactions of a small number of holders of such assets. Digital assets may decline in popularity, acceptance, or use, which may significantly impact their price.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    CDT Index provides portfolio tracking and analysis tools but does not provide investment advice, recommendations, or financial planning services. This information should not be relied upon as research, investment advice, or a recommendation regarding any products, strategies, or any security in particular. This material is strictly for illustrative, educational, or informational purposes and is subject to change. Users should consult with qualified financial advisors and conduct their own research before making investment decisions.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Future regulatory actions or policies may limit the ability to sell, exchange, or use cryptocurrency assets. Cryptocurrency investments may not be suitable for retirement accounts or other tax-advantaged investment vehicles. The platform's data feeds are provided by third-party sources and may contain errors or delays. CDT Index makes no warranties regarding the accuracy, completeness, or timeliness of any information provided.
-                </p>
-                <p style="margin: 0;">
-                    © 2025 CDT Index Technologies, LLC. All trademarks, service marks and/or trade names (e.g., CDT INDEX™, CDT GROWTH™, CDT BALANCED™, CDT PIONEER™, CDT AMANRC™) are owned and/or registered by CDT Index Technologies, LLC. All content on this platform - including text, software, code, designs, graphics, analysis, data, applications, and other content - is owned by CDT Index or others we license content from, and is protected by copyright, patent and other intellectual property laws. CDT Index reserves all rights not expressly described herein.
-                </p>
+    <!-- Legal Footer Section -->
+    <div class="legal-footer-area">
+        <h6 class="legal-title">Important Legal Information & Risk Disclosures</h6>
+        <div class="legal-content">
+            <div class="legal-paragraph">
+                <strong>CDT Index Operating, LLC</strong> ("CDT" d/b/a CDT Index) is the parent holding company of CDT Advisors, LLC ("CDTA"), an SEC-registered investment adviser, as well CDT Securities, LLC ("CDTS"), an SEC-registered broker/dealer and member of FINRA, and CDT Investment Sponsors, LLC ("CDTIS", together with CDT, CDTS, and CDTA, "CDT Index" or "CDT Index Investments"). CDTIS is not registered as an investment adviser under the Investment Advisers Act of 1940 and none of the investment products ("Products") sponsored or managed by CDTIS are registered under the Investment Company Act of 1940.
+            </div>
+            
+            <div class="legal-paragraph">
+                <strong>Investments in the products on this page are speculative investments that involve high degrees of risk, including a partial or total loss of invested funds.</strong> The products mentioned on this page are not suitable for any investor that cannot afford loss of the entire investment. Private placement securities are speculative, illiquid, and entail a high level of risk, including the risk that an investor could lose their entire investment. The Products are distributed by CDT Securities, LLC (Member <strong>FINRA/SIPC</strong>). SIPC coverage does not apply to the crypto asset products or services mentioned.
+            </div>
+            
+            <div class="legal-paragraph">
+                <strong>CDT Growth Index Fund LLC</strong> ("CDTGR") has filed a registration statement (including a prospectus) with the SEC for the offering to which this communication relates. Before you invest, you should read the prospectus in that registration statement and other documents CDTGR has filed with the SEC for more complete information about CDTGR and this offering. You may get these documents for free by visiting EDGAR on the SEC Web site at <a href="https://www.sec.gov" target="_blank">www.sec.gov</a>. Alternatively, CDTGR or any authorized participant will arrange to send you the prospectus after filing if you request it by emailing <a href="mailto:info@cdtindex.com">info@cdtindex.com</a> or by contacting CDT Securities, 350 Fifth Avenue, New York, NY 10118.
+            </div>
+            
+            <div class="legal-paragraph">
+                Please read the prospectuses carefully before investing in CDT Growth Index ETF, CDT Balanced Index ETF, CDT Pioneer Index ETF, and CDT AmanRC Index ETF (the "Funds"). <strong>Foreside Fund Services, LLC</strong> is the Marketing Agent and CDTIS is the sponsor of the Funds.
+            </div>
+            
+            <div class="legal-paragraph">
+                Investors should consider the investment objectives, risks, charges and expenses carefully before investing in CDT Index cryptocurrency funds (collectively the "Funds"). For prospectuses or summary prospectuses with this and other information about the Funds, please call <strong>(866)-CDT-INDEX</strong> or visit our website at <a href="https://cdtindex.com" target="_blank">cdtindex.com</a>. Read the prospectuses or summary prospectuses carefully before investing. Foreside Fund Services, LLC is the Marketing Agent and CDTA is the sponsor of the Funds.
+            </div>
+            
+            <div class="legal-paragraph">
+                Investments managed by CDTA are registered under the Investment Company Act of 1940 and subject to the rules and regulations of the Securities Act of 1933 and Investment Advisers Act of 1940. <strong>Carefully consider investment objectives, risk factors, fees and expenses before investing.</strong>
+            </div>
+            
+            <div class="legal-paragraph">
+                This information should not be relied upon as research, investment advice, or a recommendation regarding any products, strategies, or any security in particular. This material is strictly for illustrative, educational, or informational purposes and is subject to change. <strong>Cryptocurrency investments are highly volatile and speculative.</strong> Digital asset prices can fluctuate significantly and investors may lose some or all of their invested capital.
+            </div>
+            
+            <div class="legal-paragraph">
+                All of the content on our site - including text, software, scripts, code, designs, graphics, photos, sounds, music, videos, applications, interactive features, articles, news stories, sketches, animations, stickers, general artwork and other content ("Content") - is owned by CDT Index or others we license Content from, and is protected by copyright, patent and other laws. CDT Index reserves all rights not expressly described herein.
             </div>
         </div>
+        
+        <div class="legal-copyright">
+            <p>© 2025 AMAN CHHETRI & CDT Index. All trademarks, service marks and/or trade names (e.g., CDT™, CDT INDEX®, CDT GROWTH INDEX™, and CDT INDEX INVESTMENTS®) are owned and/or registered by CDT Index.</p>
+        </div>
     </div>
+
 </footer>
-
-<style>
-/* Mobile Phones (up to 576px) */
-@media (max-width: 576px) {
-    .main-footer-area {
-        padding: 25px 0 15px 0 !important;
-    }
-    
-    .container {
-        padding: 0 15px !important;
-    }
-    
-    .col-12.col-lg-4 {
-        padding-right: 0 !important;
-        margin-bottom: 25px;
-        min-height: 120px !important;
-        padding-left: 10px !important;
-    }
-    
-    .col-12.col-lg-8 {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-    }
-    
-    .col-12.col-md-3,
-    .col-12.col-md-4,
-    .col-12.col-md-5 {
-        width: 100% !important;
-        margin-bottom: 15px;
-        padding-left: 10px !important;
-        padding-right: 5px !important;
-    }
-    
-    /* Mobile navigation layout - side by side */
-    .col-12.col-lg-8 .row {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: space-between !important;
-    }
-    
-    .col-12.col-md-3 {
-        flex: 0 0 30% !important;
-        width: 30% !important;
-    }
-    
-    .col-12.col-md-4 {
-        flex: 0 0 35% !important;
-        width: 35% !important;
-    }
-    
-    .col-12.col-md-5 {
-        flex: 0 0 32% !important;
-        width: 32% !important;
-    }
-    
-    .footer-widget h6 {
-        font-size: 9px !important;
-        margin-bottom: 3px !important;
-    }
-    
-    .footer-widget ul {
-        font-size: 8px !important;
-    }
-    
-    .footer-widget li {
-        margin-bottom: 2px !important;
-    }
-    
-    .footer-social-info {
-        margin-top: 15px !important;
-    }
-    
-    .footer-social-info a {
-        font-size: 14px !important;
-        margin-right: 12px !important;
-    }
-    
-    .footer-widget img {
-        width: 180px !important;
-    }
-    
-    .disclaimer-area {
-        padding: 20px 0 !important;
-    }
-    
-    .disclaimer-area div {
-        font-size: 9px !important;
-        line-height: 1.4 !important;
-    }
-    
-    .disclaimer-area p {
-        margin-bottom: 10px !important;
-    }
-    
-    .copyright-text p {
-        font-size: 9px !important;
-    }
-}
-
-/* Tablets (577px to 768px) */
-@media (min-width: 577px) and (max-width: 768px) {
-    .main-footer-area {
-        padding: 30px 0 18px 0 !important;
-    }
-    
-    .col-12.col-lg-4 {
-        padding-right: 20px !important;
-        margin-bottom: 20px;
-        min-height: 140px !important;
-    }
-    
-    .col-12.col-lg-8 {
-        padding-left: 20px !important;
-    }
-    
-    .col-12.col-md-3,
-    .col-12.col-md-4,
-    .col-12.col-md-5 {
-        width: 50% !important;
-        margin-bottom: 15px;
-    }
-    
-    .footer-widget h6 {
-        font-size: 11px !important;
-        margin-bottom: 6px !important;
-    }
-    
-    .footer-widget ul {
-        font-size: 10px !important;
-    }
-    
-    .footer-widget img {
-        width: 200px !important;
-    }
-    
-    .disclaimer-area {
-        padding: 25px 0 !important;
-    }
-    
-    .disclaimer-area div {
-        font-size: 10px !important;
-    }
-    
-    .copyright-text p {
-        font-size: 10px !important;
-    }
-}
-
-/* Small Desktops (769px to 992px) */
-@media (min-width: 769px) and (max-width: 992px) {
-    .main-footer-area {
-        padding: 35px 0 20px 0 !important;
-    }
-    
-    .footer-widget h6 {
-        font-size: 11px !important;
-        margin-bottom: 7px !important;
-    }
-    
-    .footer-widget ul {
-        font-size: 10px !important;
-    }
-    
-    .disclaimer-area div {
-        font-size: 10px !important;
-    }
-    
-    .copyright-text p {
-        font-size: 11px !important;
-    }
-}
-
-/* Large Desktops (993px to 1200px) */
-@media (min-width: 993px) and (max-width: 1200px) {
-    .footer-widget h6 {
-        font-size: 12px !important;
-    }
-    
-    .footer-widget ul {
-        font-size: 11px !important;
-    }
-    
-    .disclaimer-area div {
-        font-size: 11px !important;
-    }
-}
-
-/* Extra Large Desktops (1201px and up) */
-@media (min-width: 1201px) {
-    .container {
-        max-width: 1600px !important;
-    }
-    
-    .footer-widget h6 {
-        font-size: 13px !important;
-    }
-    
-    .footer-widget ul {
-        font-size: 12px !important;
-    }
-    
-    .disclaimer-area div {
-        font-size: 11px !important;
-    }
-}
-
-/* General responsive adjustments */
-@media (max-width: 992px) {
-    .row {
-        flex-direction: column !important;
-    }
-    
-    .col-12.col-lg-4 {
-        width: 100% !important;
-    }
-    
-    .col-12.col-lg-8 {
-        width: 100% !important;
-    }
-}
-</style>
