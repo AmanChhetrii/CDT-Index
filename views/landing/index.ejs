@@ -526,7 +526,22 @@ img.glow {
     .scroll-arrow {
         font-size: 18px;
     }
+    .crypto-card.d-flex {
+        flex-direction: column !important;
+        text-align: center;
+    }
     
+    .blog-thumbnail {
+        min-width: auto !important;
+        margin-right: 0 !important;
+        margin-bottom: 1rem;
+        align-self: center;
+    }
+    
+    .blog-thumbnail img {
+        width: 200px !important;
+        height: 150px !important;
+    }
     /* .hero-area .col-md-6:first-child {
         text-align: center !important;
     } */
@@ -568,6 +583,17 @@ img.glow {
         filter: drop-shadow(0 0 50px rgba(11, 11, 44, 0.9)) !important; /* Deep dark blue shadow */
     }
 }
+@media (min-width: 769px) {
+    /* Desktop: Vertically center images */
+    .crypto-card.d-flex {
+        align-items: center !important;
+    }
+    
+    .blog-thumbnail {
+        display: flex;
+        align-items: center;
+    }
+}
 </style>
 </head>
 
@@ -589,16 +615,16 @@ img.glow {
                 <div class="hero-slides-content">
                     <h4 class="wow fadeInUp" data-wow-delay=".2s" 
                     style="color: white; background: rgba(25, 30, 88, 0.671); border-radius: 14px; margin: 10px 0; padding: 5px 10px; display: inline-block; visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <img style="width: 20px; height: auto;" src="/img/core-img/logo_smallbg.png" alt=""> One step solution for all investment
+                    <img style="width: 20px; height: auto;" src="/img/core-img/logo_smallbg.png" alt=""> One step solution for your investments
                     </h4>
                     <h2 style="font-size: 2.8rem; font-weight: 700; color: white; margin-bottom: 2rem; position: relative; z-index: 10;">
-                        Enter the Future of <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Investment</span>
+                        Your Gateway to <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Index Funds</span>
                     </h2>
                     <h6 style="font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
                         Professional-grade cryptocurrency investment solutions designed for the modern investor. Access diversified digital asset portfolios with institutional-level security and transparency.
                     </h6>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="/about-us" class="btn modern-btn">Learn More</a>
+                        <a href="/services" class="btn modern-btn">Learn More</a>
                     </div>
 
                     <!-- Floating shapes scattered with 3-4 on left portion -->
@@ -715,16 +741,16 @@ img.glow {
         <div class="container" style="position: relative; z-index: 10;">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Track our fund's performance with real-time data and comprehensive analytics</p>
+                    <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Proven Performance</h3>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Measured results. Managed by experts. Trusted by investors.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="metric-card">
                         <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">24.7%</h2>
-                        <p style="color: white; font-size: 1.1rem;">Assets Under Management</p>
-                        <small style="color: rgba(255,255,255,0.6);">As of current date</small>
+                        <p style="color: white; font-size: 1.1rem;">Returns on Investment</p>
+                        <small style="color: rgba(255,255,255,0.6);">Last year average returns</small>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -736,9 +762,9 @@ img.glow {
                 </div>
                 <div class="col-md-4">
                     <div class="metric-card">
-                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">2,500+</h2>
-                        <p style="color: white; font-size: 1.1rem;">Active Investors</p>
-                        <small style="color: rgba(255,255,255,0.6);">Growing community</small>
+                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">4+</h2>
+                        <p style="color: white; font-size: 1.1rem;">Premium Funds</p>
+                        <small style="color: rgba(255,255,255,0.6);">Professionally managed portfolio</small>
                     </div>
                 </div>
             </div>
@@ -769,7 +795,7 @@ img.glow {
                             <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 3rem;">
                                 Our platform provides institutional-quality investment management for digital assets, offering professional oversight and strategic portfolio construction in the rapidly evolving cryptocurrency landscape.
                             </p>
-                            <a href="/about-us" class="btn modern-btn">Discover Our Story</a>
+                            <a href="/about-us" class="btn modern-btn">Learn more</a>
                         </div>
                     </div>
                 </div>
@@ -1028,28 +1054,8 @@ img.glow {
     <!-- contact form ends -->
 
     <!-- ##### Call to Action Section ##### -->
-    <section style="background: var(--primary-gradient); padding: 80px 0;">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
-                        Ready to Start Your Crypto Investment Journey?
-                    </h2>
-                    <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="/contact" class="btn modern-btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
-                            Get Started Today
-                        </a>
-                        <a href="/analysis" class="btn modern-btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+    <%- include('partials/action') %>
     <!-- ##### Call to Action Section End ##### -->
 
     <!-- ##### Footer Area Start ##### -->

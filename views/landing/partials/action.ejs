@@ -1,0 +1,445 @@
+<style>
+/* Call to Action Section Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Modern buttons */
+.modern-btn {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.modern-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+/* CTA specific button styles */
+.cta-btn-primary {
+    background: white;
+    color: #667eea;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    color: #667eea;
+    text-decoration: none;
+}
+
+.cta-btn-secondary {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+/* Button container styles */
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Main CTA Section Layout */
+.cta-section {
+    background: var(--primary-gradient);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.cta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    min-height: 400px;
+}
+
+.cta-text-content {
+    padding-right: 2rem;
+    transform: translateX(-80px);
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.cta-section p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/* Abstract Effects Container */
+.cta-abstract-effects {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Floating geometric shapes */
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 10%;
+    right: 20%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -2s;
+}
+
+.floating-shape:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    top: 30%;
+    right: 50%;
+    animation-delay: -4s;
+}
+
+/* Gradient orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.gradient-orb:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    top: 5%;
+    right: 15%;
+    animation-delay: 0s;
+}
+
+.gradient-orb:nth-child(5) {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(118,75,162,0.4) 0%, transparent 70%);
+    bottom: 10%;
+    right: 30%;
+    animation-delay: -3s;
+}
+
+/* Hexagonal patterns */
+.hex-pattern {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: rotate 20s linear infinite;
+}
+
+.hex-pattern:nth-child(6) {
+    top: 20%;
+    right: 40%;
+    animation-delay: 0s;
+}
+
+.hex-pattern:nth-child(7) {
+    bottom: 20%;
+    right: 60%;
+    animation-delay: -10s;
+}
+
+/* Animated lines */
+.animated-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: slide 4s ease-in-out infinite;
+}
+
+.animated-line:nth-child(8) {
+    width: 150px;
+    top: 40%;
+    right: 25%;
+    animation-delay: 0s;
+}
+
+.animated-line:nth-child(9) {
+    width: 100px;
+    bottom: 30%;
+    right: 45%;
+    animation-delay: -2s;
+}
+
+/* Additional gradient orbs */
+.gradient-orb:nth-child(10) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    top: -5%;
+    right: 35%;
+    animation-delay: -1s;
+    filter: blur(60px);
+}
+
+.gradient-orb:nth-child(11) {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
+    bottom: -10%;
+    right: 5%;
+    animation-delay: -5s;
+    filter: blur(50px);
+}
+
+/* New abstract circles on extreme right */
+.gradient-orb:nth-child(12) {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+    top: 15%;
+    right: -5%;
+    animation-delay: -2s;
+    filter: blur(45px);
+}
+
+.gradient-orb:nth-child(13) {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(118,75,162,0.3) 0%, transparent 70%);
+    bottom: 15%;
+    right: -8%;
+    animation-delay: -4s;
+    filter: blur(55px);
+}
+
+/* Keyframe animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slide {
+    0%, 100% { transform: translateX(-100px); opacity: 0; }
+    50% { transform: translateX(0px); opacity: 1; }
+}
+
+/* Ripple effect keyframe */
+@keyframes ripple-effect {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .cta-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .cta-text-content {
+        padding-right: 0;
+        transform: translateX(0);
+    }
+
+    .cta-abstract-effects {
+        display: none;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+        white-space: normal;
+    }
+    
+    .cta-section p {
+        font-size: 1rem;
+    }
+
+    .cta-section {
+        padding: 60px 0;
+    }
+}
+</style>
+
+<!-- ##### Call to Action Section ##### -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content-wrapper">
+            <div class="cta-text-content">
+                <h2>Ready to Invest?</h2>
+                <p>Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.</p>
+                <div class="cta-buttons">
+                    <a href="/signup" class="btn modern-btn cta-btn-primary">
+                        Get Started
+                    </a>
+                    <a href="/services" class="btn modern-btn cta-btn-secondary">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <div class="cta-abstract-effects">
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="hex-pattern"></div>
+                <div class="hex-pattern"></div>
+                <div class="animated-line"></div>
+                <div class="animated-line"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Call to Action Section End ##### -->
+
+<script>
+// Call to Action section specific JavaScript
+(function() {
+    // Enhanced button interactions
+    function enhanceButtonInteractions() {
+        const ctaButtons = document.querySelectorAll('.cta-section .modern-btn');
+        
+        ctaButtons.forEach(button => {
+            // Add click ripple effect
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple-effect 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // Add hover glow effect
+            button.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.6)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+    }
+    
+    // Initialize button interactions when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        enhanceButtonInteractions();
+    });
+})();
+</script>

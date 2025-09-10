@@ -119,6 +119,29 @@
     .section-heading h3 {
         font-size: 2rem !important;
     }
+    
+    /* Center only the logo and social links, keep text left-aligned */
+    .contact-logo {
+        text-align: center;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+    }
+    
+    .contact-logo img {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+    }
+    
+    /* Keep paragraph text left-aligned for readability */
+    .contact-information p {
+        text-align: left;
+        margin-left: 12px;
+    }
+    
+    .social-links {
+        margin-left: 0 !important;
+        justify-content: center;
+    }
 }
 </style>
 
@@ -197,65 +220,67 @@
 (function() {
     // Particles.js configuration for contact section
     const particleConfig = {
-        "particles": {
-            "number": {
-                "value": 90,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": ["#FFFFFF", "#FFD700"]
-            },
-            "shape": {
-                "type": "circle"
-            },
-            "opacity": {
-                "value": 0.5,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 0.4,
-                    "opacity_min": 0.2,
-                    "sync": false
-                }
-            },
-            "size": {
-                "value": 2.5,
-                "random": true
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#FFFFFF",
-                "opacity": 0.2,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 2.5,
-                "direction": "none",
-                "random": true,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": false
-                },
-                "onclick": {
-                    "enable": false
-                },
-                "resize": true
-            }
-        },
-        "retina_detect": true
-    };
+   "particles": {
+       "number": {
+           "value": 120,
+           "density": {
+               "enable": true,
+               "value_area": 1000
+           }
+       },
+       "color": {
+           "value": "#ffffff"
+       },
+       "shape": {
+           "type": "circle"
+       },
+       "opacity": {
+           "value": 0.3,
+           "random": true,
+           "anim": {
+               "enable": true,
+               "speed": 0.5,
+               "opacity_min": 0.1,
+               "sync": false
+           }
+       },
+       "size": {
+           "value": 1,
+           "random": true,
+           "anim": {
+               "enable": true,
+               "speed": 0.8,
+               "size_min": 0.3,
+               "sync": false
+           }
+       },
+       "line_linked": {
+           "enable": false
+       },
+       "move": {
+           "enable": true,
+           "speed": 0.8,
+           "direction": "none",
+           "random": true,
+           "straight": false,
+           "out_mode": "out",
+           "bounce": false
+       }
+   },
+   "interactivity": {
+       "detect_on": "canvas",
+       "events": {
+           "onhover": {
+               "enable": false
+           },
+           "onclick": {
+               "enable": false
+           },
+           "resize": true
+       }
+   },
+   "retina_detect": true
+};
 
     // Initialize particles when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
@@ -284,32 +309,6 @@
                     alert('Please fill in all required fields.');
                 }
             });
-        }
-    });
-
-    // Add loading animation for contact form
-    window.addEventListener('load', function() {
-        const contactForm = document.querySelector('.contact-form');
-        const contactInfo = document.querySelector('.contact-information');
-        
-        if (contactForm) {
-            contactForm.style.opacity = '0';
-            contactForm.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                contactForm.style.transition = 'all 0.5s ease';
-                contactForm.style.opacity = '1';
-                contactForm.style.transform = 'translateY(0)';
-            }, 100);
-        }
-        
-        if (contactInfo) {
-            contactInfo.style.opacity = '0';
-            contactInfo.style.transform = 'translateX(-20px)';
-            setTimeout(() => {
-                contactInfo.style.transition = 'all 0.5s ease';
-                contactInfo.style.opacity = '1';
-                contactInfo.style.transform = 'translateX(0)';
-            }, 200);
         }
     });
 })();

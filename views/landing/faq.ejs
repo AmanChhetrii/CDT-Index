@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="CDT Index FAQ - Frequently Asked Questions">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Title -->
-    <title>FAQ - CDT Index</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/img/core-img/logo_smallbg.png">
-
-    <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css">
-
-</head>
-
-<body>
-   <!-- header starts here -->
-    <%- include('partials/header') %>
-    <!-- ##### Header Area End ##### -->
-    
-    <style>
+ <style>
         /* Modern Futuristic Styles */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -119,7 +94,7 @@
         }
         
         .faq-answer-content {
-            padding: 0 2rem 1.5rem;
+            padding: 1.5rem 2rem 1.5rem 2rem;
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.7;
         }
@@ -211,26 +186,26 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .faq-section {
-                padding: 50px 0;
-            }
-            
-            .faq-question {
-                padding: 1.25rem 1.5rem;
-            }
-            
-            .faq-question h4 {
-                font-size: 1rem;
-            }
-            
-            .faq-answer-content {
-                padding: 0 1.5rem 1.25rem;
-            }
-            
-            .contact-form {
-                padding: 1.5rem;
-            }
-        }
+    .faq-section {
+        padding: 50px 0;
+    }
+    
+    .faq-question {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .faq-question h4 {
+        font-size: 1rem;
+    }
+    
+    .faq-answer-content {
+        padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
+    }
+}
     </style>
 
     <!-- ##### FAQ Section Start ##### -->
@@ -332,61 +307,19 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Contact Section -->
-            <div class="row" style="margin-top: 5rem;">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto" style="margin-bottom: 3rem;">
-                        <h3 style="font-size: 2.5rem; color: white; margin-bottom: 1rem;">
-                            Still Have <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Questions?</span>
-                        </h3>
-                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
-                            Our team is here to help. Get in touch and we'll respond within 24 hours.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- Contact Info -->
-                <div class="col-12 col-lg-6">
-                    <div style="text-align: center; margin-bottom: 3rem;">
-                        <!-- Logo -->
-                        <div style="margin-bottom: 2rem;">
-                            <img src="/img/core-img/logo.png" alt="CDT Index" style="max-width: 200px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));">
-                        </div>
-
-                        <!-- Contact Details -->
-                        <div style="margin-bottom: 2rem;">
-                            <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;"><i class="fa fa-envelope-o" style="color: var(--glow-color); margin-right: 10px;"></i> support@cdtindex.com</p>
-                            <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;"><i class="fa fa-phone" style="color: var(--glow-color); margin-right: 10px;"></i> +91-98765-43210</p>
-                            <p style="color: rgba(255,255,255,0.9);"><i class="fa fa-map" style="color: var(--glow-color); margin-right: 10px;"></i> Global Operations</p>
-                        </div>
-
-                        <!-- Social Links -->
-                        <div class="social-links">
-                            <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-                            <a href="#" title="Telegram"><i class="fa fa-telegram"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="col-12 col-lg-6">
-                    <div class="contact-form">
-                        <h4 style="color: white; margin-bottom: 1.5rem; text-align: center;">Send us a Message</h4>
-                        <form id="contactForm">
-                            <input type="text" class="form-control" placeholder="Your Name" required>
-                            <input type="email" class="form-control" placeholder="Your Email" required>
-                            <textarea class="form-control" rows="5" placeholder="Your Question" required></textarea>
-                            <div class="text-center">
-                                <button class="modern-btn" type="submit">Send Message</button>
+                        <!-- FAQ Item 7 -->
+                        <div class="faq-item">
+                            <button class="faq-question" type="button">
+                                <h4>Have more questions?</h4>
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Send us a message from the section below!
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -394,9 +327,7 @@
     </section>
     <!-- ##### FAQ Section End ##### -->
 
-    <!-- ##### Footer Area Start ##### -->
-    <%- include('partials/footer') %>
-    <!-- ##### Footer Area End ##### -->
+    
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -521,6 +452,3 @@
             });
         });
     </script>
-</body>
-
-</html>
