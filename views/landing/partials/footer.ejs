@@ -87,7 +87,28 @@
             font-size: 14px !important;
         }
     }
+/* Contact info styling */
+.single-contact-info {
+    margin-bottom: 1.5rem;
+}
 
+.contact-icon {
+    margin-right: 15px;
+    color: var(--glow-color);
+    width: 20px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 1.5rem;
+    }
+    
+    .section-heading h3 {
+        font-size: 2rem !important;
+    }
+}
     /* Tablet positioning (768px to 991px) */
     @media (min-width: 768px) and (max-width: 991px) {
         .footer-area .main-footer-area {
@@ -350,12 +371,28 @@
                                 CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
                             </p>
                         </div>
-                        <div class="footer-social-info">
-                            <a href="https://www.instagram.com/amanchhetriii/"><i class="fa fa-instagram" style="color: white;"></i></a>
-                            <a href="https://x.com/amanchhetrii"><i class="fa fa-twitter" style="color: white;"></i></a>
-                            <a href="https://www.linkedin.com/in/aman-chhetri-406943256/"><i class="fa fa-linkedin" style="color: white;"></i></a>
-                            <a href="https://medium.com/@amanchhetri"><i class="fa fa-medium" style="color: white;"></i></a>
+                         <div class="single-contact-info d-flex" style="margin-top: 3rem;">
+                        <div class="contact-icon">
+                            <i class="fa fa-map"></i>
                         </div>
+                        <p style="color: rgba(255,255,255,0.9); margin: 0;">Global Operations — Gwalior , MP</p>
+                    </div>
+
+                    <!-- Single Contact Info -->
+                    <div class="single-contact-info d-flex">
+                        <div class="contact-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.9); margin: 0;">+91-96856 58230</p>
+                    </div>
+
+                    <!-- Single Contact Info -->
+                    <div class="single-contact-info d-flex">
+                        <div class="contact-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.9); margin: 0;">support@cdtindex.com</p>
+                    </div>
 
                         <div class="footer-copyright" style="margin-top: 15px;">
                             <p>&copy;<script>document.write(new Date().getFullYear());</script> <b>Aman Chhetri</b> &amp; <b>CDT Index</b>. All rights reserved.</p>

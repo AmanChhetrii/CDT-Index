@@ -25,361 +25,81 @@
     <!-- ##### Header Area End ##### -->
     
     <style>
-
-        /* For images with transparent backgrounds (best-looking glow) */
+    
+    /* For images with transparent backgrounds (best-looking glow) */
 img.glow {
   filter: drop-shadow(0 0 3px rgba(255,255,255,0.6))
           drop-shadow(0 0 6px rgba(255,255,255,0.4));
 }
 
-        /* Modern Futuristic Styles */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
-            --glow-color: #f8d733;
-            --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
-            --gold-color: #FFD700;
-        }
-        
-        /* Navigation hover effects */
-        .nav-hover:hover {
-            color: #FFD700 !important;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-        }
-        
-        /* Hero area with much darker blue tones */
-        .hero-area {
-            background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Particle.js container */
-        #particles-hero,
-        #particles-performance,
-        #particles-insights {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        /* Rotating atom images */
-        .atom-bg-large {
-            position: absolute;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            width: 300px;
-            height: 300px;
-            animation: rotateAtom 20s linear infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
-            z-index: 1;
-        }
-        
-        .atom-bg-small {
-            position: absolute;
-            top: 50%;
-            right: 15%;
-            transform: translateY(-50%);
-            width: 200px;
-            height: 200px;
-            animation: rotateAtom 15s linear infinite reverse;
-            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
-            z-index: 2;
-        }
-        
-        .main-logo {
-            position: relative;
-            z-index: 3;
-            right: -50px;
-            filter: drop-shadow(0 0 30px rgba(7, 3, 255, 0.4));
-        }
-        
-        @keyframes rotateAtom {
-            from { transform: translateY(-50%) rotate(0deg); }
-            to { transform: translateY(-50%) rotate(360deg); }
-        }
-        
-        /* Glowing text effects */
-        .glow-text {
-            text-shadow: var(--text-glow);
-            animation: pulseGlow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulseGlow {
-            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
-        }
-        
-        /* Modern Cards with uniform height */
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            height: 350px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        
-        .feature-card:hover::before {
-            left: 100%;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgb(197, 152, 3);
-            border-color: var(--glow-color);
-        }
-        
-        /* Modern buttons */
-        .modern-btn {
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 50px;
-            padding: 12px 30px;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .modern-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-            color: white;
-        }
-        
-        /* Floating elements */
-        .floating-element {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        /* Data visualization cards */
-        .crypto-card {
-            background: linear-gradient(145deg, #1e1e2e, #2d2d44);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 0.5rem 0;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .crypto-card:hover {
-            border-color: var(--glow-color);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
-        }
-        
-        /* Performance metrics */
-        .metric-card {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-        }
-        
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: var(--primary-gradient);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: subtract;
-        }
-        
-        /* Scroll to top button with logo and ripple animation */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 215, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .scroll-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-            border-color: rgba(255, 215, 0, 0.6);
-        }
-        
-        .scroll-top img {
-            width: 30px;
-            height: auto;
-            filter: brightness(0) invert(1);
-            animation: logoFloat 2s ease-in-out infinite;
-        }
+/* Modern Futuristic Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
+    --glow-color: #f8d733;
+    --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
+    --gold-color: #FFD700;
+}
 
- /* Ripple animation */
-        .scroll-top::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.3);
-            transform: translate(-50%, -50%);
-            animation: ripple 2s infinite;
-        }
-        
-        @keyframes ripple {
-            0% {
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-            100% {
-                width: 80px;
-                height: 80px;
-                opacity: 0;
-            }
-        }
-        
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
+/* Navigation hover effects */
+.nav-hover:hover {
+    color: #FFD700 !important;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
 
- .scroll-top {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .scroll-top img {
-                width: 24px;
-            }
-        
-        /* Professional live chart styling */
-        .live-chart {
-            background: linear-gradient(145deg, rgba(10, 26, 63, 0.9), rgba(30, 10, 63, 0.9)) !important;
-            border: 2px solid rgba(255, 215, 0, 0.3) !important;
-        }
-        
-        .tradingview-widget-container {
-            background: transparent !important;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-area {
-                text-align: center;
-            }
-            
-            .hero-area h2 {
-                font-size: 2rem !important;
-            }
-            
-            .hero-area h6 {
-                font-size: 1rem !important;
-            }
-            
-            .hero-area .col-md-6:first-child {
-                margin-left: 0 !important;
-                padding-left: 1rem !important;
-                text-align: center;
-            }
-            
-            .hero-slides-thumb {
-                display: flex;
-                justify-content: center !important;
-                align-items: center;
-            }
-            
-            .hero-slides-thumb img {
-                max-width: 250px !important;
-                left: 50% !important;
-            }
-            
-            .nav-brand {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-            }
-            
-            .nav-brand img {
-                width: 200px !important;
-                margin-left: 0 !important;
-            }
-            
-            .classy-navbar {
-                justify-content: center !important;
-            }
-            
-            .feature-card {
-                height: auto !important;
-                min-height: 300px;
-            }
-            
-            .floating-element {
-                display: none;
-            }
-            
-            
-            .scroll-arrow {
-                font-size: 18px;
-            }
-        }
-    </style>
-</head>
+/* Hero area with much darker blue tones - REDUCED TOP PADDING BY 30PX */
+.hero-area {
+    background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(50px - 30px) !important; /* Reduced from 50px to 20px */
+}
 
-<body>
-    <!-- ##### Hero Area Start ##### -->
-<!-- Add this CSS override right after your existing style tag in the hero section -->
-<style>
-    /* Override external CSS max-width limitation for background images */
+/* Particle.js container */
+#particles-hero,
+#particles-performance,
+#particles-insights {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Rotating atom images */
+.atom-bg-large {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    animation: rotateAtom 20s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+    z-index: 1;
+}
+
+.atom-bg-small {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    animation: rotateAtom 15s linear infinite reverse;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+    z-index: 2;
+}
+
+.main-logo {
+    position: relative;
+    z-index: 3;
+    right: -50px;
+    filter: drop-shadow(0 0 30px rgba(7, 3, 255, 0.4));
+}
+ /* Override external CSS max-width limitation for background images */
     .hero-bg-image {
         max-width: none !important;
         width: auto !important;
@@ -449,7 +169,412 @@ img.glow {
         from { transform: translate(-50%, -50%) rotate(0deg); }
         to { transform: translate(-50%, -50%) rotate(-360deg); }
     }
+
+@keyframes rotateAtom {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Glowing text effects */
+.glow-text {
+    text-shadow: var(--text-glow);
+    animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+    to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+}
+
+/* Modern Cards with uniform height */
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgb(197, 152, 3);
+    border-color: var(--glow-color);
+}
+
+/* Modern buttons */
+.modern-btn {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+/* Floating elements */
+.floating-element {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Data visualization cards */
+.crypto-card {
+    background: linear-gradient(145deg, #1e1e2e, #2d2d44);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.crypto-card:hover {
+    border-color: var(--glow-color);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
+}
+
+/* Performance metrics - ADDED HOVER EFFECTS */
+.metric-card {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: var(--primary-gradient);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+}
+
+/* Added sweep effect for metric cards */
+.metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.metric-card:hover::after {
+    left: 100%;
+}
+
+.metric-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(197, 152, 3, 0.3);
+    border-color: var(--glow-color);
+}
+
+/* Scroll to top button with logo and ripple animation */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 215, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.scroll-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.scroll-top img {
+    width: 30px;
+    height: auto;
+    filter: brightness(0) invert(1);
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+/* Ripple animation */
+.scroll-top::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.3);
+    transform: translate(-50%, -50%);
+    animation: ripple 2s infinite;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.scroll-top {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .scroll-top img {
+        width: 24px;
+    }
+
+/* Override external CSS max-width limitation for background images */
+.hero-bg-image {
+    max-width: none !important;
+    width: auto !important;
+}
+
+/* Ensure proper z-index layering and sizing */
+.hero-image-stack {
+    position: relative;
+    height: 500px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* small atom background (furthest back) */
+.atom-bg-large {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    width: 530px !important;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    animation: rotateCounterClockwise 25s linear infinite;
+    filter: drop-shadow(0 0 50px rgba(69, 23, 255, 0.8));
+    object-fit: contain;
+    max-width: none !important;
+}
+
+/* large atom background (middle layer) */
+.atom-bg-small {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    width: 650px !important; 
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    animation: rotateClockwise 18s linear infinite;
+    filter: drop-shadow(0 0 50px rgba(63, 15, 255, 0.8));
+    object-fit: contain;
+    max-width: none !important;
+}
+
+/* Main logo (front layer) - ADDED DEEP DARK BLUE SHADOW */
+.main-logo-front {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    width: 400px !important;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    filter: drop-shadow(0 0 50px rgba(25, 25, 112, 0.9)); /* Deep dark blue shadow */
+    max-width: none !important;
+}
+
+
+/* Rotation animations */
+@keyframes rotateClockwise {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-area {
+        text-align: center;
+        padding-top: calc(30px - 30px) !important; /* Even more reduced for mobile */
+    }
+    
+    .hero-area h2 {
+        font-size: 2rem !important;
+    }
+    
+    .hero-area h6 {
+        font-size: 1rem !important;
+    }
+    
+    .hero-area .col-md-6:first-child {
+        margin-left: 0 !important;
+        padding-left: 1rem !important;
+        text-align: center;
+    }
+    
+    .hero-slides-thumb {
+        display: flex;
+        justify-content: center !important;
+        align-items: center;
+    }
+    
+    .hero-slides-thumb img {
+        max-width: 250px !important;
+        left: 50% !important;
+    }
+    
+    .nav-brand {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .nav-brand img {
+        width: 200px !important;
+        margin-left: 0 !important;
+    }
+    
+    .classy-navbar {
+        justify-content: center !important;
+    }
+    
+    .feature-card {
+        height: auto !important;
+        min-height: 300px;
+    }
+    
+    .floating-element {
+        display: none;
+    }
+    
+    .scroll-arrow {
+        font-size: 18px;
+    }
+    
+    /* .hero-area .col-md-6:first-child {
+        text-align: center !important;
+    } */
+    
+    .hero-area .col-md-6:first-child div[style*="display: flex"] {
+        justify-content: center !important;
+        margin-top: -30px !important;
+    }
+
+    
+    /* MOBILE RESPONSIVE FOR HERO IMAGES - MOVED 100PX UP */
+    .hero-image-stack {
+        height: 300px !important; /* Reduced height for mobile */
+        display: flex;
+        justify-content: center !important;
+        align-items: center;
+        position: relative;
+    }
+
+    /* MOBILE: All images centered, reduced in size, and moved 100px up */
+    .atom-bg-large {
+        display: none;
+        left: 50% !important;
+        width: 280px !important; /* Reduced from 530px */
+        transform: translate(-50%, calc(-50% - 100px)) !important; /* Moved 100px up */
+    }
+
+    .atom-bg-small {
+        display: none;
+        left: 50% !important;
+        width: 350px !important; /* Reduced from 650px */
+        transform: translate(-50%, calc(-50% - 50px)) !important; /* Moved 100px up */
+    }
+
+    .main-logo-front {
+        left: 50% !important;
+        width: 320px !important; 
+        transform: translate(-50%, calc(-50% - 10px)) !important;
+        filter: drop-shadow(0 0 50px rgba(11, 11, 44, 0.9)) !important; /* Deep dark blue shadow */
+    }
+}
 </style>
+</head>
+
+<body>
+ 
+
+
 
 <!--  Hero Section  -->
 <!-- <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #041235 0%, #480a60 100%);"> -->
@@ -498,7 +623,7 @@ img.glow {
                     <img src="/img/bg-img/image2.png" alt="Small Atom" class="hero-bg-image atom-bg-small">
                     
                     <!-- Main logo image (front layer) -->
-                    <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" class="hero-bg-image main-logo-front">
+                    <img src="/img/bg-img/gol2.png" alt="Crypto Investment" class="hero-bg-image main-logo-front">
                 </div>
             </div>
         </div>
@@ -629,7 +754,7 @@ img.glow {
                 <div class="col-12 col-md-6">
                     <div class="about-thumbnail mb-100" style="position: relative;">
                         <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; border: 2px solid var(--glow-color); border-radius: 50%; opacity: 0.3; animation: float 4s ease-in-out infinite;"></div>
-                        <img src="/img/bg-img/about.png" alt="About CDT Index" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);">
+                        <img src="/img/bg-img/cryp.png" alt="About CDT Index" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -705,46 +830,30 @@ img.glow {
     </section>
     <!-- ##### Awards Section End ##### -->
 
-    <!-- ##### Live Chart Section ##### -->
-    <section class="live-chart" id="live-chart" 
-             style="width:95vw; margin:50px auto; padding:30px; 
-                    background: linear-gradient(145deg, rgba(10, 26, 63, 0.95), rgba(30, 10, 63, 0.95)); 
-                    backdrop-filter: blur(20px);
-                    border-radius:20px; 
-                    box-shadow:0 8px 32px rgba(255, 215, 0, 0.15);
-                    border: 2px solid rgba(255, 215, 0, 0.3);">
-        
-        <div class="text-center mb-4">
-            <h3 style="color: #FFD700; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);">Market Overview</h3>
-            <p style="color: rgba(255,255,255,0.9);">Real-time market data and trends</p>
-        </div>
-        
-        <div class="tradingview-widget-container" 
-             style="width:100%; height:auto; overflow:hidden; border-radius: 15px; background: rgba(0,0,0,0.3); padding: 10px;">
-             
-            <div class="tradingview-widget-container__widget"></div>
-            
-            <script type="text/javascript" 
-                    src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-              "symbols": [
-                { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
-                { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
-                { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
-                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
-                { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
-                { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
-              ],
-              "showSymbolLogo": true,
-              "colorTheme": "dark",
-              "isTransparent": false,
-              "displayMode": "adaptive",
-              "locale": "en"
-            }
-            </script>
-        </div>
-    </section>
-
+    <section class="live-chart" id="live-chart">
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" 
+                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+          "symbols": [
+            { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+            { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
+            { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
+            { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+            { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+            { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
+          ],
+          "showSymbolLogo": true,
+          "colorTheme": "dark",
+          "isTransparent": false,
+          "displayMode": "adaptive",
+          "locale": "en"
+        }
+        </script>
+    </div>
+</section>
+   
     <!-- Scroll to Top Button with Logo -->
     <div class="scroll-top" id="scrollTop">
         <img src="/img/core-img/logo_smallbg.png" alt="Scroll to Top">
@@ -913,6 +1022,10 @@ img.glow {
         
     </section>
     <!-- ##### Blog Area End ##### -->
+
+    <!-- contact form starts-->
+     <%- include('partials/contact') %>
+    <!-- contact form ends -->
 
     <!-- ##### Call to Action Section ##### -->
     <section style="background: var(--primary-gradient); padding: 80px 0;">
