@@ -15,6 +15,7 @@
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
 
@@ -304,26 +305,296 @@
         }
     </style>
 
-    <!-- ##### Hero Area Start ##### -->
-    <section class="hero-area" style="min-height: 70vh; display: flex; align-items: center; position: relative; overflow: hidden; background-image: url('/img/web-img/image.png');">
-        <div id="particles-hero"></div>
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 text-center" style="z-index: 10; position: relative;">
-                    <h2 style="font-size: 3.5rem; font-weight: 700; color: white; margin-bottom: 1.5rem;">
-                        Our <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Services</span>
-                    </h2>
-                    <h6 style="font-size: 1.25rem; color: rgba(255,255,255,0.9); line-height: 1.8; max-width: 700px; margin: 0 auto;">
-                        CDT Index provides professionally managed crypto index funds and institutional-grade investment solutions.
-                    </h6>
-                </div>
+  <!-- ##### Hero Area Start ##### -->
+<section class="hero-area" style="min-height: 50vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #041235 0%, #0F0525 100%);">
+    <div class="hero-container">
+        <div class="hero-content-wrapper">
+            <div class="hero-text-content">
+                <h2>Our <span style="color: rgb(214, 161, 13);">Services</span></h2>
+                <h6>CDT Index provides crypto index funds and market insights designed for professional digital asset management.</h6>
+            </div>
+            
+            <div class="hero-abstract-effects">
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="hex-pattern"></div>
+                <div class="hex-pattern"></div>
+                <div class="animated-line"></div>
+                <div class="animated-line"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<style>
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    min-height: 300px;
+}
+
+.hero-text-content {
+    padding-right: 2rem;
+    transform: translateX(-80px);
+}
+
+.hero-area h2 {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero-area h6 {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Abstract Effects Container */
+.hero-abstract-effects {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Floating geometric shapes */
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.1);
+    backdrop-filter: blur(10px);
+    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.floating-shape:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 10%;
+    right: 20%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -2s;
+}
+
+.floating-shape:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    top: 30%;
+    right: 50%;
+    animation-delay: -4s;
+}
+
+/* Gradient orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.gradient-orb:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+    top: 5%;
+    right: 15%;
+    animation-delay: 0s;
+}
+
+.gradient-orb:nth-child(5) {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(102,126,234,0.4) 0%, transparent 70%);
+    bottom: 10%;
+    right: 30%;
+    animation-delay: -3s;
+}
+
+/* Hexagonal patterns */
+.hex-pattern {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 215, 0, 0.05);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: rotate 20s linear infinite;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.hex-pattern:nth-child(6) {
+    top: 20%;
+    right: 40%;
+    animation-delay: 0s;
+}
+
+.hex-pattern:nth-child(7) {
+    bottom: 20%;
+    right: 60%;
+    animation-delay: -10s;
+}
+
+/* Animated lines */
+.animated-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+    animation: slide 4s ease-in-out infinite;
+}
+
+.animated-line:nth-child(8) {
+    width: 150px;
+    top: 40%;
+    right: 25%;
+    animation-delay: 0s;
+}
+
+.animated-line:nth-child(9) {
+    width: 100px;
+    bottom: 30%;
+    right: 45%;
+    animation-delay: -2s;
+}
+
+/* Additional gradient orbs */
+.gradient-orb:nth-child(10) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
+    top: -5%;
+    right: 35%;
+    animation-delay: -1s;
+    filter: blur(60px);
+}
+
+.gradient-orb:nth-child(11) {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
+    bottom: -10%;
+    right: 5%;
+    animation-delay: -5s;
+    filter: blur(50px);
+}
+
+.gradient-orb:nth-child(12) {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,215,0,0.25) 0%, transparent 70%);
+    top: 15%;
+    right: -5%;
+    animation-delay: -2s;
+    filter: blur(45px);
+}
+
+.gradient-orb:nth-child(13) {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%);
+    bottom: 15%;
+    right: -8%;
+    animation-delay: -4s;
+    filter: blur(55px);
+}
+
+/* Keyframe animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slide {
+    0%, 100% { transform: translateX(-100px); opacity: 0; }
+    50% { transform: translateX(0px); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .hero-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero-text-content {
+        padding-right: 0;
+        transform: translateX(0);
+    }
+
+    .hero-abstract-effects {
+        display: none;
+    }
+
+    .hero-area h2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-area h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-area h6 {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .hero-area {
+        min-height: 40vh !important;
+    }
+}
+</style>
+
     <!-- ##### Hero Area End ##### -->
 
-    <!-- ##### Flagship Funds Section Start ##### -->
-    <section class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); position: relative;">
+
+
+
+<!-- ##### Flagship Funds Section Start ##### -->
+   <!-- ##### Flagship Funds Section Start ##### -->
+    <section class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); position: relative; padding-bottom: 120px;">
         <div id="particles-funds"></div>
         <div class="container-fluid" style="position: relative; z-index: 10;">
             <div class="row">
@@ -340,141 +611,642 @@
             </div>
             
             <div class="row">
-                <!-- CDT Growth Fund -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="fund-card mb-100">
-                        <div>
-                            <div class="fund-header">
-                                <h4 class="fund-name">CDT Growth Fund</h4>
-                                <p class="fund-tagline">Focused on high-growth digital assets.</p>
-                            </div>
-                            
-                            <p class="fund-description">
-                                Capture upside from leading cryptocurrencies through concentrated exposure to top performers.
-                            </p>
-                            
-                            <div class="fund-details">
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Objective:</span>
-                                    <span class="fund-detail-value">Capture upside potential</span>
+                <% if (error) { %>
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center" style="background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); color: #ffc107; border-radius: 10px; padding: 2rem; margin-bottom: 3rem;">
+                            <%= error %>
+                        </div>
+                    </div>
+                <% } else if (funds && funds.length > 0) { %>
+                    <% funds.forEach(function(fund, index) { %>
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <div class="fund-card mb-60">
+                                <div class="fund-icon-wrapper">
+                                    <div class="fund-icon 
+                                        <%= fund.name.includes('Growth') ? 'growth-icon' : '' %>
+                                        <%= fund.name.includes('Balanced') ? 'balanced-icon' : '' %>
+                                        <%= fund.name.includes('Pioneer') ? 'pioneer-icon' : '' %>
+                                        <%= fund.name.includes('AmanRC') ? 'amanrc-icon' : '' %>">
+                                        <i class="
+                                            <%= fund.name.includes('Growth') ? 'fas fa-chart-line' : '' %>
+                                            <%= fund.name.includes('Balanced') ? 'fas fa-balance-scale' : '' %>
+                                            <%= fund.name.includes('Pioneer') ? 'fas fa-rocket' : '' %>
+                                            <%= fund.name.includes('AmanRC') ? 'fas fa-crown' : '' %>
+                                        "></i>
+                                    </div>
                                 </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Strategy:</span>
-                                    <span class="fund-detail-value">Concentrated exposure</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Risk Level:</span>
-                                    <span class="risk-level risk-aggressive">Aggressive</span>
+                                
+                                <div class="fund-content">
+                                    <div class="fund-header">
+                                        <h4 class="fund-name"><%= fund.name %></h4>
+                                        <p class="fund-tagline"><%= fund.summary %></p>
+                                    </div>
+                                    
+                                    <div class="fund-stats">
+                                        <div class="stat-row">
+                                            <span class="stat-label">Current NAV:</span>
+                                            <span class="stat-value">$<%= fund.currentNAVFromDB.toFixed(4) %></span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Inception NAV:</span>
+                                            <span class="stat-value">$<%= fund.inceptionNAV.toFixed(2) %></span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Total Return:</span>
+                                            <span class="stat-value <%= fund.totalReturnFromDB >= 0 ? 'positive' : 'negative' %>">
+                                                <%= fund.totalReturnFromDB >= 0 ? '+' : '' %><%= fund.totalReturnFromDB.toFixed(2) %>%
+                                            </span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Composition:</span>
+                                            <span class="stat-value composition-text">
+                                                <% fund.composition.slice(0, 2).forEach(function(coin, i) { %>
+                                                    <%= coin.symbol %> <%= (coin.weight * 100).toFixed(0) %>%<%= i < 1 && fund.composition.length > 2 ? ', ' : '' %>
+                                                <% }); %>
+                                                <% if (fund.composition.length > 2) { %> +<%= fund.composition.length - 2 %> more<% } %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="view-details-btn" onclick="openFundModal('<%= fund.symbol %>')">
+                                        View Details
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        
-                        <a href="/funds/growth" class="modern-btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- CDT Balanced Fund -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="fund-card mb-100">
-                        <div>
-                            <div class="fund-header">
-                                <h4 class="fund-name">CDT Balanced Fund</h4>
-                                <p class="fund-tagline">Diversified mix of growth and stability.</p>
-                            </div>
-                            
-                            <p class="fund-description">
-                                Blend growth with risk control through balanced allocation between volatile and stable assets.
-                            </p>
-                            
-                            <div class="fund-details">
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Objective:</span>
-                                    <span class="fund-detail-value">Blend growth with control</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Strategy:</span>
-                                    <span class="fund-detail-value">Balanced allocation</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Risk Level:</span>
-                                    <span class="risk-level risk-moderate">Moderate</span>
-                                </div>
-                            </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-12">
+                        <div class="alert alert-info text-center" style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); color: #667eea; border-radius: 10px; padding: 2rem; margin-bottom: 3rem;">
+                            No funds are currently available.
                         </div>
-                        
-                        <a href="/funds/balanced" class="modern-btn">View Details</a>
                     </div>
-                </div>
-
-                <!-- CDT Income Fund -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="fund-card mb-100">
-                        <div>
-                            <div class="fund-header">
-                                <h4 class="fund-name">CDT Income Fund</h4>
-                                <p class="fund-tagline">Yield-focused strategy for steady returns.</p>
-                            </div>
-                            
-                            <p class="fund-description">
-                                Generate consistent income through allocation to yield-bearing crypto assets.
-                            </p>
-                            
-                            <div class="fund-details">
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Objective:</span>
-                                    <span class="fund-detail-value">Generate consistent income</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Strategy:</span>
-                                    <span class="fund-detail-value">Yield-bearing assets</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Risk Level:</span>
-                                    <span class="risk-level risk-conservative">Conservative</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <a href="/funds/income" class="modern-btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- CDT Innovation Fund -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="fund-card mb-100">
-                        <div>
-                            <div class="fund-header">
-                                <h4 class="fund-name">CDT Innovation Fund</h4>
-                                <p class="fund-tagline">Exposure to emerging blockchain projects.</p>
-                            </div>
-                            
-                            <p class="fund-description">
-                                Invest in the future of blockchain innovation through exposure to new tokens, protocols, and early-stage opportunities.
-                            </p>
-                            
-                            <div class="fund-details">
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Objective:</span>
-                                    <span class="fund-detail-value">Future of blockchain</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Strategy:</span>
-                                    <span class="fund-detail-value">Early-stage opportunities</span>
-                                </div>
-                                <div class="fund-detail">
-                                    <span class="fund-detail-label">Risk Level:</span>
-                                    <span class="risk-level risk-high">High</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <a href="/funds/innovation" class="modern-btn">View Details</a>
-                    </div>
+                <% } %>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="row">
+                <div class="col-12 text-center" style="margin-top: 4rem;">
+                    <a href="/funds" class="explore-funds-btn">
+                        Explore All Our Funds
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Fund Modal -->
+    <div id="fundModal" class="fund-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalFundName"></h3>
+                <button class="modal-close" onclick="closeFundModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-fund-overview">
+                    <div class="overview-section">
+                        <h5>Fund Summary</h5>
+                        <p id="modalFundSummary"></p>
+                    </div>
+                    <div class="overview-section">
+                        <h5>Description</h5>
+                        <p id="modalFundDescription"></p>
+                    </div>
+                </div>
+                
+                <div class="modal-stats-grid">
+                    <div class="modal-stat-item">
+                        <span class="modal-stat-label">Current NAV</span>
+                        <span class="modal-stat-value" id="modalCurrentNAV"></span>
+                    </div>
+                    <div class="modal-stat-item">
+                        <span class="modal-stat-label">Inception NAV</span>
+                        <span class="modal-stat-value" id="modalInceptionNAV"></span>
+                    </div>
+                    <div class="modal-stat-item">
+                        <span class="modal-stat-label">Total Return</span>
+                        <span class="modal-stat-value" id="modalTotalReturn"></span>
+                    </div>
+                    <div class="modal-stat-item">
+                        <span class="modal-stat-label">Risk Level</span>
+                        <span class="modal-stat-value" id="modalRiskLevel"></span>
+                    </div>
+                </div>
+                
+                <div class="modal-composition">
+                    <h5>Complete Fund Composition</h5>
+                    <div id="modalCompositionGrid" class="composition-grid"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="modalFundLink" class="modal-fund-btn">Go to Fund Page</a>
+            </div>
+        </div>
+    </div>
     <!-- ##### Flagship Funds Section End ##### -->
+
+    <style>
+        /* Enhanced Fund Cards */
+        .fund-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fund-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .fund-card:hover::before {
+            left: 100%;
+        }
+
+        .fund-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .fund-icon-wrapper {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .fund-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.8rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .fund-card:hover .fund-icon {
+            transform: scale(1.1);
+        }
+
+        .growth-icon {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            box-shadow: 0 8px 32px rgba(34, 197, 94, 0.3);
+        }
+
+        .balanced-icon {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.3);
+        }
+
+        .pioneer-icon {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+        }
+
+        .amanrc-icon {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+
+        .fund-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fund-header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .fund-name {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .fund-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .fund-stats {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            flex: 1;
+        }
+
+        .stat-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: right;
+            flex: 1;
+        }
+
+        .stat-value.positive {
+            color: #4ade80;
+        }
+
+        .stat-value.negative {
+            color: #f87171;
+        }
+
+        .composition-text {
+            font-size: 0.8rem !important;
+        }
+
+        .view-details-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .view-details-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+       .explore-funds-btn {
+    background: #d4a900;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 40px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.explore-funds-btn:hover {
+    background: #b8950a;
+    color: white;
+    text-decoration: none;
+}
+
+        /* Modal Styles */
+        .fund-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fund-modal.show {
+            display: flex;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            max-width: 650px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 10;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-fund-overview {
+            margin-bottom: 2rem;
+        }
+
+        .overview-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .overview-section h5 {
+            color: #ffd700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .overview-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .modal-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .modal-stat-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-stat-value {
+            display: block;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .modal-composition h5 {
+            color: #ffd700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .composition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 1rem;
+        }
+
+        .composition-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .crypto-symbol {
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .crypto-weight {
+            color: #ffd700;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            padding: 1rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .modal-fund-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .modal-fund-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .fund-card {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fund-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .fund-name {
+                font-size: 1.2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                padding: 1.5rem;
+            }
+
+            .modal-stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .composition-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fund-icon-wrapper {
+                padding: 1.5rem 1.5rem 1rem;
+            }
+
+            .fund-content {
+                padding: 0 1.5rem 1.5rem;
+            }
+
+            .modal-stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        // Store fund data for modal
+        const fundData = <%- JSON.stringify(funds) %>;
+
+        function openFundModal(fundSymbol) {
+            // Find fund by symbol
+            const fund = fundData.find(f => f.symbol === fundSymbol);
+            if (!fund) return;
+
+            // Populate modal content
+            document.getElementById('modalFundName').textContent = fund.name;
+            document.getElementById('modalFundSummary').textContent = fund.summary;
+            document.getElementById('modalFundDescription').textContent = fund.description;
+            document.getElementById('modalCurrentNAV').textContent = '$' + fund.currentNAVFromDB.toFixed(4);
+            document.getElementById('modalInceptionNAV').textContent = '$' + fund.inceptionNAV.toFixed(2);
+            
+            const totalReturnElement = document.getElementById('modalTotalReturn');
+            const returnValue = fund.totalReturnFromDB.toFixed(2);
+            totalReturnElement.textContent = (fund.totalReturnFromDB >= 0 ? '+' : '') + returnValue + '%';
+            totalReturnElement.style.color = fund.totalReturnFromDB >= 0 ? '#4ade80' : '#f87171';
+            
+            document.getElementById('modalRiskLevel').textContent = fund.riskLevel;
+            document.getElementById('modalFundLink').href = '/funds/' + fund.slug;
+
+            // Populate composition
+            const compositionContainer = document.getElementById('modalCompositionGrid');
+            compositionContainer.innerHTML = '';
+            fund.composition.forEach(coin => {
+                const item = document.createElement('div');
+                item.className = 'composition-item';
+                item.innerHTML = `
+                    <span class="crypto-symbol">${coin.symbol}</span>
+                    <span class="crypto-weight">${(coin.weight * 100).toFixed(0)}%</span>
+                `;
+                compositionContainer.appendChild(item);
+            });
+
+            // Show modal
+            const modal = document.getElementById('fundModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFundModal() {
+            const modal = document.getElementById('fundModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on backdrop click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-backdrop')) {
+                closeFundModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFundModal();
+            }
+        });
+    </script>
+
+    <!-- fund area ends -->
 
     <!-- ##### Additional Services Section Start ##### -->
     <section class="cryptos-about-area section-padding-100-0" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%); position: relative;">

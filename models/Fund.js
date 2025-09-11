@@ -54,7 +54,7 @@ const fundSchema = new mongoose.Schema({
     riskLevel: {
         type: String,
         required: true,
-        enum: ['Conservative Growth', 'Stable Growth', 'High Risk Alternative', 'Premium Diversified']
+        enum: ['Moderate', 'Balanced', 'High', 'Moderate']
     },
     riskIcon: {
         type: String,
