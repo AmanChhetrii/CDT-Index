@@ -590,10 +590,119 @@
     <!-- ##### Hero Area End ##### -->
 
 
+    <!-- services section starts -->
+     <!-- ##### Core Services Section Start ##### -->
+<section class="core-services-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); position: relative;">
+    <div id="particles-core-services"></div>
+    <div class="container" style="position: relative; z-index: 10;">
+        <h1 style="text-align: center; margin-bottom: 35px; color: white; font-size: 3.2rem;">Investment Solutions</h1>
+        <div class="row">
+            <!-- Crypto Index Funds -->
+            <div class="col-12 col-lg-4">
+                
+                <div class="service-feature-card mb-100">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-chart-line" style="font-size: 2.5rem; color: var(--glow-color);"></i>
+                    </div>
+                    <h4 style="color: white; font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem;">Crypto Index Funds</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 0;">
+                        Access and invest in our professionally designed, diversified portfolios. Expert management with strategic asset allocation and rebalancing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fund Insights -->
+            <div class="col-12 col-lg-4">
+                <div class="service-feature-card mb-100">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-chart-bar" style="font-size: 2.5rem; color: var(--glow-color);"></i>
+                    </div>
+                    <h4 style="color: white; font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem;">Fund Insights</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 0;">
+                        Transparent performance tracking, historical NAV data, and market snapshots. Comprehensive analytics for informed investment decisions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Investor Dashboard -->
+            <div class="col-12 col-lg-4">
+                <div class="service-feature-card mb-100">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-tachometer-alt" style="font-size: 2.5rem; color: var(--glow-color);"></i>
+                    </div>
+                    <h4 style="color: white; font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem;">Investor Dashboard</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 0;">
+                        A secure portal to view your holdings, track performance, and explore available funds. Real-time portfolio monitoring and insights.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Core Services Styling - Enhanced */
+.service-feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.service-feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(248, 215, 51, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.service-feature-card:hover::before {
+    left: 100%;
+}
+
+.service-feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(248, 215, 51, 0.3);
+    border-color: rgba(248, 215, 51, 0.5);
+}
+
+.service-icon-wrapper {
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.service-feature-card:hover .service-icon-wrapper {
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-feature-card {
+        height: auto;
+        min-height: 250px;
+        margin-bottom: 2rem;
+    }
+}
+</style>
+    <!-- services section ends  -->
 
 
 <!-- ##### Flagship Funds Section Start ##### -->
-   <!-- ##### Flagship Funds Section Start ##### -->
+  
     <section class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); position: relative; padding-bottom: 120px;">
         <div id="particles-funds"></div>
         <div class="container-fluid" style="position: relative; z-index: 10;">
@@ -668,9 +777,7 @@
                                         </div>
                                     </div>
                                     
-                                    <button class="view-details-btn" onclick="openFundModal('<%= fund.symbol %>')">
-                                        View Details
-                                    </button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -684,7 +791,7 @@
                 <% } %>
             </div>
             
-            <!-- Call to Action -->
+            
             <div class="row">
                 <div class="col-12 text-center" style="margin-top: 4rem;">
                     <a href="/funds" class="explore-funds-btn">
@@ -695,57 +802,7 @@
         </div>
     </section>
 
-    <!-- Fund Modal -->
-    <div id="fundModal" class="fund-modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalFundName"></h3>
-                <button class="modal-close" onclick="closeFundModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-fund-overview">
-                    <div class="overview-section">
-                        <h5>Fund Summary</h5>
-                        <p id="modalFundSummary"></p>
-                    </div>
-                    <div class="overview-section">
-                        <h5>Description</h5>
-                        <p id="modalFundDescription"></p>
-                    </div>
-                </div>
-                
-                <div class="modal-stats-grid">
-                    <div class="modal-stat-item">
-                        <span class="modal-stat-label">Current NAV</span>
-                        <span class="modal-stat-value" id="modalCurrentNAV"></span>
-                    </div>
-                    <div class="modal-stat-item">
-                        <span class="modal-stat-label">Inception NAV</span>
-                        <span class="modal-stat-value" id="modalInceptionNAV"></span>
-                    </div>
-                    <div class="modal-stat-item">
-                        <span class="modal-stat-label">Total Return</span>
-                        <span class="modal-stat-value" id="modalTotalReturn"></span>
-                    </div>
-                    <div class="modal-stat-item">
-                        <span class="modal-stat-label">Risk Level</span>
-                        <span class="modal-stat-value" id="modalRiskLevel"></span>
-                    </div>
-                </div>
-                
-                <div class="modal-composition">
-                    <h5>Complete Fund Composition</h5>
-                    <div id="modalCompositionGrid" class="composition-grid"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#" id="modalFundLink" class="modal-fund-btn">Go to Fund Page</a>
-            </div>
-        </div>
-    </div>
+    
     <!-- ##### Flagship Funds Section End ##### -->
 
     <style>
@@ -896,25 +953,8 @@
             font-size: 0.8rem !important;
         }
 
-        .view-details-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
 
-        .view-details-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-       .explore-funds-btn {
+   .explore-funds-btn {
     background: #d4a900;
     border: none;
     border-radius: 50px;
@@ -924,211 +964,16 @@
     font-size: 1.1rem;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .explore-funds-btn:hover {
-    background: #b8950a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0.2);
     color: white;
+    font-weight: 700;
     text-decoration: none;
 }
-
-        /* Modal Styles */
-        .fund-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fund-modal.show {
-            display: flex;
-        }
-
-        .modal-backdrop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            max-width: 650px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            z-index: 10;
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-header {
-            padding: 2rem 2rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            color: white;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .modal-close {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .modal-fund-overview {
-            margin-bottom: 2rem;
-        }
-
-        .overview-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .overview-section h5 {
-            color: #ffd700;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .overview-section p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .modal-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .modal-stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.25rem;
-            text-align: center;
-        }
-
-        .modal-stat-label {
-            display: block;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-stat-value {
-            display: block;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .modal-composition h5 {
-            color: #ffd700;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .composition-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 1rem;
-        }
-
-        .composition-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .crypto-symbol {
-            color: white;
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .crypto-weight {
-            color: #ffd700;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .modal-footer {
-            padding: 1rem 2rem 2rem;
-            text-align: center;
-        }
-
-        .modal-fund-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .modal-fund-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-            color: white;
-            text-decoration: none;
-        }
-
         /* Responsive Design */
         @media (max-width: 1200px) {
             .fund-card {
@@ -1146,22 +991,6 @@
             .fund-name {
                 font-size: 1.2rem;
             }
-
-            .modal-content {
-                width: 95%;
-                margin: 1rem;
-            }
-
-            .modal-header,
-            .modal-body,
-            .modal-footer {
-                padding: 1.5rem;
-            }
-
-            .modal-stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .composition-grid {
                 grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             }
@@ -1175,152 +1004,679 @@
             .fund-content {
                 padding: 0 1.5rem 1.5rem;
             }
-
-            .modal-stats-grid {
-                grid-template-columns: 1fr;
-            }
         }
+
+        
+       @media (max-width: 768px) {
+    .fund-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .fund-name {
+        font-size: 1.2rem;
+    }
+    
+    .fund-card {
+        margin-bottom: 3rem;
+        transform: scale(0.95); /* Slightly smaller cards */
+    }
+    
+    .fund-icon-wrapper {
+        padding: 1.8rem 1.8rem 0.8rem; /* Reduced padding */
+    }
+
+    .fund-content {
+        padding: 0 1.8rem 1.8rem; /* Reduced padding */
+    }
+    
+    .col-12.col-md-6.col-xl-3 {
+        margin-bottom: 3rem;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .composition-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .fund-card {
+        margin-bottom: 3.5rem;
+        transform: scale(0.92); /* Even smaller on very small screens */
+    }
+    
+    .fund-icon-wrapper {
+        padding: 1.5rem 1.5rem 0.8rem;
+    }
+
+    .fund-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    .col-12.col-md-6.col-xl-3 {
+        margin-bottom: 3.5rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fund-card {
+        margin-bottom: 4rem;
+        transform: scale(0.9); /* Smallest scale for tiny screens */
+    }
+    
+    .fund-icon-wrapper {
+        padding: 1.3rem 1.3rem 0.8rem;
+    }
+
+    .fund-content {
+        padding: 0 1.3rem 1.3rem;
+    }
+    
+    .col-12.col-md-6.col-xl-3 {
+        margin-bottom: 4rem;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+} 
     </style>
 
-    <script>
-        // Store fund data for modal
-        const fundData = <%- JSON.stringify(funds) %>;
-
-        function openFundModal(fundSymbol) {
-            // Find fund by symbol
-            const fund = fundData.find(f => f.symbol === fundSymbol);
-            if (!fund) return;
-
-            // Populate modal content
-            document.getElementById('modalFundName').textContent = fund.name;
-            document.getElementById('modalFundSummary').textContent = fund.summary;
-            document.getElementById('modalFundDescription').textContent = fund.description;
-            document.getElementById('modalCurrentNAV').textContent = '$' + fund.currentNAVFromDB.toFixed(4);
-            document.getElementById('modalInceptionNAV').textContent = '$' + fund.inceptionNAV.toFixed(2);
-            
-            const totalReturnElement = document.getElementById('modalTotalReturn');
-            const returnValue = fund.totalReturnFromDB.toFixed(2);
-            totalReturnElement.textContent = (fund.totalReturnFromDB >= 0 ? '+' : '') + returnValue + '%';
-            totalReturnElement.style.color = fund.totalReturnFromDB >= 0 ? '#4ade80' : '#f87171';
-            
-            document.getElementById('modalRiskLevel').textContent = fund.riskLevel;
-            document.getElementById('modalFundLink').href = '/funds/' + fund.slug;
-
-            // Populate composition
-            const compositionContainer = document.getElementById('modalCompositionGrid');
-            compositionContainer.innerHTML = '';
-            fund.composition.forEach(coin => {
-                const item = document.createElement('div');
-                item.className = 'composition-item';
-                item.innerHTML = `
-                    <span class="crypto-symbol">${coin.symbol}</span>
-                    <span class="crypto-weight">${(coin.weight * 100).toFixed(0)}%</span>
-                `;
-                compositionContainer.appendChild(item);
-            });
-
-            // Show modal
-            const modal = document.getElementById('fundModal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeFundModal() {
-            const modal = document.getElementById('fundModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on backdrop click
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-backdrop')) {
-                closeFundModal();
-            }
-        });
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeFundModal();
-            }
-        });
-    </script>
-
+   
     <!-- fund area ends -->
 
-    <!-- ##### Additional Services Section Start ##### -->
-    <section class="cryptos-about-area section-padding-100-0" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%); position: relative;">
-        <div id="particles-services"></div>
-        <div class="container" style="position: relative; z-index: 10;">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto" style="margin-bottom: 4rem;">
-                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
-                            Beyond <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Index Funds</span>
-                        </h3>
-                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
-                            Comprehensive investment solutions and advisory services for institutional and individual clients.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row" style="padding-bottom: 50px;">
-                <!-- Portfolio Advisory -->
-                <div class="col-12 col-lg-4">
-                    <div class="service-card mb-100">
-                        <div class="service-icon">
-                            <i class="icon-chart"></i>
-                        </div>
-                        <h4 class="service-title">Portfolio Advisory</h4>
-                        <p class="service-description">
-                            Tailored investment strategies designed to meet client financial goals through personalized portfolio construction and ongoing management.
-                        </p>
-                        <a href="/services/advisory" class="service-link">Learn More</a>
-                    </div>
-                </div>
+    
+   <!-- ##### Premium Services Section Start ##### -->
+<section class="premium-services-area section-padding-100-0" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); position: relative;">
+    <div id="particles-premium-services"></div>
+    <div class="container" style="position: relative; z-index: 10;">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center mx-auto" style="margin-bottom: 4rem;">
+                    <h3 style="font-size: 3rem; color: white; margin-bottom: 1rem;">
+                        Exclusive <span style="background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Services</span>
+                    </h3>
+                    <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">For Premium Members</p>
 
-                <!-- Risk Management Tools -->
-                <div class="col-12 col-lg-4">
-                    <div class="service-card mb-100">
-                        <div class="service-icon">
-                            <i class="icon-shield"></i>
-                        </div>
-                        <h4 class="service-title">Risk Management Tools</h4>
-                        <p class="service-description">
-                            Advanced portfolio analytics and downside protection strategies to help manage volatility and preserve capital during market downturns.
-                        </p>
-                        <a href="/services/risk-management" class="service-link">Learn More</a>
-                    </div>
-                </div>
-
-                <!-- Research & Insights -->
-                <div class="col-12 col-lg-4">
-                    <div class="service-card mb-100">
-                        <div class="service-icon">
-                            <i class="icon-search"></i>
-                        </div>
-                        <h4 class="service-title">Research & Insights</h4>
-                        <p class="service-description">
-                            Institutional-grade crypto market research and intelligence reports providing deep analysis of market trends and investment opportunities.
-                        </p>
-                        <a href="/services/research" class="service-link">Learn More</a>
-                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Floating shapes scattered -->
-        <div class="floating-element" style="position: absolute; top: 20%; left: 10%; width: 30px; height: 30px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-        <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 25px; height: 25px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-        <div class="floating-element" style="position: absolute; bottom: 30%; left: 20%; width: 35px; height: 35px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-        <div class="floating-element" style="position: absolute; top: 40%; right: 80%; width: 28px; height: 28px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-    </section>
+        <div class="row">
+            <!-- Portfolio Consulting -->
+            <div class="col-12 col-lg-4">
+                <div class="premium-card mb-100 text-center">
+                    <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4 style="color: white; margin-bottom: 1.5rem; font-size: 1.3rem; font-weight: 600;">Portfolio Consulting</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                        Expert guidance to align investments with personal financial goals. One-on-one consultations with experienced fund managers.
+                    </p>
+                </div>
+            </div>
 
+            <!-- Dedicated Support Team -->
+            <div class="col-12 col-lg-4">
+                <div class="premium-card mb-100 text-center">
+                    <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4 style="color: white; margin-bottom: 1.5rem; font-size: 1.3rem; font-weight: 600;">Dedicated Support Team</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                        Ongoing professional support and portfolio oversight from our team of experienced fund managers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Custom Funds -->
+            <div class="col-12 col-lg-4">
+                <div class="premium-card mb-100 text-center coming-soon-card" style="position: relative;">
+                    <!-- Coming Soon Badge - More Visible -->
+                    <div class="coming-soon-badge">
+                        Coming Soon
+                    </div>
+                    <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h4 style="color: white; margin-bottom: 1.5rem; font-size: 1.3rem; font-weight: 600;">Custom Funds</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                        Build a personalized crypto portfolio with chosen assets and weightages tailored to your investment preferences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Premium Cards Styling - Enhanced */
+.premium-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.premium-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(248, 215, 51, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.premium-card:hover::before {
+    left: 100%;
+}
+
+.premium-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(248, 215, 51, 0.3);
+    border-color: rgba(248, 215, 51, 0.5);
+}
+
+/* Coming Soon Badge - More Visible */
+.coming-soon-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #71ab90 0%, #5f67d6 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(34, 111, 171, 0.4);
+    z-index: 10;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(89, 232, 184, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(152, 144, 152, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+.coming-soon-card {
+    opacity: 0.9;
+    border: 1px solid rgba(73, 170, 128, 0.2);
+}
+
+.coming-soon-card:hover {
+    border-color: rgba(78, 175, 111, 0.4);
+    box-shadow: 0 20px 40px rgba(85, 147, 85, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .premium-card {
+        height: auto;
+        min-height: 300px;
+        margin-bottom: 2rem;
+    }
+    
+    .section-heading h3 {
+        font-size: 2rem !important;
+    }
+}
+</style>
     <!-- contact us -->
      <%- include('partials/contact') %>
     <!-- contact us ends -->
 
+<!-- action -->
+ <style>
+/* Call to Action Section Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Modern buttons - simplified hover effects */
+.modern-btn {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.modern-btn:hover {
+    transform: translateY(-3px);
+    color: white;
+    text-decoration: none;
+}
+
+/* CTA specific button styles */
+.cta-btn-primary {
+    background: white;
+    color: #667eea;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.cta-btn-primary:hover {
+    transform: translateY(-3px);
+    color: #667eea;
+    text-decoration: none;
+}
+
+.cta-btn-secondary {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.cta-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    color: white;
+    text-decoration: none;
+}
+
+/* Button container styles */
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Main CTA Section Layout */
+.cta-section {
+    background: var(--primary-gradient);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.cta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    min-height: 400px;
+}
+
+.cta-text-content {
+    padding-right: 2rem;
+    transform: translateX(-80px);
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.cta-section p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/* Abstract Effects Container */
+.cta-abstract-effects {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Floating geometric shapes */
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 10%;
+    right: 20%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -2s;
+}
+
+.floating-shape:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    top: 30%;
+    right: 50%;
+    animation-delay: -4s;
+}
+
+/* Gradient orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.gradient-orb:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    top: 5%;
+    right: 15%;
+    animation-delay: 0s;
+}
+
+.gradient-orb:nth-child(5) {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(118,75,162,0.4) 0%, transparent 70%);
+    bottom: 10%;
+    right: 30%;
+    animation-delay: -3s;
+}
+
+/* Hexagonal patterns */
+.hex-pattern {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: rotate 20s linear infinite;
+}
+
+.hex-pattern:nth-child(6) {
+    top: 20%;
+    right: 40%;
+    animation-delay: 0s;
+}
+
+.hex-pattern:nth-child(7) {
+    bottom: 20%;
+    right: 60%;
+    animation-delay: -10s;
+}
+
+/* Animated lines */
+.animated-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: slide 4s ease-in-out infinite;
+}
+
+.animated-line:nth-child(8) {
+    width: 150px;
+    top: 40%;
+    right: 25%;
+    animation-delay: 0s;
+}
+
+.animated-line:nth-child(9) {
+    width: 100px;
+    bottom: 30%;
+    right: 45%;
+    animation-delay: -2s;
+}
+
+/* Additional gradient orbs */
+.gradient-orb:nth-child(10) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    top: -5%;
+    right: 35%;
+    animation-delay: -1s;
+    filter: blur(60px);
+}
+
+.gradient-orb:nth-child(11) {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
+    bottom: -10%;
+    right: 5%;
+    animation-delay: -5s;
+    filter: blur(50px);
+}
+
+/* New abstract circles on extreme right */
+.gradient-orb:nth-child(12) {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+    top: 15%;
+    right: -5%;
+    animation-delay: -2s;
+    filter: blur(45px);
+}
+
+.gradient-orb:nth-child(13) {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(118,75,162,0.3) 0%, transparent 70%);
+    bottom: 15%;
+    right: -8%;
+    animation-delay: -4s;
+    filter: blur(55px);
+}
+
+/* Keyframe animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slide {
+    0%, 100% { transform: translateX(-100px); opacity: 0; }
+    50% { transform: translateX(0px); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .cta-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .cta-text-content {
+        padding-right: 0;
+        transform: translateX(0);
+    }
+
+    .cta-abstract-effects {
+        display: none;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+        white-space: normal;
+    }
+    
+    .cta-section p {
+        font-size: 1rem;
+    }
+
+    .cta-section {
+        padding: 60px 0;
+    }
+}
+</style>
+
+<!-- ##### Call to Action Section ##### -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content-wrapper">
+            <div class="cta-text-content">
+                <h2>Ready to Invest?</h2>
+                <p>Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.</p>
+                <div class="cta-buttons">
+                    <a href="/signup" class="btn modern-btn cta-btn-primary">
+                        Get Started
+                    </a>
+                    
+                </div>
+            </div>
+            
+            <div class="cta-abstract-effects">
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="hex-pattern"></div>
+                <div class="hex-pattern"></div>
+                <div class="animated-line"></div>
+                <div class="animated-line"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+                <div class="gradient-orb"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+// Call to Action section specific JavaScript
+(function() {
+    // Enhanced button interactions
+    function enhanceButtonInteractions() {
+        const ctaButtons = document.querySelectorAll('.cta-section .modern-btn');
+        
+        ctaButtons.forEach(button => {
+            // Add click ripple effect
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple-effect 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // Add hover glow effect
+            button.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.6)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+    }
+    
+    // Initialize button interactions when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        enhanceButtonInteractions();
+    });
+})();
+</script>
+<!-- action -->
 
     <!-- ##### Additional Services Section End ##### -->
 

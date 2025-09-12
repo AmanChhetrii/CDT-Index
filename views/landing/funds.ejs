@@ -3,408 +3,1095 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="CDT Index - Professional Crypto Investment Solutions">
+    <meta name="description" content="CDT Index - Professional Crypto Investment Funds">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-       
     <!-- Title -->
-    <title>CDT-Index</title>
+    <title>Our Funds - CDT Index</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/img/core-img/logo_smallbg.png">
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Chart.js for performance graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
 </head>
 
 <body>
-   <!-- header starts here -->
+    <!-- Header -->
     <%- include('partials/header') %>
+    
+    <style>
+        /* Modern Futuristic Styles */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
+            --glow-color: #f8d733;
+            --text-glow: 0 0 20px rgba(238, 212, 61, 0.875);
+            --gold-color: #FFD700;
+        }
+        
+        /* Hero area with deep blue tones */
+        .hero-area {
+            background: linear-gradient(135deg, #041235 0%, #0F0525 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Enhanced Fund Cards - Bigger and Better Designed */
+        .fund-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 0;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .fund-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .fund-card:hover::before {
+            left: 100%;
+        }
+        
+        .fund-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(197, 152, 3, 0.3);
+            border-color: var(--glow-color);
+        }
+        
+        /* Fund Header with Icon */
+        .fund-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 2.5rem 2.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .fund-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .growth-icon {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            box-shadow: 0 8px 32px rgba(34, 197, 94, 0.3);
+        }
 
-    <!-- ##### Hero Area Start ##### -->
+        .balanced-icon {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.3);
+        }
+
+        .pioneer-icon {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+        }
+
+        .amanrc-icon {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+        
+        .fund-title-section {
+            flex: 1;
+        }
+        
+        .fund-name {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .fund-symbol {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        /* Fund Content */
+        .fund-content {
+            padding: 2.5rem;
+        }
+        
+        .fund-descriptions {
+            margin-bottom: 2rem;
+        }
+        
+        .fund-summary {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .fund-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Enhanced Performance Toggles - Non-clickable display only */
+        .performance-toggles {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 15px;
+        }
+        
+        .performance-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            pointer-events: none; /* Remove click functionality */
+        }
+        
+        .performance-value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .performance-label {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Fund Details Grid */
+        .fund-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fund-detail-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .detail-title {
+            color: var(--glow-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .composition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .composition-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        .crypto-symbol {
+            color: var(--gold-color);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: block;
+        }
+        
+        .crypto-weight {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+        }
+        
+        .fund-meta {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem; /* Increased padding between items */
+        }
+        
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0; /* Increased padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .meta-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+        
+        .meta-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .risk-moderate { background: rgba(0, 255, 127, 0.2); color: #00ff7f; }
+        .risk-balanced { background: rgba(255, 215, 0, 0.2); color: #FFD700; }
+        .risk-high { background: rgba(255, 69, 0, 0.2); color: #FF4500; }
+        
+        /* Chart Toggle Button */
+        .chart-toggle-btn {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .chart-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Performance Section */
+        .performance-section {
+            display: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .performance-section.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .time-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .time-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.6rem 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .time-btn.active {
+            background: var(--glow-color);
+            color: #000;
+            border-color: var(--glow-color);
+            font-weight: 600;
+        }
+        
+        /* Enhanced Chart Container with Grid Background */
+        .chart-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: 400px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 25px;
+        }
+        
+        /* Comparison Section - Full width on large screens */
+        .comparison-section {
+            margin-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .table-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .table-header-icon {
+            font-size: 2rem;
+        }
+        
+        .table-header-content h3 {
+            margin: 0;
+            font-size: 2rem;
+            color: white; /* White heading */
+        }
+        
+        .table-header-content p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.7;
+            color: rgba(255, 255, 255, 0.7); /* Grey subheading */
+        }
+        
+        .comparison-scroll-container {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--glow-color) rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .comparison-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--glow-color);
+            border-radius: 4px;
+        }
+        
+        /* Full width on large screens, scroll on small screens */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            min-width: 100%;
+        }
+        
+        @media (max-width: 1200px) {
+            .comparison-grid {
+                grid-template-columns: repeat(4, minmax(300px, 1fr));
+                min-width: 1200px;
+            }
+        }
+        
+        .comparison-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .comparison-fund-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+        
+        .comparison-fund-name {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-details {
+            display: grid;
+            gap: 0.75rem;
+        }
+        
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        
+        .positive { color: #00ff7f; }
+        .negative { color: #ff4757; }
+        
+        /* Loading states */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .loading-spinner {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .fund-details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fund-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .performance-toggles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .fund-card {
+                min-height: auto;
+            }
+            
+            .fund-header,
+            .fund-content {
+                padding: 1.5rem;
+            }
+            
+            .fund-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .fund-name {
+                font-size: 1.4rem;
+            }
+            
+            .performance-toggles {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .composition-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fund-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-buttons {
+                justify-content: center;
+            }
+            
+            /* Maintain chart dimensions on mobile */
+            .chart-container {
+                height: 400px;
+                min-height: 400px;
+                overflow: hidden;
+            }
+        }
+        
+        /* Hero Section Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-area {
+                min-height: 60vh;
+                text-align: center;
+            }
+            
+            .hero-area .row {
+                justify-content: center;
+            }
+            
+            .hero-area .col-12.col-lg-7,
+            .hero-area .col-12.col-lg-5 {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-area h2 {
+                font-size: 3rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .hero-area h6 {
+                font-size: 1rem !important;
+                text-align: center !important;
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            
+            .hero-logo {
+                text-align: center !important;
+                padding: 1rem 0 !important;
+            }
+            
+            .hero-logo img {
+                margin-left: 0 !important;
+                width: 280px !important;
+                max-width: 90%;
+                height: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-area h2 {
+                font-size: 2.5rem !important;
+            }
+            
+            .hero-area h6 {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+            }
+            
+            .hero-logo img {
+                width: 240px !important;
+                max-width: 85%;
+            }
+            
+            .fund-header,
+            .fund-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Hero Area Start -->
     <section class="hero-area">
-        <div class="hero-slides owl-carousel">
-
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12 col-md-7">
-                            <div class="hero-slides-content">
-                                <h2 data-animation="fadeInUp" data-delay="100ms">Take a step into the <span>Crypto World</span></h2>
-                                <h6 data-animation="fadeInUp" data-delay="400ms">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar.</h6>
-                                <a href="#" class="btn cryptos-btn" data-animation="fadeInUp" data-delay="700ms">Read More</a>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="hero-slides-thumb" data-animation="fadeInUp" data-delay="1000ms">
-                                <img src="/img/bg-img/bg-2.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12 col-md-7">
-                            <div class="hero-slides-content">
-                                <h2 data-animation="fadeInUp" data-delay="100ms">Take a step into the <span>Crypto World</span></h2>
-                                <h6 data-animation="fadeInUp" data-delay="400ms">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar.</h6>
-                                <a href="#" class="btn cryptos-btn" data-animation="fadeInUp" data-delay="700ms">Read More</a>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="hero-slides-thumb" data-animation="fadeInUp" data-delay="1000ms">
-                                <img src="/img/bg-img/bg-2.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Hero Area End ##### -->
-
-    <!-- ##### Course Area Start ##### -->
-    <div class="cryptos-feature-area section-padding-100-0">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto">
-                        <h3>Let’s change <br><span>the world</span> together</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-safebox"></i>
-                        <h3>Fast &amp; Easy</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area active mb-100 text-center">
-                        <i class="icon-bitcoin"></i>
-                        <h3>No strigs attached</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-exchange"></i>
-                        <h3>Small Commisions</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-wallet"></i>
-                        <h3>10% Secure</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-                        <a href="#" class="btn cryptos-btn">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Course Area End ##### -->
-
-    <!-- ##### About Area Start ##### -->
-    <section class="cryptos-about-area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-6">
-                    <div class="about-thumbnail mb-100">
-                        <img src="/img/bg-img/about.png" alt="">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="about-content mb-100">
-                        <div class="section-heading">
-                            <h3>Let’s change <br><span>the world</span> together</h3>
-                            <h5>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                            <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-                            <a href="#" class="btn cryptos-btn mt-30">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### About Area End ##### -->
-
-    <!-- ##### Currency Area Start ##### -->
-    <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background-image: url(/img/bg-img/bg-2.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center white mx-auto">
-                        <h3 class="mb-4">Cryptocurrency Calculator</h3>
-                        <h5 class="mb-2">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="currency-calculator mb-15 clearfix">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="940045">
-                                <select>
-                                    <option>EUR</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="currency-calculator mb-15">
-                        <form action="#" method="post" class="d-flex align-items-center justify-content-center">
-                            <!-- Calculator Part -->
-                            <div class="calculator-first-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="10400">
-                                <select>
-                                    <option>USD</option>
-                                    <option>BTC</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-
-                            <!-- Equal Sign -->
-                            <div class="equal-sign">=</div>
-
-                            <!-- Calculator Part -->
-                            <div class="calculator-sec-part d-flex align-items-center">
-                                <input type="text" name="inputNumber" placeholder="1.02">
-                                <select>
-                                    <option>BTC</option>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>BDT</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Currency Area End ##### -->
-
-
-      <!-- ##### Blog Area Start ##### -->
-    <section class="cryptos-blog-area section-padding-100" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12 text-center">
-                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Latest <span class="glow-text">Insights</span></h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Stay informed with market analysis, investment strategies, and crypto industry developments</p>
-                </div>
-            </div>
-            
-            <div class="row align-items-center">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
                 <div class="col-12 col-lg-7">
-                    <div class="blog-area">
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/1.jpg" alt="Market Analysis" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Digital Asset Market Outlook for 2025</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Market Analysis</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 15, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Comprehensive analysis of emerging trends, regulatory developments, and institutional adoption patterns shaping the cryptocurrency investment landscape.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/2.jpg" alt="Investment Strategy" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Portfolio Diversification in Volatile Markets</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Investment Strategy</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 12, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Expert strategies for managing cryptocurrency portfolio risk through intelligent diversification and strategic asset allocation methodologies.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/3.jpg" alt="Technology Update" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Blockchain Innovation and Investment Opportunities</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Technology</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 10, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Exploring cutting-edge blockchain technologies and their potential impact on investment strategies and market development opportunities.</p>
-                            </div>
-                        </div>
+                    <div class="hero-content">
+                        <h2 style="font-size: 4.0rem; font-weight: 600; color: white; margin-bottom: 2rem; line-height: 1.2;">
+                            Our <span style="background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Investment Funds</span>
+                        </h2>
+                        <h6 style="font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 0; font-weight: 400;">
+                            Professional cryptocurrency index funds designed for different risk profiles and investment goals. Each fund is actively managed with real-time NAV calculations and transparent performance tracking.
+                        </h6>
                     </div>
                 </div>
-
                 <div class="col-12 col-lg-5">
-                    <div style="background: linear-gradient(145deg, #1e1e2e, #2d2d44); border-radius: 20px; padding: 2rem; border: 1px solid rgba(0,212,255,0.2);">
-                        <h4 style="color: white; margin-bottom: 2rem; text-align: center;">Top Cryptocurrencies</h4>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">01</span>
-                                <img src="/img/bg-img/bitcoin.png" alt="Bitcoin" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Bitcoin</p>
-                                    <small style="color: rgba(255,255,255,0.6);">BTC</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$42,156.78</p>
-                                <small style="color: #4CAF50;">+2.4%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">02</span>
-                                <img src="/img/bg-img/ethereum.png" alt="Ethereum" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Ethereum</p>
-                                    <small style="color: rgba(255,255,255,0.6);">ETH</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$2,851.98</p>
-                                <small style="color: #4CAF50;">+1.8%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">03</span>
-                                <img src="/img/bg-img/cardano.png" alt="Cardano" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Cardano</p>
-                                    <small style="color: rgba(255,255,255,0.6);">ADA</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.89</p>
-                                <small style="color: #4CAF50;">+3.2%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">04</span>
-                                <img src="/img/bg-img/stellar.png" alt="Stellar" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Stellar</p>
-                                    <small style="color: rgba(255,255,255,0.6);">XLM</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.67</p>
-                                <small style="color: #4CAF50;">+0.9%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">05</span>
-                                <img src="/img/bg-img/litecoin.png" alt="Litecoin" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Litecoin</p>
-                                    <small style="color: rgba(255,255,255,0.6);">LTC</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #F44336; margin: 0; font-weight: 600;">$321.98</p>
-                                <small style="color: #F44336;">-1.2%</small>
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <a href="/analysis" class="btn modern-btn">View Full Analysis</a>
-                        </div>
+                    <div class="hero-logo" style="text-align: center; padding: 2rem 0;">
+                        <img src="/img/bg-img/cdtcoin.png" alt="CDT Funds" style="margin-left:30px; width: 380px; height: auto; filter: drop-shadow(0 0 16px #e4b747e4);">
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Funds Section -->
+    <section class="section-padding-100-0" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+        <div class="container">
+            
+            <!-- Funds List -->
+            <div id="fundsContainer">
+                <div class="loading">
+                    <div class="loading-spinner">⏳</div>
+                    <p>Loading fund data...</p>
+                </div>
+            </div>
+
         </div>
         
+        <!-- Comparison Section -->
+        <div class="comparison-section">
+            <div class="container">
+                <div class="comparison-table" id="comparisonTable" style="display: none;">
+                    <div class="table-header">
+                        <div class="table-header-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="table-header-content">
+                            <h3>Fund Comparison</h3>
+                            <p>Compare key metrics across all our investment funds</p>
+                        </div>
+                    </div>
+                    <div class="comparison-scroll-container">
+                        <div class="comparison-grid" id="comparisonGrid">
+                            <!-- Comparison data will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    <!-- ##### Blog Area End ##### -->
 
-    <!-- ##### Footer Area Start ##### -->
-   <%-include('partials/footer'); %>
-    <!-- ##### Footer Area Start ##### -->
 
-    <!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
+    <%- include('partials/action') %>
+    <!-- Footer -->
+    <%- include('partials/footer') %>
+
+    <!-- Scripts -->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
     <script src="/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
     <script src="/js/plugins/plugins.js"></script>
-    <!-- Active js -->
     <script src="/js/active.js"></script>
-</body>
 
+    <script>
+        let fundsData = [];
+        let chartInstances = {};
+
+        // Load funds data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFundsData();
+        });
+
+        async function loadFundsData() {
+            try {
+                const response = await fetch('/api/funds');
+                if (!response.ok) throw new Error('Failed to load funds data');
+                
+                fundsData = await response.json();
+                renderFunds();
+                renderComparison();
+                
+            } catch (error) {
+                console.error('Error loading funds:', error);
+                document.getElementById('fundsContainer').innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner" style="color: #ff4757;">⚠️</div>
+                        <p>Unable to load fund data. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function getFundIcon(fundName) {
+            if (fundName.includes('Growth')) return 'fas fa-chart-line';
+            if (fundName.includes('Balanced')) return 'fas fa-balance-scale';
+            if (fundName.includes('Pioneer')) return 'fas fa-rocket';
+            if (fundName.includes('AmanRC')) return 'fas fa-crown';
+            return 'fas fa-coins';
+        }
+
+        function getFundIconClass(fundName) {
+            if (fundName.includes('Growth')) return 'growth-icon';
+            if (fundName.includes('Balanced')) return 'balanced-icon';
+            if (fundName.includes('Pioneer')) return 'pioneer-icon';
+            if (fundName.includes('AmanRC')) return 'amanrc-icon';
+            return 'growth-icon';
+        }
+
+        function renderFunds() {
+            const container = document.getElementById('fundsContainer');
+            
+            container.innerHTML = fundsData.map(fund => `
+                <div class="fund-card" data-fund="${fund.symbol}">
+                    <div class="fund-header">
+                        <div class="fund-icon ${getFundIconClass(fund.name)}">
+                            <i class="${getFundIcon(fund.name)}"></i>
+                        </div>
+                        <div class="fund-title-section">
+                            <h3 class="fund-name">${fund.name}</h3>
+                            <div class="fund-symbol">${fund.symbol}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="fund-content">
+                        <div class="fund-descriptions">
+                            <p class="fund-summary">${fund.summary}</p>
+                            <p class="fund-description">${fund.description}</p>
+                        </div>
+                        
+                        <div class="performance-toggles">
+                            <div class="performance-toggle">
+                                <span class="performance-value" id="perf-all-${fund.symbol}">
+                                    ${fund.totalReturn >= 0 ? '+' : ''}${fund.totalReturn ? fund.totalReturn.toFixed(2) : '0.00'}%
+                                </span>
+                                <span class="performance-label">All Time</span>
+                            </div>
+                            <div class="performance-toggle">
+                                <span class="performance-value" id="perf-year-${fund.symbol}">--</span>
+                                <span class="performance-label">1 Year</span>
+                            </div>
+                            <div class="performance-toggle">
+                                <span class="performance-value" id="perf-month-${fund.symbol}">--</span>
+                                <span class="performance-label">30 Days</span>
+                            </div>
+                            <div class="performance-toggle">
+                                <span class="performance-value" id="perf-day-${fund.symbol}">
+                                    ${fund.dailyChangePercent >= 0 ? '+' : ''}${fund.dailyChangePercent ? fund.dailyChangePercent.toFixed(2) : '0.00'}%
+                                </span>
+                                <span class="performance-label">24 Hours</span>
+                            </div>
+                        </div>
+                        
+                        <div class="fund-details-grid">
+                            <div class="fund-detail-section">
+                                <div class="detail-title">Portfolio Composition</div>
+                                <div class="composition-grid">
+                                    ${fund.composition.map(crypto => `
+                                        <div class="composition-item">
+                                            <span class="crypto-symbol">${crypto.symbol}</span>
+                                            <span class="crypto-weight">${(crypto.weight * 100).toFixed(0)}%</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="fund-detail-section">
+                                <div class="detail-title">Fund Information</div>
+                                <div class="fund-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">Current NAV:</span>
+                                        <span class="meta-value">$${fund.currentNAV ? fund.currentNAV.toFixed(4) : 'Loading...'}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Inception NAV:</span>
+                                        <span class="meta-value">$${fund.inceptionNAV.toFixed(4)}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Risk Level:</span>
+                                        <span class="meta-value">
+                                            <span class="risk-badge risk-${fund.riskLevel.toLowerCase().replace(' ', '-')}">${fund.riskLevel}</span>
+                                        </span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Assets:</span>
+                                        <span class="meta-value">${fund.composition.length} Cryptocurrencies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="chart-toggle-btn" onclick="togglePerformance('${fund.symbol}')">
+                            📈 View Performance Chart
+                        </button>
+                        
+                        <div class="performance-section" id="performance-${fund.symbol}">
+                            <div class="time-buttons">
+                                <button class="time-btn active" onclick="loadChart('${fund.symbol}', '1M')">1M</button>
+                                <button class="time-btn" onclick="loadChart('${fund.symbol}', '6M')">6M</button>
+                                <button class="time-btn" onclick="loadChart('${fund.symbol}', '1Y')">1Y</button>
+                                <button class="time-btn" onclick="loadChart('${fund.symbol}', 'ALL')">All Time</button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-${fund.symbol}"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Load performance data after rendering
+            loadAllPerformanceData();
+        }
+
+        function renderComparison() {
+            const grid = document.getElementById('comparisonGrid');
+            
+            grid.innerHTML = fundsData.map(fund => `
+                <div class="comparison-item">
+                    <div class="comparison-fund-icon ${getFundIconClass(fund.name)}">
+                        <i class="${getFundIcon(fund.name)}"></i>
+                    </div>
+                    <div class="comparison-fund-name">${fund.name}</div>
+                    <div class="comparison-details">
+                        <div class="comparison-row">
+                            <span>Symbol:</span>
+                            <span>${fund.symbol}</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Risk Level:</span>
+                            <span>${fund.riskLevel}</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Current NAV:</span>
+                            <span>${fund.currentNAV ? fund.currentNAV.toFixed(4) : 'N/A'}</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Inception NAV:</span>
+                            <span>${fund.inceptionNAV.toFixed(4)}</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Total Return:</span>
+                            <span class="${fund.totalReturn >= 0 ? 'positive' : 'negative'}">
+                                ${fund.totalReturn >= 0 ? '+' : ''}${fund.totalReturn ? fund.totalReturn.toFixed(2) : '0.00'}%
+                            </span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Daily Change:</span>
+                            <span class="${fund.dailyChangePercent >= 0 ? 'positive' : 'negative'}">
+                                ${fund.dailyChangePercent >= 0 ? '+' : ''}${fund.dailyChangePercent ? fund.dailyChangePercent.toFixed(2) : '0.00'}%
+                            </span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Holdings:</span>
+                            <span>${fund.composition.length} Assets</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('comparisonTable').style.display = 'block';
+        }
+
+        async function loadAllPerformanceData() {
+            for (const fund of fundsData) {
+                await loadPerformanceData(fund.symbol, 'month');
+                await loadPerformanceData(fund.symbol, 'year');
+            }
+        }
+
+        async function loadPerformanceData(fundSymbol, type) {
+            try {
+                let timeframe;
+                
+                switch(type) {
+                    case 'month':
+                        timeframe = '1M';
+                        break;
+                    case 'year':
+                        timeframe = '1Y';
+                        break;
+                    default:
+                        return;
+                }
+                
+                const response = await fetch(`/api/funds/${fundSymbol}/nav?timeframe=${timeframe}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.length > 0) {
+                        const latest = data[data.length - 1];
+                        const oldest = data[0];
+                        
+                        const changePercent = ((latest.nav - oldest.nav) / oldest.nav) * 100;
+                        const performanceValue = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(2)}%`;
+                        
+                        const valueElement = document.getElementById(`perf-${type}-${fundSymbol}`);
+                        if (valueElement) {
+                            valueElement.textContent = performanceValue;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading performance data:', error);
+            }
+        }
+
+        function togglePerformance(fundSymbol) {
+            const section = document.getElementById(`performance-${fundSymbol}`);
+            const isActive = section.classList.contains('active');
+            
+            // Close all other performance sections
+            document.querySelectorAll('.performance-section.active').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                section.classList.add('active');
+                // Load default 1M chart if not already loaded
+                if (!chartInstances[fundSymbol]) {
+                    loadChart(fundSymbol, '1M');
+                }
+            }
+        }
+
+        async function loadChart(fundSymbol, timeframe) {
+            try {
+                // Update active time button
+                const performanceSection = document.getElementById(`performance-${fundSymbol}`);
+                performanceSection.querySelectorAll('.time-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent === timeframe) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                // Fetch chart data
+                const response = await fetch(`/api/funds/${fundSymbol}/nav?timeframe=${timeframe}`);
+                if (!response.ok) throw new Error('Failed to load chart data');
+                
+                const chartData = await response.json();
+                renderChart(fundSymbol, chartData, timeframe);
+                
+            } catch (error) {
+                console.error('Error loading chart:', error);
+            }
+        }
+
+        function renderChart(fundSymbol, data, timeframe) {
+            const canvas = document.getElementById(`chart-${fundSymbol}`);
+            const ctx = canvas.getContext('2d');
+
+            // Destroy existing chart
+            if (chartInstances[fundSymbol]) {
+                chartInstances[fundSymbol].destroy();
+            }
+
+            const navValues = data.map(item => item.nav);
+            const returns = data.map(item => item.totalReturnPercent || 0);
+
+            chartInstances[fundSymbol] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(() => ''), // Empty labels to hide dates
+                    datasets: [{
+                        data: navValues,
+                        borderColor: '#FFD700',
+                        backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: '#FFD700',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend completely
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#FFD700',
+                            borderWidth: 2,
+                            cornerRadius: 10,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(context) {
+                                    if (data[context[0].dataIndex] && data[context[0].dataIndex].date) {
+                                        const date = new Date(data[context[0].dataIndex].date);
+                                        return date.toLocaleDateString();
+                                    }
+                                    return '';
+                                },
+                                label: function(context) {
+                                    const navValue = context.parsed.y;
+                                    const returnValue = returns[context.dataIndex];
+                                    return [
+                                        `NAV: ${navValue.toFixed(4)}`,
+                                        `Return: ${returnValue >= 0 ? '+' : ''}${returnValue.toFixed(2)}%`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false // Hide x-axis completely
+                        },
+                        y: {
+                            display: false, // Hide y-axis completely
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    elements: {
+                        point: {
+                            hoverRadius: 8
+                        }
+                    }
+                }
+            });
+        }
+
+        // Responsive handling
+        window.addEventListener('resize', function() {
+            Object.values(chartInstances).forEach(chart => {
+                chart.resize();
+            });
+        });
+
+    </script>
+</body>
 </html>

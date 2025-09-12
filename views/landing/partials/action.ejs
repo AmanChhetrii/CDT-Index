@@ -4,7 +4,7 @@
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Modern buttons */
+/* Modern buttons - simplified hover effects */
 .modern-btn {
     background: var(--primary-gradient);
     border: none;
@@ -17,13 +17,14 @@
     overflow: hidden;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
 }
 
 .modern-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     color: white;
     text-decoration: none;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
 }
 
 /* CTA specific button styles */
@@ -34,13 +35,14 @@
     padding: 15px 40px;
     font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .cta-btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
     color: #667eea;
     text-decoration: none;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
 }
 
 .cta-btn-secondary {
@@ -48,7 +50,7 @@
     border: 2px solid white;
     color: white;
     border-radius: 50px;
-    padding: 15px 40px;
+    padding: 13px 38px; /* Adjusted for border */
     font-weight: 600;
     transition: all 0.3s ease;
 }
@@ -56,16 +58,18 @@
 .cta-btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
     color: white;
     text-decoration: none;
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
 }
 
 /* Button container styles */
 .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 /* Main CTA Section Layout */
@@ -95,7 +99,6 @@
 
 .cta-text-content {
     padding-right: 2rem;
-    transform: translateX(-80px);
 }
 
 .cta-section h2 {
@@ -104,7 +107,6 @@
     margin-bottom: 1.5rem;
     font-weight: 700;
     line-height: 1.1;
-    white-space: nowrap;
 }
 
 .cta-section p {
@@ -112,6 +114,7 @@
     font-size: 1.2rem;
     margin-bottom: 3rem;
     line-height: 1.6;
+    max-width: 90%;
 }
 
 /* Abstract Effects Container */
@@ -290,29 +293,167 @@
     50% { transform: translateX(0px); opacity: 1; }
 }
 
-/* Ripple effect keyframe */
 @keyframes ripple-effect {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
+    to {
+        transform: scale(2);
         opacity: 0;
     }
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
+/* Comprehensive Responsive Design */
+
+/* Large Desktops (1400px and up) */
+@media (min-width: 1400px) {
+    .cta-container {
+        max-width: 1400px;
+        padding: 0 40px;
+    }
+    
+    .cta-section h2 {
+        font-size: 4.5rem;
+    }
+    
+    .cta-section p {
+        font-size: 1.3rem;
+    }
+    
+    .cta-buttons {
+        gap: 2rem;
+    }
+}
+
+/* Standard Desktops (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .cta-container {
+        max-width: 1200px;
+    }
+    
+    .cta-section h2 {
+        font-size: 4rem;
+    }
+}
+
+/* Large Tablets and Small Desktops (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .cta-container {
+        max-width: 960px;
+        padding: 0 30px;
+    }
+    
+    .cta-content-wrapper {
+        gap: 3rem;
+    }
+    
+    .cta-section h2 {
+        font-size: 3.5rem;
+    }
+    
+    .cta-section p {
+        font-size: 1.1rem;
+    }
+    
+    .cta-text-content {
+        padding-right: 1rem;
+    }
+    
+    /* Reduce abstract effects size */
+    .cta-abstract-effects {
+        height: 350px;
+    }
+    
+    .floating-shape:nth-child(1) {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .floating-shape:nth-child(2) {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .gradient-orb:nth-child(4) {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .gradient-orb:nth-child(10) {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .cta-section {
+        padding: 70px 0;
+        min-height: 400px;
+    }
+    
+    .cta-container {
+        max-width: 720px;
+        padding: 0 25px;
+    }
+    
     .cta-content-wrapper {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
         text-align: center;
+        min-height: 300px;
     }
 
     .cta-text-content {
         padding-right: 0;
-        transform: translateX(0);
+        max-width: 100%;
+    }
+
+    .cta-abstract-effects {
+        display: none; /* Hide complex animations on tablets */
+    }
+
+    .cta-section h2 {
+        font-size: 3rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .cta-section p {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+        max-width: 100%;
+    }
+    
+    .cta-buttons {
+        justify-content: center;
+        gap: 1.2rem;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        padding: 14px 35px;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+}
+
+/* Large Mobile Devices (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .cta-section {
+        padding: 60px 0;
+        min-height: 350px;
+    }
+    
+    .cta-container {
+        padding: 0 20px;
+    }
+    
+    .cta-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        min-height: 250px;
+    }
+
+    .cta-text-content {
+        padding-right: 0;
     }
 
     .cta-abstract-effects {
@@ -321,35 +462,216 @@
 
     .cta-section h2 {
         font-size: 2.5rem;
-        white-space: normal;
+        margin-bottom: 1rem;
+        line-height: 1.2;
     }
-}
-
-@media (max-width: 768px) {
+    
+    .cta-section p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        max-width: 100%;
+        line-height: 1.5;
+    }
+    
     .cta-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
+        width: 100%;
     }
     
     .cta-btn-primary,
     .cta-btn-secondary {
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
         text-align: center;
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+    .cta-section {
+        padding: 50px 0;
+        min-height: 320px;
     }
     
+    .cta-container {
+        padding: 0 15px;
+    }
+    
+    .cta-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+        min-height: 200px;
+    }
+
+    .cta-text-content {
+        padding-right: 0;
+    }
+
+    .cta-abstract-effects {
+        display: none;
+    }
+
     .cta-section h2 {
         font-size: 2rem;
-        white-space: normal;
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
     }
     
     .cta-section p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+        line-height: 1.4;
     }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
+        padding: 12px 25px;
+        font-size: 0.95rem;
+        border-radius: 40px;
+    }
+    
+    /* Adjust secondary button border for smaller screens */
+    .cta-btn-secondary {
+        padding: 10px 23px;
+    }
+}
 
+/* Extra Small Devices (up to 400px) */
+@media (max-width: 400px) {
     .cta-section {
-        padding: 60px 0;
+        padding: 40px 0;
+        min-height: 300px;
     }
+    
+    .cta-container {
+        padding: 0 10px;
+    }
+    
+    .cta-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .cta-section p {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .cta-buttons {
+        gap: 0.6rem;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        max-width: 240px;
+        padding: 11px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .cta-btn-secondary {
+        padding: 9px 18px;
+    }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .modern-btn {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Landscape orientation adjustments for mobile devices */
+@media (max-width: 767px) and (orientation: landscape) {
+    .cta-section {
+        padding: 40px 0;
+        min-height: 250px;
+    }
+    
+    .cta-content-wrapper {
+        min-height: 180px;
+    }
+    
+    .cta-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .cta-section p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .cta-btn-primary,
+    .cta-btn-secondary {
+        width: auto;
+        min-width: 140px;
+        max-width: 200px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .cta-section {
+        background: #667eea !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .cta-abstract-effects {
+        display: none !important;
+    }
+    
+    .modern-btn {
+        border: 2px solid #667eea !important;
+        background: white !important;
+        color: #667eea !important;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .floating-shape,
+    .gradient-orb,
+    .hex-pattern,
+    .animated-line {
+        animation: none !important;
+    }
+    
+    .modern-btn:hover {
+        transform: none;
+    }
+}
+
+/* Focus states for accessibility */
+.modern-btn:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.cta-btn-primary:focus {
+    outline: 3px solid rgba(102, 126, 234, 0.5);
 }
 </style>
 
@@ -426,20 +748,57 @@
                 }, 600);
             });
             
-            // Add hover glow effect
-            button.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.6)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '';
-            });
+            // Add hover glow effect (only on devices that support hover)
+            if (window.matchMedia('(hover: hover)').matches) {
+                button.addEventListener('mouseenter', function() {
+                    if (this.classList.contains('cta-btn-primary')) {
+                        this.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.6)';
+                    } else {
+                        this.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.3)';
+                    }
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                });
+            }
         });
     }
     
-    // Initialize button interactions when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
+    // Responsive adjustments based on screen size
+    function handleResponsiveAdjustments() {
+        const ctaSection = document.querySelector('.cta-section');
+        const screenWidth = window.innerWidth;
+        
+        // Add screen size class for additional styling hooks
+        ctaSection.classList.remove('mobile', 'tablet', 'desktop');
+        
+        if (screenWidth <= 767) {
+            ctaSection.classList.add('mobile');
+        } else if (screenWidth <= 991) {
+            ctaSection.classList.add('tablet');
+        } else {
+            ctaSection.classList.add('desktop');
+        }
+    }
+    
+    // Initialize all interactions and responsive handling
+    function init() {
         enhanceButtonInteractions();
+        handleResponsiveAdjustments();
+    }
+    
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', init);
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        handleResponsiveAdjustments();
+    });
+    
+    // Handle orientation change on mobile devices
+    window.addEventListener('orientationchange', function() {
+        setTimeout(handleResponsiveAdjustments, 100);
     });
 })();
 </script>
