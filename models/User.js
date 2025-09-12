@@ -1,6 +1,92 @@
-// models/User.js
+// models/User.js - Enhanced with portfolio management
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+
+const portfolioSchema = new mongoose.Schema({
+    // Cash management
+    cashBalance: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    totalDeposited: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    totalWithdrawn: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    
+    // Investment tracking
+    totalInvestmentValue: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    totalUnitsOwned: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    totalInvestedAmount: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    
+    // Performance metrics
+    totalProfitLoss: {
+        type: Number,
+        default: 0
+    },
+    totalReturnPercentage: {
+        type: Number,
+        default: 0
+    },
+    dayChange: {
+        type: Number,
+        default: 0
+    },
+    dayChangePercentage: {
+        type: Number,
+        default: 0
+    },
+    
+    // Portfolio statistics
+    numberOfFundsOwned: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    averageHoldingPeriod: {
+        type: Number,
+        default: 0
+    },
+    
+    // Risk metrics
+    portfolioRiskLevel: {
+        type: String,
+        enum: ['Conservative', 'Moderate', 'Aggressive', 'Mixed'],
+        default: 'Conservative'
+    },
+    
+    // Timestamps
+    firstInvestmentDate: {
+        type: Date,
+        default: null
+    },
+    lastTransactionDate: {
+        type: Date,
+        default: null
+    },
+    lastUpdated: {
+        type: Date,
+        default: Date.now
+    }
+}, { _id: false });
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -29,10 +115,103 @@ const userSchema = new mongoose.Schema({
     isVerified: {
         type: Boolean,
         default: false
+    },
+    
+    // Portfolio management
+    portfolio: {
+        type: portfolioSchema,
+        default: () => ({})
+    },
+    
+    // Fund holdings embedded in user
+    holdings: [{
+        fundSymbol: {
+            type: String,
+            required: true,
+            uppercase: true
+        },
+        fundName: {
+            type: String,
+            required: true
+        },
+        units: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        totalInvested: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        averageBuyPrice: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        currentNAV: {
+            type: Number,
+            default: 0
+        },
+        currentValue: {
+            type: Number,
+            default: 0
+        },
+        profitLoss: {
+            type: Number,
+            default: 0
+        },
+        profitLossPercentage: {
+            type: Number,
+            default: 0
+        },
+        dayChange: {
+            type: Number,
+            default: 0
+        },
+        dayChangePercentage: {
+            type: Number,
+            default: 0
+        },
+        firstPurchaseDate: {
+            type: Date,
+            required: true
+        },
+        lastTransactionDate: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    
+    // User preferences
+    preferences: {
+        defaultCurrency: {
+            type: String,
+            default: 'USD'
+        },
+        riskTolerance: {
+            type: String,
+            enum: ['Conservative', 'Moderate', 'Aggressive'],
+            default: 'Moderate'
+        },
+        investmentGoals: [{
+            type: String,
+            enum: ['Growth', 'Income', 'Capital Preservation', 'Diversification']
+        }],
+        notificationSettings: {
+            emailAlerts: { type: Boolean, default: true },
+            performanceUpdates: { type: Boolean, default: true },
+            marketNews: { type: Boolean, default: false }
+        }
     }
 }, {
     timestamps: true
 });
+
+// Indexes for portfolio queries
+userSchema.index({ 'portfolio.totalInvestmentValue': -1 });
+userSchema.index({ 'portfolio.totalReturnPercentage': -1 });
+userSchema.index({ 'portfolio.lastTransactionDate': -1 });
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
@@ -52,9 +231,168 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Get full name
+// Get full name virtual
 userSchema.virtual('fullName').get(function() {
     return `${this.firstName} ${this.lastName}`;
 });
+
+// Portfolio virtuals
+userSchema.virtual('portfolio.totalPortfolioValue').get(function() {
+    return this.portfolio.cashBalance + this.portfolio.totalInvestmentValue;
+});
+
+userSchema.virtual('portfolio.netDeposits').get(function() {
+    return this.portfolio.totalDeposited - this.portfolio.totalWithdrawn;
+});
+
+userSchema.virtual('portfolio.formattedCashBalance').get(function() {
+    return '$' + this.portfolio.cashBalance.toFixed(2);
+});
+
+userSchema.virtual('portfolio.formattedTotalValue').get(function() {
+    return '$' + (this.portfolio.cashBalance + this.portfolio.totalInvestmentValue).toFixed(2);
+});
+
+// Portfolio management methods
+userSchema.methods.updateCashBalance = function(amount, type = 'ADD') {
+    if (type === 'ADD') {
+        this.portfolio.cashBalance += amount;
+        if (amount > 0) this.portfolio.totalDeposited += amount;
+    } else if (type === 'SUBTRACT') {
+        if (this.portfolio.cashBalance >= amount) {
+            this.portfolio.cashBalance -= amount;
+            this.portfolio.totalWithdrawn += amount;
+        } else {
+            throw new Error('Insufficient cash balance');
+        }
+    }
+    this.portfolio.lastUpdated = new Date();
+    return this.portfolio.cashBalance;
+};
+
+userSchema.methods.updateInvestmentValue = function(newTotalValue) {
+    const previousValue = this.portfolio.totalInvestmentValue;
+    this.portfolio.totalInvestmentValue = newTotalValue;
+    this.portfolio.dayChange = newTotalValue - previousValue;
+    
+    if (previousValue > 0) {
+        this.portfolio.dayChangePercentage = (this.portfolio.dayChange / previousValue) * 100;
+    }
+    
+    // Calculate total P&L
+    this.portfolio.totalProfitLoss = newTotalValue - this.portfolio.totalInvestedAmount;
+    
+    if (this.portfolio.totalInvestedAmount > 0) {
+        this.portfolio.totalReturnPercentage = (this.portfolio.totalProfitLoss / this.portfolio.totalInvestedAmount) * 100;
+    }
+    
+    this.portfolio.lastUpdated = new Date();
+    return this.save();
+};
+
+userSchema.methods.recordTransaction = function(type, amount, fundSymbol = null) {
+    this.portfolio.lastTransactionDate = new Date();
+    
+    if (type === 'BUY' && fundSymbol) {
+        this.portfolio.totalInvestedAmount += amount;
+        if (!this.portfolio.firstInvestmentDate) {
+            this.portfolio.firstInvestmentDate = new Date();
+        }
+    } else if (type === 'SELL' && fundSymbol) {
+        // Handled by specific sell logic
+    }
+    
+    this.portfolio.lastUpdated = new Date();
+    return this.save();
+};
+
+userSchema.methods.updatePortfolioStats = function(holdingsData) {
+    // Update number of funds owned
+    this.portfolio.numberOfFundsOwned = holdingsData.length;
+    
+    // Calculate portfolio risk level based on holdings
+    if (holdingsData.length === 0) {
+        this.portfolio.portfolioRiskLevel = 'Conservative';
+    } else {
+        const riskLevels = holdingsData.map(h => h.fundRiskLevel || 'Moderate');
+        const riskCounts = riskLevels.reduce((acc, level) => {
+            acc[level] = (acc[level] || 0) + 1;
+            return acc;
+        }, {});
+        
+        // Determine dominant risk level
+        const dominantRisk = Object.keys(riskCounts).reduce((a, b) => 
+            riskCounts[a] > riskCounts[b] ? a : b
+        );
+        this.portfolio.portfolioRiskLevel = riskCounts.High > 0 ? 'Aggressive' : dominantRisk;
+    }
+    
+    this.portfolio.lastUpdated = new Date();
+    return this.save();
+};
+
+// Static method to get users with portfolios
+userSchema.statics.getUsersWithInvestments = function() {
+    return this.find({ 
+        'portfolio.totalInvestmentValue': { $gt: 0 } 
+    }).sort({ 'portfolio.totalInvestmentValue': -1 });
+};
+
+// Static method to get portfolio overview
+userSchema.statics.getPortfolioOverview = function(userId) {
+    return this.findById(userId)
+        .select('firstName lastName email portfolio')
+        .lean();
+};
+
+// Method to get portfolio summary for dashboard
+userSchema.methods.getPortfolioSummary = function() {
+    return {
+        userId: this._id,
+        userName: this.fullName,
+        cashBalance: this.portfolio.cashBalance,
+        investmentValue: this.portfolio.totalInvestmentValue,
+        totalPortfolioValue: this.portfolio.totalPortfolioValue,
+        totalProfitLoss: this.portfolio.totalProfitLoss,
+        totalReturnPercentage: this.portfolio.totalReturnPercentage,
+        dayChange: this.portfolio.dayChange,
+        dayChangePercentage: this.portfolio.dayChangePercentage,
+        numberOfFunds: this.portfolio.numberOfFundsOwned,
+        riskLevel: this.portfolio.portfolioRiskLevel,
+        firstInvestmentDate: this.portfolio.firstInvestmentDate,
+        lastTransactionDate: this.portfolio.lastTransactionDate,
+        lastUpdated: this.portfolio.lastUpdated
+    };
+};
+
+// Method to validate sufficient funds for transaction
+userSchema.methods.canAffordTransaction = function(amount) {
+    return this.portfolio.cashBalance >= amount;
+};
+
+// Method to initialize portfolio for new users
+userSchema.methods.initializePortfolio = function() {
+    if (!this.portfolio || Object.keys(this.portfolio).length === 0) {
+        this.portfolio = {
+            cashBalance: 0,
+            totalDeposited: 0,
+            totalWithdrawn: 0,
+            totalInvestmentValue: 0,
+            totalUnitsOwned: 0,
+            totalInvestedAmount: 0,
+            totalProfitLoss: 0,
+            totalReturnPercentage: 0,
+            dayChange: 0,
+            dayChangePercentage: 0,
+            numberOfFundsOwned: 0,
+            averageHoldingPeriod: 0,
+            portfolioRiskLevel: 'Conservative',
+            firstInvestmentDate: null,
+            lastTransactionDate: null,
+            lastUpdated: new Date()
+        };
+    }
+    return this.save();
+};
 
 module.exports = mongoose.model('User', userSchema);

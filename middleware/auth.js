@@ -1,23 +1,31 @@
+// middleware/auth.js
+const User = require('../models/User');
 
-// Check if user is authenticated
-const requireAuth = (req, res, next) => {
-    if (req.session && req.session.userId) {
-        return next();
-    } else {
-        req.flash('error', 'Please log in to access this page');
-        return res.redirect('/auth/login');
+const requireAuth = async (req, res, next) => {
+    if (req.session.user) {
+        // Verify user still exists in database
+        try {
+            const user = await User.findById(req.session.user.id);
+            if (!user) {
+                // User deleted - destroy session
+                req.session.destroy();
+                req.flash('error', 'Session expired. Please log in again.');
+                return res.redirect('/login');
+            }
+            return next();
+        } catch (error) {
+            req.session.destroy();
+            return res.redirect('/login');
+        }
     }
+    res.redirect('/login');
 };
 
-// Redirect authenticated users (for login/signup pages)
 const redirectIfAuth = (req, res, next) => {
-    if (req.session && req.session.userId) {
+    if (req.session.user) {
         return res.redirect('/dashboard');
     }
     next();
 };
 
-module.exports = {
-    requireAuth,
-    redirectIfAuth
-};
+module.exports = { requireAuth, redirectIfAuth };

@@ -2,6 +2,11 @@
 const express = require('express');
 const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
+// Import required models
+const User = require('../models/User');
+const Transaction = require('../models/Transaction');
+const Fund = require('../models/Fund');
+const NAV = require('../models/NAV');
 
 // Apply auth middleware to all dashboard routes
 router.use(requireAuth);
