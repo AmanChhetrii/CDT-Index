@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Premium Plans - CDT Index</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="/dashboard/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["/dashboard/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
+
+    <style>
+      body {
+        background: #ffffff;
+        color: #333;
+        font-family: 'Public Sans', sans-serif;
+      }
+      
+      .premium-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      
+      .page-header {
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+      
+      .page-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #2d3436;
+        margin: 0 0 0.5rem 0;
+      }
+      
+      .page-subtitle {
+        color: #636e72;
+        margin: 0;
+      }
+      
+      .current-status {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .status-badge {
+        background: #22c55e;
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      
+      .premium-badge {
+        background: #FFD700;
+        color: #000;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      
+      .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+      
+      .plan-card {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      
+      .plan-card:hover {
+        transform: translateY(-5px);
+        border-color: #0984e3;
+        box-shadow: 0 10px 30px rgba(9, 132, 227, 0.15);
+      }
+      
+      .plan-card.featured {
+        border-color: #FFD700;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2);
+      }
+      
+      .plan-card.featured::before {
+        content: 'MOST POPULAR';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #FFD700;
+        color: #000;
+        padding: 0.3rem 1rem;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+      
+      .plan-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d3436;
+        margin-bottom: 0.5rem;
+      }
+      
+      .plan-subtitle {
+        color: #636e72;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .plan-price {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3436;
+        margin-bottom: 0.25rem;
+      }
+      
+      .plan-period {
+        color: #636e72;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .plan-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border: 2px solid #0984e3;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #0984e3;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .plan-btn:hover {
+        background: #0984e3;
+        color: white;
+      }
+      
+      .plan-btn.featured {
+        background: #0984e3;
+        color: white;
+      }
+      
+      .plan-btn.featured:hover {
+        background: #0767c8;
+      }
+      
+      .insufficient-funds {
+        background: #e74c3c !important;
+        border-color: #e74c3c !important;
+        color: white !important;
+        cursor: not-allowed !important;
+      }
+      
+      .insufficient-funds:hover {
+        background: #c0392b !important;
+      }
+      
+      .wallet-info {
+        background: #f8f9fa;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      
+      .wallet-balance {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2d3436;
+      }
+      
+      /* Loading Overlay */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(5px);
+        display: none;
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .loading-content {
+        text-align: center;
+        padding: 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(229, 229, 229, 0.3);
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        backdrop-filter: blur(10px);
+        max-width: 250px;
+      }
+      
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(243, 243, 243, 0.8);
+        border-top: 3px solid #0984e3;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .loading-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d3436;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <%- include('partials/sidebar'); %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <!-- header starts -->
+        <%- include('partials/header') %>
+        <!-- header ends -->
+
+        <div class="container">
+          <div class="page-inner">
+            <div class="premium-container">
+              
+              <!-- Page Header -->
+              <div class="page-header">
+                <h1 class="page-title">Premium Plans</h1>
+                <p class="page-subtitle">Unlock advanced features and priority support</p>
+              </div>
+
+              <!-- Current Status -->
+              <div class="current-status">
+                <div>
+                  <h6 class="mb-1">Current Plan</h6>
+                  <span class="status-badge" id="currentPlan">Free Plan</span>
+                </div>
+                <div class="wallet-info">
+                  <span class="wallet-balance">Wallet Balance: <span id="walletBalance">$0.00</span></span>
+                </div>
+              </div>
+
+              <!-- Plans Grid -->
+              <div class="plans-grid">
+                <!-- 6 Month Plan -->
+                <div class="plan-card">
+                  <h3 class="plan-title">6 Months Premium</h3>
+                  <p class="plan-subtitle">Best value for new users</p>
+                  <div class="plan-price">$299</div>
+                  <div class="plan-period">One-time payment</div>
+                  <button class="plan-btn" onclick="purchasePlan('6_months', 299)" id="btn-6-months">
+                    Upgrade Now
+                  </button>
+                </div>
+
+                <!-- 1 Year Plan (Featured) -->
+                <div class="plan-card featured">
+                  <h3 class="plan-title">1 Year Premium</h3>
+                  <p class="plan-subtitle">Most popular choice</p>
+                  <div class="plan-price">$999</div>
+                  <div class="plan-period">One-time payment</div>
+                  <button class="plan-btn featured" onclick="purchasePlan('1_year', 999)" id="btn-1-year">
+                    Upgrade Now
+                  </button>
+                </div>
+
+                <!-- Lifetime Plan -->
+                <div class="plan-card">
+                  <h3 class="plan-title">Lifetime Premium</h3>
+                  <p class="plan-subtitle">Ultimate investment</p>
+                  <div class="plan-price">$9,999</div>
+                  <div class="plan-period">One-time payment</div>
+                  <button class="plan-btn" onclick="purchasePlan('lifetime', 9999)" id="btn-lifetime">
+                    Upgrade Now
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+          <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text" id="loadingText">Processing...</p>
+          </div>
+        </div>
+
+        <!-- footer starts -->
+        <%- include('partials/footer') %>
+        <!-- footer ends -->
+      </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/dashboard/js/core/popper.min.js"></script>
+    <script src="/dashboard/js/core/bootstrap.min.js"></script>
+    <script src="/dashboard/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/dashboard/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="/dashboard/js/kaiadmin.min.js"></script>
+
+    <script>
+      let userPortfolio = {};
+      let userSubscription = {};
+
+      $(document).ready(function() {
+        loadWalletData();
+        loadUserSubscription();
+      });
+
+      async function loadWalletData() {
+        try {
+          const response = await fetch('/api/wallet/portfolio');
+          if (!response.ok) throw new Error('Failed to load wallet data');
+          
+          const data = await response.json();
+          userPortfolio = data.portfolio;
+          updateWalletDisplay();
+          
+        } catch (error) {
+          console.error('Error loading wallet data:', error);
+        }
+      }
+
+      async function loadUserSubscription() {
+        try {
+          const response = await fetch('/api/user-subscription');
+          if (!response.ok) throw new Error('Failed to load subscription');
+          
+          const data = await response.json();
+          userSubscription = data;
+          updateSubscriptionDisplay();
+          
+        } catch (error) {
+          console.error('Error loading subscription:', error);
+        }
+      }
+
+      function updateWalletDisplay() {
+        const balance = userPortfolio.cashBalance || 0;
+        $('#walletBalance').text(formatCurrency(balance));
+        
+        // Update button states based on balance
+        updateButtonStates(balance);
+      }
+
+      function updateSubscriptionDisplay() {
+        if (userSubscription.isPremium) {
+          $('#currentPlan').removeClass('status-badge').addClass('premium-badge').text('Premium');
+        } else {
+          $('#currentPlan').removeClass('premium-badge').addClass('status-badge').text('Free Plan');
+        }
+      }
+
+      function updateButtonStates(balance) {
+        const buttons = [
+          { id: 'btn-6-months', amount: 299 },
+          { id: 'btn-1-year', amount: 999 },
+          { id: 'btn-lifetime', amount: 9999 }
+        ];
+
+        buttons.forEach(btn => {
+          const button = $(`#${btn.id}`);
+          if (balance < btn.amount) {
+            button.addClass('insufficient-funds');
+            button.text(`Insufficient Funds (Need ${formatCurrency(btn.amount)})`);
+            button.prop('disabled', true);
+          } else {
+            button.removeClass('insufficient-funds');
+            button.text('Upgrade Now');
+            button.prop('disabled', false);
+          }
+        });
+      }
+
+      async function purchasePlan(planType, amount) {
+        const balance = userPortfolio.cashBalance || 0;
+        
+        if (balance < amount) {
+          showNotification(`Insufficient funds. You need ${formatCurrency(amount)} but only have ${formatCurrency(balance)}.`, 'error');
+          return;
+        }
+
+        if (userSubscription.isPremium) {
+          showNotification('You already have an active premium subscription.', 'warning');
+          return;
+        }
+
+        showLoading('Processing your upgrade...');
+
+        setTimeout(async () => {
+          try {
+            const response = await fetch('/api/purchase-premium', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                planType: planType,
+                amount: amount 
+              })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(result.error || 'Purchase failed');
+            }
+            
+            hideLoading();
+            showNotification(`Successfully upgraded to ${getPlanName(planType)}!`, 'success');
+            
+            // Refresh data
+            await loadWalletData();
+            await loadUserSubscription();
+            
+          } catch (error) {
+            hideLoading();
+            showNotification(error.message || 'Purchase failed. Please try again.', 'error');
+          }
+        }, 1500);
+      }
+
+      function getPlanName(planType) {
+        const names = {
+          '6_months': '6 Months Premium',
+          '1_year': '1 Year Premium',
+          'lifetime': 'Lifetime Premium'
+        };
+        return names[planType] || 'Premium Plan';
+      }
+
+      function showLoading(message = 'Processing...') {
+        $('#loadingText').text(message);
+        $('#loadingOverlay').css('display', 'flex');
+      }
+
+      function hideLoading() {
+        $('#loadingOverlay').hide();
+      }
+
+      function formatCurrency(amount) {
+        return '$' + parseFloat(amount).toFixed(2);
+      }
+
+      function showNotification(message, type = 'info') {
+        $.notify({
+          message: message
+        }, {
+          type: type,
+          placement: { from: 'top', align: 'right' },
+          delay: 3000,
+          animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

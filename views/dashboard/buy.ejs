@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Buy Fund - CDT Index</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="/dashboard/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Amazon 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["/dashboard/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
+
+    <style>
+      :root {
+        --fund-primary: #177dff;
+        --fund-secondary: #1a73e8;
+        --fund-accent: rgba(23, 125, 255, 0.1);
+      }
+
+      /* Dynamic fund theming */
+      .fund-theme-cdtgr {
+        --fund-primary: #22c55e;
+        --fund-secondary: #16a34a;
+        --fund-accent: rgba(34, 197, 94, 0.1);
+      }
+
+      .fund-theme-cdtbal {
+        --fund-primary: #fbbf24;
+        --fund-secondary: #f59e0b;
+        --fund-accent: rgba(251, 191, 36, 0.1);
+      }
+
+      .fund-theme-cdtpio {
+        --fund-primary: #ef4444;
+        --fund-secondary: #dc2626;
+        --fund-accent: rgba(239, 68, 68, 0.1);
+      }
+
+      .fund-theme-cdtarc {
+        --fund-primary: #8b5cf6;
+        --fund-secondary: #7c3aed;
+        --fund-accent: rgba(139, 92, 246, 0.1);
+      }
+
+      body {
+        background: #f8f9fa;
+        color: #232429;
+      }
+      
+      .fund-header {
+        background: linear-gradient(135deg, var(--fund-primary), var(--fund-secondary));
+        color: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+      
+      .nav-price {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      .change-positive { color: #4ade80; }
+      .change-negative { color: #f87171; }
+      
+      .units-form {
+        background: #ffffff;
+        border: 2px solid var(--fund-primary);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 30px var(--fund-accent);
+      }
+      
+      .wallet-info {
+        background: var(--fund-accent);
+        border: 1px solid var(--fund-primary);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .units-input {
+        border: 3px solid var(--fund-primary);
+        border-radius: 15px;
+        padding: 1.5rem;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--fund-primary);
+        background: var(--fund-accent);
+      }
+      
+      .units-input:focus {
+        border-color: var(--fund-secondary);
+        box-shadow: 0 0 0 0.3rem var(--fund-accent);
+        outline: none;
+      }
+      
+      .units-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+      
+      .units-btn {
+        background: var(--fund-primary);
+        border: none;
+        border-radius: 50px;
+        width: 60px;
+        height: 60px;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .units-btn:hover {
+        background: var(--fund-secondary);
+        transform: scale(1.1);
+      }
+      
+      .quick-units {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+      
+      .quick-units-btn {
+        background: var(--fund-accent);
+        border: 2px solid var(--fund-primary);
+        padding: 1rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-weight: 600;
+        color: var(--fund-primary);
+      }
+      
+      .quick-units-btn:hover {
+        background: var(--fund-primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px var(--fund-accent);
+      }
+      
+      .investment-summary {
+        background: var(--fund-accent);
+        border: 2px solid var(--fund-primary);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+      
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+      
+      .summary-row:last-child {
+        font-weight: 700;
+        font-size: 1.3rem;
+        padding-top: 1rem;
+        border-top: 2px solid var(--fund-primary);
+        margin-bottom: 0;
+        color: var(--fund-primary);
+      }
+      
+      .buy-btn {
+        background: linear-gradient(135deg, var(--fund-primary), var(--fund-secondary));
+        border: none;
+        border-radius: 15px;
+        padding: 1.5rem 2rem;
+        color: white;
+        font-weight: 700;
+        font-size: 1.3rem;
+        width: 100%;
+        margin-top: 2rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .buy-btn:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px var(--fund-accent);
+      }
+      
+      .buy-btn:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      
+      .composition-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      
+      .composition-pill {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        color: white;
+        font-weight: 600;
+      }
+      
+      .error-message {
+        color: #dc3545;
+        font-size: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        border-radius: 10px;
+        display: none;
+      }
+
+      .fund-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 0 auto 1rem;
+      }
+
+      .units-label {
+        color: var(--fund-primary);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        text-decoration: none;
+      }
+
+      @media (max-width: 768px) {
+        .nav-price {
+          font-size: 2rem;
+        }
+        
+        .units-input {
+          font-size: 1.5rem;
+          padding: 1rem;
+        }
+        
+        .quick-units {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body class="fund-theme-<%= fund.symbol.toLowerCase() %>">
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <%- include('partials/sidebar'); %>
+
+      <div class="main-panel">
+        <!-- Header -->
+        <%- include('partials/header') %>
+
+        <div class="container">
+          <div class="page-inner">
+            <div class="row">
+              <div class="col-lg-8 offset-lg-2">
+                <!-- Fund Header -->
+                <div class="fund-header">
+                  <div class="row align-items-center">
+                    <div class="col-md-8">
+                      <a href="/dashboard/explore" class="back-btn mb-3 d-inline-block">
+                        <i class="fa fa-arrow-left me-2"></i>Back to Explore
+                      </a>
+                      <div class="fund-icon">
+                        <i class="<%= fund.name.includes('Growth') ? 'fas fa-chart-line' : fund.name.includes('Balanced') ? 'fas fa-balance-scale' : fund.name.includes('Pioneer') ? 'fas fa-rocket' : 'fas fa-crown' %>"></i>
+                      </div>
+                      <h2 class="mb-2"><%= fund.name %></h2>
+                      <p class="mb-3 opacity-90"><%= fund.summary %></p>
+                      <div class="composition-pills">
+                        <% fund.composition.forEach(asset => { %>
+                          <span class="composition-pill">
+                            <%= asset.symbol %> <%= (asset.weight * 100).toFixed(0) %>%
+                          </span>
+                        <% }); %>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                      <div class="nav-price">$<%= fund.currentNAV.toFixed(4) %></div>
+                      <div class="<%= fund.totalReturn >= 0 ? 'change-positive' : 'change-negative' %>">
+                        <%= fund.totalReturn >= 0 ? '+' : '' %><%= fund.totalReturn.toFixed(2) %>% Total Return
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Wallet Info -->
+                <div class="wallet-info">
+                  <div class="row text-center">
+                    <div class="col-md-4">
+                      <h5 class="mb-1">$<%= userPortfolio.portfolio.cashBalance.toFixed(2) %></h5>
+                      <small>Available Balance</small>
+                    </div>
+                    <div class="col-md-4">
+                      <h5 class="mb-1">$<%= userPortfolio.portfolio.totalInvestmentValue.toFixed(2) %></h5>
+                      <small>Investment Value</small>
+                    </div>
+                    <div class="col-md-4">
+                      <h5 class="mb-1"><%= userPortfolio.portfolio.numberOfFundsOwned %></h5>
+                      <small>Funds Owned</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Units Purchase Form -->
+                <div class="units-form">
+                  <h4 class="text-center mb-4" style="color: var(--fund-primary);">How many units do you want to buy?</h4>
+                  
+                  <form id="unitsForm">
+                    <div class="units-label">Number of Units</div>
+                    
+                    <!-- Units Input with Controls -->
+                    <div class="units-controls">
+                      <button type="button" class="units-btn" onclick="changeUnits(-1)">−</button>
+                      <input 
+                        type="number" 
+                        class="form-control units-input" 
+                        id="unitsInput" 
+                        value="1"
+                        min="1"
+                        step="1"
+                        style="width: 200px;"
+                      >
+                      <button type="button" class="units-btn" onclick="changeUnits(1)">+</button>
+                    </div>
+
+                    <!-- Quick Units Selection -->
+                    <div class="quick-units">
+                      <button type="button" class="quick-units-btn" onclick="setUnits(5)">
+                        <div>5 Units</div>
+                        <small>$<%= (fund.currentNAV * 5).toFixed(2) %></small>
+                      </button>
+                      <button type="button" class="quick-units-btn" onclick="setUnits(10)">
+                        <div>10 Units</div>
+                        <small>$<%= (fund.currentNAV * 10).toFixed(2) %></small>
+                      </button>
+                      <button type="button" class="quick-units-btn" onclick="setUnits(25)">
+                        <div>25 Units</div>
+                        <small>$<%= (fund.currentNAV * 25).toFixed(2) %></small>
+                      </button>
+                      <button type="button" class="quick-units-btn" onclick="setUnits(50)">
+                        <div>50 Units</div>
+                        <small>$<%= (fund.currentNAV * 50).toFixed(2) %></small>
+                      </button>
+                    </div>
+
+                    <!-- Investment Summary -->
+                    <div class="investment-summary">
+                      <div class="summary-row">
+                        <span>Units to Buy:</span>
+                        <span id="summaryUnits">1</span>
+                      </div>
+                      <div class="summary-row">
+                        <span>Price per Unit:</span>
+                        <span>$<%= fund.currentNAV.toFixed(4) %></span>
+                      </div>
+                      <div class="summary-row">
+                        <span>Available Balance:</span>
+                        <span>$<%= userPortfolio.portfolio.cashBalance.toFixed(2) %></span>
+                      </div>
+                      <div class="summary-row">
+                        <span>Total Cost:</span>
+                        <span id="totalCost">$<%= fund.currentNAV.toFixed(2) %></span>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="buy-btn" id="buyButton">
+                      <i class="fa fa-shopping-cart me-2"></i>Buy <span id="buttonUnits">1</span> Units
+                    </button>
+                    
+                    <div class="error-message" id="errorMessage"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+
+    <!-- Core JS Files -->
+    <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/dashboard/js/core/popper.min.js"></script>
+    <script src="/dashboard/js/core/bootstrap.min.js"></script>
+    <script src="/dashboard/js/kaiadmin.min.js"></script>
+
+    <script>
+      const fundData = {
+        symbol: '<%= fund.symbol %>',
+        name: '<%= fund.name %>',
+        currentNAV: <%= fund.currentNAV %>,
+        inceptionNAV: <%= fund.inceptionNAV %>,
+        totalReturn: <%= fund.totalReturn %>,
+        dailyChange: <%= fund.dailyChange %>
+      };
+      
+      const userBalance = <%= userPortfolio.portfolio.cashBalance %>;
+
+      // Update calculations when units change
+      $('#unitsInput').on('input', function() {
+        // Ensure only whole numbers
+        let value = parseInt($(this).val()) || 1;
+        if (value < 1) value = 1;
+        $(this).val(value);
+        updateCalculations();
+      });
+
+      function changeUnits(change) {
+        let currentUnits = parseInt($('#unitsInput').val()) || 1;
+        let newUnits = Math.max(1, currentUnits + change);
+        $('#unitsInput').val(newUnits);
+        updateCalculations();
+      }
+
+      function setUnits(units) {
+        $('#unitsInput').val(units);
+        updateCalculations();
+      }
+
+      function updateCalculations() {
+        const units = parseInt($('#unitsInput').val()) || 1;
+        const totalCost = units * fundData.currentNAV;
+        
+        $('#summaryUnits').text(units);
+        $('#totalCost').text('$' + totalCost.toFixed(2));
+        $('#buttonUnits').text(units);
+        
+        // Validation
+        const errorDiv = $('#errorMessage');
+        const buyButton = $('#buyButton');
+        
+        if (totalCost > userBalance) {
+          errorDiv.html(`
+            <i class="fa fa-exclamation-triangle me-2"></i>
+            <strong>Insufficient Funds!</strong><br>
+            You need $${totalCost.toFixed(2)} but only have $${userBalance.toFixed(2)} available.
+            <br><small>Maximum units you can buy: ${Math.floor(userBalance / fundData.currentNAV)}</small>
+          `).show();
+          buyButton.prop('disabled', true);
+        } else {
+          errorDiv.hide();
+          buyButton.prop('disabled', false);
+        }
+      }
+
+      // Handle form submission
+      $('#unitsForm').on('submit', async function(e) {
+        e.preventDefault();
+        
+        const units = parseInt($('#unitsInput').val()) || 1;
+        const totalCost = units * fundData.currentNAV;
+        
+        if (totalCost > userBalance) {
+          return;
+        }
+        
+        const buyButton = $('#buyButton');
+        buyButton.prop('disabled', true).html('<i class="fa fa-spinner fa-spin me-2"></i>Processing Transaction...');
+        
+        try {
+          const response = await fetch('/api/invest-fund', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              fundSymbol: fundData.symbol,
+              amount: totalCost,
+              navPrice: fundData.currentNAV
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok && result.success) {
+            // Success - redirect with success message
+            alert(`🎉 Investment Successful!\n\n` +
+                  `✅ Purchased: ${units} units of ${fundData.name}\n` +
+                  `💰 Total Cost: $${totalCost.toFixed(2)}\n` +
+                  `💳 New Balance: $${result.investment.newBalance.toFixed(2)}\n` +
+                  `📄 Reference: ${result.investment.referenceId}`);
+            
+            window.location.href = '/dashboard/explore';
+          } else {
+            throw new Error(result.error || 'Transaction failed');
+          }
+        } catch (error) {
+          console.error('Investment error:', error);
+          $('#errorMessage').html(`
+            <i class="fa fa-exclamation-circle me-2"></i>
+            <strong>Transaction Failed:</strong> ${error.message}
+          `).show();
+        } finally {
+          buyButton.prop('disabled', false).html(`<i class="fa fa-shopping-cart me-2"></i>Buy <span id="buttonUnits">${units}</span> Units`);
+        }
+      });
+
+      // Initialize calculations
+      updateCalculations();
+    </script>
+  </body>
+</html>

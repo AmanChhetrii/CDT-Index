@@ -1,894 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Profile</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="/dashboard/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="CDT Index - Professional Crypto Investment Solutions">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-       
-    <!-- Title -->
-    <title>CDT-Index</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/img/core-img/logo_smallbg.png">
-
-    <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css">
-
-</head>
-
-<body>
-   <!-- ##### Preloader ##### -->
-    <div id="preloader" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-        <i class="circle-preloader"></i>
-    </div>
-
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area" style="background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-
-        <!-- Top Header Area -->
-        <div class="top-header" style="background: rgba(0,0,0,0.3); padding: 8px 0;">
-            <div class="container h-100">
-                <div class="row h-100">
-                    <div class="col-12 h-100">
-                        <div class="top-header-content h-100 d-flex align-items-center justify-content-between">
-                            <div class="top-headline">
-                                <p style="color: rgba(255,255,255,0.9);">Welcome to <span style="color: #FFD700;">CDT-Index</span></p>
-                            </div>
-                            <div class="login-faq-earn-money">
-                                <a href="#" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">Login | Register</a>
-                                <a href="/faq" style="color: rgba(255,255,255,0.9); text-decoration: none; margin-right: 15px;">FAQs</a>
-                                <a href="/tnc" style="color: rgba(255,255,255,0.9); text-decoration: none;">T&C</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navbar Area -->
-        <div class="cryptos-main-menu" style="background: rgba(0,0,0,0.2); padding: 10px 0;">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="cryptosNav">
-
-                        <!-- Logo -->
-                        <a class="nav-brand" href="/">
-                          <img src="/img/core-img/logo_bg.png" alt="Logo" style="width:250px; height:auto; margin-left:-35px;">
-                        </a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- close btn -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/" style="color: rgba(255,255,255,0.9);">Home</a></li>
-                                    <li><a href="/analysis" style="color: rgba(255,255,255,0.9);">Analysis</a>
-                                    <li><a href="/services" style="color: rgba(255,255,255,0.9);">Services</a></li>
-                                    <li><a href="/about-us" style="color: rgba(255,255,255,0.9);">About Us</a></li>
-                                    <li><a href="/contact" style="color: rgba(255,255,255,0.9);">Contact</a></li>
-                                </ul>
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ##### Header Area End ##### -->
-    
-    <style>
-        /* Modern Futuristic Styles */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --dark-gradient: linear-gradient(135deg, #120A8F 0%, #0A0654 50%, #1E1A5C 100%);
-            --glow-color: #00d4ff;
-            --text-glow: 0 0 20px rgba(0, 212, 255, 0.3);
-            --gold-color: #FFD700;
-        }
-        
-        /* Hero area without grid background */
-        .hero-area {
-            background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Rotating atom images */
-        .atom-bg-large {
-            position: absolute;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            width: 300px;
-            height: 300px;
-            animation: rotateAtom 20s linear infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
-            z-index: 1;
-        }
-        
-        .atom-bg-small {
-            position: absolute;
-            top: 50%;
-            right: 15%;
-            transform: translateY(-50%);
-            width: 200px;
-            height: 200px;
-            animation: rotateAtom 15s linear infinite reverse;
-            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
-            z-index: 2;
-        }
-        
-        .main-logo {
-            position: relative;
-            z-index: 3;
-            right: -50px;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
-        }
-        
-        @keyframes rotateAtom {
-            from { transform: translateY(-50%) rotate(0deg); }
-            to { transform: translateY(-50%) rotate(360deg); }
-        }
-        
-        /* Glowing text effects */
-        .glow-text {
-            text-shadow: var(--text-glow);
-            animation: pulseGlow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulseGlow {
-            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
-        }
-        
-        /* Modern Cards */
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        
-        .feature-card:hover::before {
-            left: 100%;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--glow-color);
-        }
-        
-        /* Modern buttons */
-        .modern-btn {
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 50px;
-            padding: 12px 30px;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .modern-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-            color: white;
-        }
-        
-        /* Floating elements */
-        .floating-element {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        /* Data visualization cards */
-        .crypto-card {
-            background: linear-gradient(145deg, #1e1e2e, #2d2d44);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 0.5rem 0;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .crypto-card:hover {
-            border-color: var(--glow-color);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
-        }
-        
-        /* Performance metrics */
-        .metric-card {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-        }
-        
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: var(--primary-gradient);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: subtract;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- ##### Hero Area Start ##### -->
- <section class="hero-area" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #0A1A3F 0%, #2E0A3F 100%);">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <!-- Text Content -->
-            <div class="col-12 col-md-6" style="padding-left: 0; margin-left: -100px; z-index: 10; position: relative;">
-                <div class="hero-slides-content">
-                    <h2 style="font-size: 2.8rem; font-weight: 700; color: white; margin-bottom: 2rem; position: relative; z-index: 10;">
-                        Enter the Future of <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Crypto Investment</span>
-                    </h2>
-                    <h6 style="font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
-                        Professional-grade cryptocurrency investment solutions designed for the modern investor. Access diversified digital asset portfolios with institutional-level security and transparency.
-                    </h6>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="/about-us" class="btn modern-btn">Learn More</a>
-                    </div>
-
-                    <!-- Floating shapes scattered with 3-4 on left portion -->
-                    <div class="floating-element" style="position: absolute; top: -15%; left: -20%; width: 30px; height: 30px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 30%; left: -25%; width: 25px; height: 25px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 60%; left: -15%; width: 35px; height: 35px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 80%; left: -30%; width: 28px; height: 28px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 10%; left: 75%; width: 32px; height: 32px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 45%; left: 85%; width: 26px; height: 26px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 70%; left: 90%; width: 29px; height: 29px; background: var(--gold-color); border-radius: 50%; opacity: 0.1;"></div>
-                    <div class="floating-element" style="position: absolute; top: 25%; left: 50%; width: 33px; height: 33px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border-radius: 50%; opacity: 0.1;"></div>
-                </div>
-            </div>
-
-            <!-- Image Stack + Floating Elements -->
-            <div class="col-12 col-md-6">
-                <div class="hero-slides-thumb" style="position: relative; height: 500px; display: flex; justify-content: flex-end; align-items: center;">
-
-                    <!-- Largest rotating atom background (anti-clockwise) -->
-                    <img src="/img/bg-img/bgi-big.png" alt="Large Atom" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 650px; height: auto; z-index: 2; animation: rotateCounterClockwise 25s linear infinite;">
-                    
-                    <!-- Middle rotating atom background (clockwise) -->
-                    <img src="/img/bg-img/bgi-small.png" alt="Small Atom" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 600px; height: auto; z-index: 3; animation: rotateClockwise 18s linear infinite;">
-                    
-                    <!-- Top main logo image with white shadow -->
-                    <img src="/img/bg-img/bg-2.png" alt="Crypto Investment" 
-                        style="position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 80%; z-index: 1; filter: drop-shadow(0 0 50px rgba(255,255,255,0.8));">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        /* Rotation animations */
-        @keyframes rotateClockwise {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes rotateCounterClockwise {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(-360deg); }
-        }
-
-        /* Floating subtle movement */
-        .floating-element {
-            animation: floatMove 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatMove {
-            0% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-15px) translateX(10px); }
-            100% { transform: translateY(0) translateX(0); }
-        }
-    </style>
-</section>
-
-
-
-
-    <!-- ##### Hero Area End ##### -->
-
-    <!-- ##### Features Area Start ##### -->
-    <div class="cryptos-feature-area section-padding-100-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto" style="margin-bottom: 5rem;">
-                        <h3 style="font-size: 3rem; color: white; margin-bottom: 2rem;">
-                            Why Choose <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CDT Index</span>
-                        </h3>
-                        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; line-height: 1.8;">
-                            Our cutting-edge platform combines advanced analytics, professional management, and institutional-grade security to deliver superior crypto investment experiences.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <!-- Professional Management -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="feature-card mb-100 text-center">
-                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
-                            <i class="icon-safebox"></i>
-                        </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Asset Management</h3>
-                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
-                            Expert portfolio management with continuous monitoring and rebalancing to optimize returns while managing risk in volatile crypto markets.
-                        </p>
-                        <a href="/services" class="btn modern-btn mt-3">Explore Services</a>
-                    </div>
-                </div>
-
-                <!-- Diversified Portfolio -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="feature-card mb-100 text-center">
-                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
-                            <i class="icon-bitcoin"></i>
-                        </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Diversified Strategy</h3>
-                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
-                            Access a carefully curated portfolio of leading cryptocurrencies, reducing single-asset risk while capturing market growth opportunities.
-                        </p>
-                        <a href="/analysis" class="btn modern-btn mt-3">View Analysis</a>
-                    </div>
-                </div>
-
-                <!-- Low Fees -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="feature-card mb-100 text-center">
-                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
-                            <i class="icon-exchange"></i>
-                        </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Competitive Fees</h3>
-                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
-                            Transparent, competitive fee structure designed to maximize your returns. No hidden costs, just straightforward professional service.
-                        </p>
-                        <a href="/services" class="btn modern-btn mt-3">Fee Structure</a>
-                    </div>
-                </div>
-
-                <!-- Security -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="feature-card mb-100 text-center">
-                        <div style="font-size: 3rem; color: var(--glow-color); margin-bottom: 1.5rem;">
-                            <i class="icon-wallet"></i>
-                        </div>
-                        <h3 style="color: white; margin-bottom: 1.5rem;">Bank-Grade Security</h3>
-                        <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
-                            Multi-signature wallets, cold storage, and institutional-grade security protocols protect your investments with the highest standards.
-                        </p>
-                        <a href="/about-us" class="btn modern-btn mt-3">Security Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Features Area End ##### -->
-
-    <!-- ##### Performance Metrics Start ##### -->
-    <section id="performance" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 100px 0;">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12">
-                    <h3 class="glow-text" style="color: white; font-size: 3rem; margin-bottom: 2rem;">Performance <span class="glow-text">Metrics</span></h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Track our fund's performance with real-time data and comprehensive analytics</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="metric-card">
-                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">24.7%</h2>
-                        <p style="color: white; font-size: 1.1rem;">Assets Under Management</p>
-                        <small style="color: rgba(255,255,255,0.6);">As of current date</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="metric-card">
-                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">2,500+</h2>
-                        <p style="color: white; font-size: 1.1rem;">Active Investors</p>
-                        <small style="color: rgba(255,255,255,0.6);">Growing community</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="metric-card">
-                        <h2 style="color: var(--glow-color); font-size: 2.5rem; margin-bottom: 1rem;">2,500+</h2>
-                        <p style="color: white; font-size: 1.1rem;">Active Investors</p>
-                        <small style="color: rgba(255,255,255,0.6);">Growing community</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section>
-    <!-- ##### Performance Metrics End ##### -->
-
-    <!-- ##### About Area Start ##### -->
-    <section class="cryptos-about-area" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); padding: 100px 0;">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-6">
-                    <div class="about-thumbnail mb-100" style="position: relative;">
-                        <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; border: 2px solid var(--glow-color); border-radius: 50%; opacity: 0.3; animation: float 4s ease-in-out infinite;"></div>
-                        <img src="/img/bg-img/about.png" alt="About CDT Index" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="about-content mb-100">
-                        <div class="section-heading">
-                            <h3 style="color: white; font-size: 2.5rem; margin-bottom: 2rem;">
-                                Building the Future of <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Digital Finance</span>
-                            </h3>
-                            <h5 style="color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.8;">
-                                CDT Index represents the evolution of cryptocurrency investment, combining traditional financial expertise with cutting-edge blockchain technology.
-                            </h5>
-                            <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 3rem;">
-                                Our platform provides institutional-quality investment management for digital assets, offering professional oversight and strategic portfolio construction in the rapidly evolving cryptocurrency landscape.
-                            </p>
-                            <a href="/about-us" class="btn modern-btn">Discover Our Story</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### About Area End ##### -->
-
-    <!-- ##### Awards Section Start ##### -->
-    <section class="currency-calculator-area section-padding-100 bg-img bg-overlay" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('img/bg-img/bg-2.jpg'); background-size: cover; background-position: center;">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center white mx-auto">
-                        <h3 class="mb-4 glow-text" style="color: #FFD700; font-size: 3rem;">Industry Recognition</h3>
-                        <h5 class="mb-2" style="color: white; font-size: 1.2rem;">
-                            Trusted by thousands of investors worldwide, recognized for excellence and innovation in digital asset management.
-                        </h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center text-center">
-                <!-- Award 1 -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <img src="/img/icons8-award-100.png" alt="Global Recognition" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
-                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Global Growth Recognition</h5>
-                            <p style="color: white; line-height: 1.7;">Recognized as one of the fastest-growing crypto investment platforms across 15+ countries with consistent performance delivery.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Award 2 -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <img src="/img/icons8-award-100-3.png" alt="Community Project Award" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
-                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Excellence in Innovation</h5>
-                            <p style="color: white; line-height: 1.7;">Award-winning platform architecture that prioritizes user experience, transparency, and consistent educational support within the digital asset ecosystem.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Award 3 -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="feature-card" style="min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <img src="/img/icons8-award-100-5.png" alt="Verified Strategy" style="width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));">
-                            <h5 style="color: #FFD700; margin-bottom: 1.5rem;">Verified Investment Strategy</h5>
-                            <p style="color: white; line-height: 1.7;">Independently audited investment methodology validated for risk management, portfolio optimization, and sustainable long-term growth potential.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Awards Section End ##### -->
-
-    <!-- ##### Live Chart Section ##### -->
-    <section class="live-chart" id="live-chart" 
-             style="width:95vw; margin:50px auto; padding:20px; 
-                    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1)); 
-                    backdrop-filter: blur(20px);
-                    border-radius:20px; 
-                    box-shadow:0 8px 32px rgba(0,212,255,0.1);
-                    border: 1px solid rgba(0,212,255,0.2);">
-        
-        <div class="text-center mb-4">
-            <h3 style="color: white; margin-bottom: 1rem;">Market Overview</h3>
-            <p style="color: rgba(255,255,255,0.7);">Real-time market data and trends</p>
-        </div>
-        
-        <div class="tradingview-widget-container" 
-             style="width:100%; height:auto; overflow:hidden; border-radius: 15px;">
-             
-            <div class="tradingview-widget-container__widget"></div>
-            
-            <script type="text/javascript" 
-                    src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-              "symbols": [
-                { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
-                { "proName": "FOREXCOM:NSXUSD", "title": "US 100" },
-                { "proName": "FX_IDC:EURUSD", "title": "EUR to USD" },
-                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
-                { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
-                { "description": "MATIC", "proName": "COINBASE:MATICUSD" }
-              ],
-              "showSymbolLogo": true,
-              "colorTheme": "dark",
-              "isTransparent": true,
-              "displayMode": "adaptive",
-              "locale": "en"
-            }
-            </script>
-        </div>
-    </section>
-
-    <!-- ##### Blog Area Start ##### -->
-    <section class="cryptos-blog-area section-padding-100" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12 text-center">
-                    <h3 style="color: white; font-size: 3rem; margin-bottom: 2rem;">Latest <span class="glow-text">Insights</span></h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Stay informed with market analysis, investment strategies, and crypto industry developments</p>
-                </div>
-            </div>
-            
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-7">
-                    <div class="blog-area">
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/1.jpg" alt="Market Analysis" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Digital Asset Market Outlook for 2025</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Market Analysis</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 15, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Comprehensive analysis of emerging trends, regulatory developments, and institutional adoption patterns shaping the cryptocurrency investment landscape.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/2.jpg" alt="Investment Strategy" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Portfolio Diversification in Volatile Markets</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Investment Strategy</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 12, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Expert strategies for managing cryptocurrency portfolio risk through intelligent diversification and strategic asset allocation methodologies.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Single Blog Area -->
-                        <div class="crypto-card d-flex align-items-start">
-                            <!-- Thumbnail -->
-                            <div class="blog-thumbnail" style="min-width: 120px; margin-right: 1.5rem;">
-                                <img src="/img/blog-img/3.jpg" alt="Technology Update" style="border-radius: 15px; width: 120px; height: 90px; object-fit: cover;">
-                            </div>
-                            <!-- Content -->
-                            <div class="blog-content">
-                                <a href="#" class="post-title" style="color: var(--glow-color); font-size: 1.2rem; font-weight: 600; text-decoration: none; display: block; margin-bottom: 0.5rem;">Blockchain Innovation and Investment Opportunities</a>
-                                <div class="meta-data" style="margin-bottom: 1rem;">
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Technology</a> |
-                                    <a href="#" style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">January 10, 2025</a>
-                                </div>
-                                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">Exploring cutting-edge blockchain technologies and their potential impact on investment strategies and market development opportunities.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-5">
-                    <div style="background: linear-gradient(145deg, #1e1e2e, #2d2d44); border-radius: 20px; padding: 2rem; border: 1px solid rgba(0,212,255,0.2);">
-                        <h4 style="color: white; margin-bottom: 2rem; text-align: center;">Top Cryptocurrencies</h4>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">01</span>
-                                <img src="/img/bg-img/bitcoin.png" alt="Bitcoin" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Bitcoin</p>
-                                    <small style="color: rgba(255,255,255,0.6);">BTC</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$42,156.78</p>
-                                <small style="color: #4CAF50;">+2.4%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">02</span>
-                                <img src="/img/bg-img/ethereum.png" alt="Ethereum" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Ethereum</p>
-                                    <small style="color: rgba(255,255,255,0.6);">ETH</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$2,851.98</p>
-                                <small style="color: #4CAF50;">+1.8%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">03</span>
-                                <img src="/img/bg-img/cardano.png" alt="Cardano" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Cardano</p>
-                                    <small style="color: rgba(255,255,255,0.6);">ADA</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.89</p>
-                                <small style="color: #4CAF50;">+3.2%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">04</span>
-                                <img src="/img/bg-img/stellar.png" alt="Stellar" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Stellar</p>
-                                    <small style="color: rgba(255,255,255,0.6);">XLM</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #4CAF50; margin: 0; font-weight: 600;">$0.67</p>
-                                <small style="color: #4CAF50;">+0.9%</small>
-                            </div>
-                        </div>
-
-                        <!-- Single Price Table -->
-                        <div class="crypto-card d-flex align-items-center justify-content-between" style="margin: 1rem 0; padding: 1rem;">
-                            <div class="p-content d-flex align-items-center">
-                                <span style="color: var(--glow-color); font-weight: bold; margin-right: 1rem;">05</span>
-                                <img src="/img/bg-img/litecoin.png" alt="Litecoin" style="width: 40px; height: 40px; margin-right: 1rem;">
-                                <div>
-                                    <p style="color: white; margin: 0; font-weight: 600;">Litecoin</p>
-                                    <small style="color: rgba(255,255,255,0.6);">LTC</small>
-                                </div>
-                            </div>
-                            <div class="price" style="text-align: right;">
-                                <p style="color: #F44336; margin: 0; font-weight: 600;">$321.98</p>
-                                <small style="color: #F44336;">-1.2%</small>
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <a href="/analysis" class="btn modern-btn">View Full Analysis</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section>
-    <!-- ##### Blog Area End ##### -->
-
-    <!-- ##### Call to Action Section ##### -->
-    <section style="background: var(--primary-gradient); padding: 80px 0;">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(255,255,255,0.3);">
-                        Ready to Start Your Crypto Investment Journey?
-                    </h2>
-                    <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Join thousands of investors who trust CDT Index for professional cryptocurrency portfolio management.
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="/contact" class="btn" style="background: white; color: #667eea; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
-                            Get Started Today
-                        </a>
-                        <a href="/analysis" class="btn" style="background: transparent; border: 2px solid white; color: white; border-radius: 50px; padding: 15px 40px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;">
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Call to Action Section End ##### -->
-
-    <!-- ##### Footer Area Start ##### -->
-   <footer class="footer-area">
-    <!-- Main Footer Area -->
-    <div class="main-footer-area bg-img bg-overlay" 
-         style="background-image: url(/img/bg-img/bg-1.jpg); padding: 60px 0 30px 0; color: #fff;">
-        <div class="container">
-            <div class="row">
-
-                <!-- Footer Widget Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="footer-widget mb-60">
-                        <div class="widget-title" style="margin-bottom: 20px;">
-                            <a href="#">
-                                <img src="/img/core-img/footer.png" alt="Logo" 
-                                     style="display:block; margin-top: -20px; width:250px; height:auto; 
-                                     filter: drop-shadow(0px 0px 12px rgba(24, 26, 156, 0.6));">
-                            </a>
-                            <p style="line-height:1.6; font-size:14px; color:#ddd; margin-top: 15px;">
-                                CDT Index is a leading cryptocurrency investment platform providing professional-grade portfolio management and institutional-level security. We combine traditional financial expertise with cutting-edge blockchain technology to deliver superior investment experiences for the modern digital asset investor.
-                            </p>
-                        </div>
-                        <div class="footer-social-info" style="margin-top:15px;">
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-facebook"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-twitter"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-dribbble"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-behance"></i></a>
-                            <a href="#" style="margin-right:10px; color:#fff;"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Widget Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="footer-widget mb-60">
-                        <div class="widget-title">
-                            <h6 style="font-size:18px; font-weight:bold; margin-bottom:15px;">Quick Links</h6>
-                        </div>
-                        <nav>
-                            <ul class="useful-links d-flex justify-content-between flex-wrap" 
-                                style="list-style:none; padding:0; margin:0; font-size:14px;">
-                                <li><a href="/" style="color:#ddd; text-decoration:none;">Home</a></li>
-                                <li><a href="/faq" style="color:#ddd; text-decoration:none;">Faq</a></li>
-                                <li><a href="/about-us" style="color:#ddd; text-decoration:none;">About us</a></li>
-                                <li><a href="/tnc" style="color:#ddd; text-decoration:none;">Terms &amp; Conditions</a></li>
-                                <li><a href="/services" style="color:#ddd; text-decoration:none;">Services</a></li>
-                                <li><a href="/contact" style="color:#ddd; text-decoration:none;">Contact</a></li>
-                                <li><a href="/analysis" style="color:#ddd; text-decoration:none;">Analysis</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Footer Area -->
-    <div class="bottom-footer-area" style="background:#111; padding:15px 0; text-align:center; color:#aaa; font-size:13px;">
-        <div class="container">
-            <p>
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
-                All rights reserved by <b style="color:#fff;">Aman Chhetri</b> &AMP; <b style="color:#ffffff;">CDT-Index</b>
-            </p>
-        </div>
-    </div>
-</footer>
-
-    <!-- ##### Footer Area End ##### -->
-
-    <!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="/js/active.js"></script>
-    
+    <!-- Fonts and icons -->
+    <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
     <script>
-        // Add smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Add loading animation for crypto cards
-        window.addEventListener('load', function() {
-            const cryptoCards = document.querySelectorAll('.crypto-card');
-            cryptoCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
-        
-        // Add parallax effect to floating elements
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelectorAll('.floating-element');
-            const speed = 0.5;
-            
-            parallax.forEach(element => {
-                const yPos = -(scrolled * speed);
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        });
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["/dashboard/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
     </script>
-</body>
 
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+     <%- include('partials/sidebar'); %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+      
+        <!-- header starts -->
+         <%- include('partials/header') %>
+         <!-- header ends -->
+        
+
+        <div class="container">
+          <div class="page-inner">
+            <div
+              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+              <div>
+                <h3 class="fw-bold mb-3">Dashboard</h3>
+                <h6 class="op-7 mb-2">Everything You Need In One Place</h6>
+              </div>
+              <div class="ms-md-auto py-2 py-md-0">
+                <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
+                <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-icon">
+                        <div
+                          class="icon-big text-center icon-primary bubble-shadow-small"
+                        >
+                          <i class="fas fa-users"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Visitors</p>
+                          <h4 class="card-title">1,294</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-icon">
+                        <div
+                          class="icon-big text-center icon-info bubble-shadow-small"
+                        >
+                          <i class="fas fa-user-check"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Subscribers</p>
+                          <h4 class="card-title">1303</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-icon">
+                        <div
+                          class="icon-big text-center icon-success bubble-shadow-small"
+                        >
+                          <i class="fas fa-luggage-cart"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Sales</p>
+                          <h4 class="card-title">$ 1,345</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-icon">
+                        <div
+                          class="icon-big text-center icon-secondary bubble-shadow-small"
+                        >
+                          <i class="far fa-check-circle"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Order</p>
+                          <h4 class="card-title">576</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card card-round">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">User Statistics</div>
+                      <div class="card-tools">
+                        <a
+                          href="#"
+                          class="btn btn-label-success btn-round btn-sm me-2"
+                        >
+                          <span class="btn-label">
+                            <i class="fa fa-pencil"></i>
+                          </span>
+                          Export
+                        </a>
+                        <a href="#" class="btn btn-label-info btn-round btn-sm">
+                          <span class="btn-label">
+                            <i class="fa fa-print"></i>
+                          </span>
+                          Print
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="min-height: 375px">
+                      <canvas id="statisticsChart"></canvas>
+                    </div>
+                    <div id="myChartLegend"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card card-primary card-round">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">Daily Sales</div>
+                      <div class="card-tools">
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-sm btn-label-light dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            Export
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#"
+                              >Something else here</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-category">March 25 - April 02</div>
+                  </div>
+                  <div class="card-body pb-0">
+                    <div class="mb-4 mt-2">
+                      <h1>$4,578.58</h1>
+                    </div>
+                    <div class="pull-in">
+                      <canvas id="dailySalesChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card card-round">
+                  <div class="card-body pb-0">
+                    <div class="h1 fw-bold float-end text-primary">+5%</div>
+                    <h2 class="mb-2">17</h2>
+                    <p class="text-muted">Users online</p>
+                    <div class="pull-in sparkline-fix">
+                      <div id="lineChart"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-round">
+                  <div class="card-header">
+                    <div class="card-head-row card-tools-still-right">
+                      <h4 class="card-title">Users Geolocation</h4>
+                      <div class="card-tools">
+                        <button
+                          class="btn btn-icon btn-link btn-primary btn-xs"
+                        >
+                          <span class="fa fa-angle-down"></span>
+                        </button>
+                        <button
+                          class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"
+                        >
+                          <span class="fa fa-sync-alt"></span>
+                        </button>
+                        <button
+                          class="btn btn-icon btn-link btn-primary btn-xs"
+                        >
+                          <span class="fa fa-times"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="card-category">
+                      Map of the distribution of users around the world
+                    </p>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="table-responsive table-hover table-sales">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/id.png"
+                                      alt="indonesia"
+                                    />
+                                  </div>
+                                </td>
+                                <td>Indonesia</td>
+                                <td class="text-end">2.320</td>
+                                <td class="text-end">42.18%</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/us.png"
+                                      alt="united states"
+                                    />
+                                  </div>
+                                </td>
+                                <td>USA</td>
+                                <td class="text-end">240</td>
+                                <td class="text-end">4.36%</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/au.png"
+                                      alt="australia"
+                                    />
+                                  </div>
+                                </td>
+                                <td>Australia</td>
+                                <td class="text-end">119</td>
+                                <td class="text-end">2.16%</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/ru.png"
+                                      alt="russia"
+                                    />
+                                  </div>
+                                </td>
+                                <td>Russia</td>
+                                <td class="text-end">1.081</td>
+                                <td class="text-end">19.65%</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/cn.png"
+                                      alt="china"
+                                    />
+                                  </div>
+                                </td>
+                                <td>China</td>
+                                <td class="text-end">1.100</td>
+                                <td class="text-end">20%</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="flag">
+                                    <img
+                                      src="/dashboard/img/flags/br.png"
+                                      alt="brazil"
+                                    />
+                                  </div>
+                                </td>
+                                <td>Brasil</td>
+                                <td class="text-end">640</td>
+                                <td class="text-end">11.63%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mapcontainer">
+                          <div
+                            id="world-map"
+                            class="w-100"
+                            style="height: 300px"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- footer starts -->
+       <%- include('partials/footer') %>
+      <!-- footer ends -->
+      </div>
+
+      <!-- Custom template | don't include it in your project! -->
+      <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+          <div class="switcher">
+            <div class="switch-block">
+              <h4>Logo Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="selected changeLogoHeaderColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Navbar Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeTopBarColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Sidebar</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="white"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeSideBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="dark2"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-toggle">
+          <i class="icon-settings"></i>
+        </div>
+      </div>
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/dashboard/js/core/popper.min.js"></script>
+    <script src="/dashboard/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/dashboard/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="/dashboard/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="/dashboard/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="/dashboard/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="/dashboard/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="/dashboard/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="/dashboard/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="/dashboard/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="/dashboard/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="/dashboard/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="/dashboard/js/setting-demo.js"></script>
+    <script src="/dashboard/js/demo.js"></script>
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+  </body>
 </html>

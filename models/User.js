@@ -1,4 +1,4 @@
-// models/User.js - Enhanced with portfolio management
+// models/User.js - Updated with premium subscription fields
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -117,6 +117,29 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     
+    // PREMIUM SUBSCRIPTION FIELDS - ADDED
+    isPremium: {
+        type: Boolean,
+        default: false
+    },
+    subscriptionType: {
+        type: String,
+        enum: ['free', '6_months', '1_year', 'lifetime'],
+        default: 'free'
+    },
+    subscriptionStartDate: {
+        type: Date,
+        default: null
+    },
+    subscriptionExpiresAt: {
+        type: Date,
+        default: null
+    },
+    subscriptionPurchaseAmount: {
+        type: Number,
+        default: 0
+    },
+    
     // Portfolio management
     portfolio: {
         type: portfolioSchema,
@@ -212,6 +235,8 @@ const userSchema = new mongoose.Schema({
 userSchema.index({ 'portfolio.totalInvestmentValue': -1 });
 userSchema.index({ 'portfolio.totalReturnPercentage': -1 });
 userSchema.index({ 'portfolio.lastTransactionDate': -1 });
+userSchema.index({ isPremium: 1 }); // Index for premium status
+userSchema.index({ subscriptionExpiresAt: 1 }); // Index for expiry checks
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
@@ -253,7 +278,65 @@ userSchema.virtual('portfolio.formattedTotalValue').get(function() {
     return '$' + (this.portfolio.cashBalance + this.portfolio.totalInvestmentValue).toFixed(2);
 });
 
-// Portfolio management methods
+// PREMIUM SUBSCRIPTION METHODS - ADDED
+
+// Check if subscription is still active
+userSchema.methods.isSubscriptionActive = function() {
+    if (this.subscriptionType === 'lifetime') {
+        return this.isPremium;
+    }
+    
+    if (this.subscriptionExpiresAt && this.isPremium) {
+        return new Date() < this.subscriptionExpiresAt;
+    }
+    
+    return false;
+};
+
+// Activate premium subscription
+userSchema.methods.activatePremium = function(planType, amount) {
+    this.isPremium = true;
+    this.subscriptionType = planType;
+    this.subscriptionStartDate = new Date();
+    this.subscriptionPurchaseAmount = amount;
+    
+    // Set expiry date (except for lifetime)
+    if (planType === '6_months') {
+        this.subscriptionExpiresAt = new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000);
+    } else if (planType === '1_year') {
+        this.subscriptionExpiresAt = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+    } else if (planType === 'lifetime') {
+        this.subscriptionExpiresAt = null; // Never expires
+    }
+    
+    return this.save();
+};
+
+// Deactivate expired subscription
+userSchema.methods.deactivatePremium = function() {
+    this.isPremium = false;
+    this.subscriptionType = 'free';
+    // Keep purchase history but mark as inactive
+    return this.save();
+};
+
+// Get subscription info
+userSchema.methods.getSubscriptionInfo = function() {
+    return {
+        isPremium: this.isSubscriptionActive(),
+        subscriptionType: this.subscriptionType,
+        startDate: this.subscriptionStartDate,
+        expiresAt: this.subscriptionExpiresAt,
+        purchaseAmount: this.subscriptionPurchaseAmount,
+        isActive: this.isSubscriptionActive(),
+        daysRemaining: this.subscriptionExpiresAt ? 
+            Math.max(0, Math.ceil((this.subscriptionExpiresAt - new Date()) / (1000 * 60 * 60 * 24))) : 
+            (this.subscriptionType === 'lifetime' ? 'Lifetime' : 0)
+    };
+};
+
+// EXISTING PORTFOLIO METHODS
+
 userSchema.methods.updateCashBalance = function(amount, type = 'ADD') {
     if (type === 'ADD') {
         this.portfolio.cashBalance += amount;

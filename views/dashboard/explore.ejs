@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Explore Funds - CDT Index</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="/dashboard/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["/dashboard/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
+
+    <style>
+      body {
+        background: #ffffff;
+        color: #232429;
+      }
+
+      .fund-card {
+        background: #ffffff;
+        border: 2px solid #e6e6e6;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      
+      .fund-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        border-color: #177dff;
+      }
+
+      .fund-card.cdtgr {
+        border-color: #22c55e;
+      }
+      
+      .fund-card.cdtbal {
+        border-color: #fbbf24;
+      }
+      
+      .fund-card.cdtpio {
+        border-color: #ef4444;
+      }
+      
+      .fund-card.cdtarc {
+        border-color: #8b5cf6;
+      }
+
+      .fund-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+        margin: 0 auto 1rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .fund-icon.growth { 
+        background: linear-gradient(135deg, #22c55e, #16a34a); 
+      }
+      .fund-icon.balanced { 
+        background: linear-gradient(135deg, #fbbf24, #f59e0b); 
+      }
+      .fund-icon.pioneer { 
+        background: linear-gradient(135deg, #ef4444, #dc2626); 
+      }
+      .fund-icon.amanrc { 
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed); 
+      }
+
+      .nav-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #177dff;
+        text-shadow: none;
+      }
+
+      .change-positive { color: #22c55e; font-weight: 600; }
+      .change-negative { color: #ef4444; font-weight: 600; }
+      
+      .composition-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 1rem 0;
+      }
+      
+      .composition-pill {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 15px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        color: #495057;
+        font-weight: 500;
+      }
+
+      .view-fund-btn {
+        background: #ffffff;
+        border: 2px solid #177dff;
+        border-radius: 25px;
+        padding: 0.8rem 2rem;
+        color: #177dff;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-bottom: 0.8rem;
+      }
+
+      .view-fund-btn:hover {
+        background: #177dff;
+        color: white;
+      }
+
+      .invest-btn {
+        background: linear-gradient(135deg, #177dff, #1a73e8);
+        border: none;
+        border-radius: 25px;
+        padding: 0.8rem 2rem;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .invest-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(23, 125, 255, 0.4);
+        color: white;
+      }
+
+      .modal-content {
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #e6e6e6;
+        background: #f8f9fa;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .modal-title {
+        color: #232429;
+        font-weight: 700;
+      }
+
+      .modal-body {
+        color: #495057;
+      }
+
+      .fund-detail-section {
+        background: #f8f9fa;
+        border: 1px solid #e6e6e6;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .detail-title {
+        color: #177dff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .time-btn {
+        background: #ffffff;
+        border: 2px solid #e6e6e6;
+        border-radius: 20px;
+        padding: 0.6rem 1.2rem;
+        color: #495057;
+        margin: 0 0.25rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .time-btn.active {
+        background: #177dff;
+        border-color: #177dff;
+        color: white;
+        font-weight: 600;
+      }
+
+      .time-btn:hover:not(.active) {
+        background: #f8f9fa;
+        border-color: #177dff;
+      }
+
+      .chart-container {
+        height: 400px;
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #e6e6e6;
+        border-radius: 15px;
+        padding: 1rem;
+      }
+
+      .composition-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.8rem;
+      }
+      
+      .composition-item {
+        background: #ffffff;
+        border: 1px solid #e6e6e6;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .composition-item:hover {
+        border-color: #177dff;
+        transform: translateY(-2px);
+      }
+      
+      .crypto-symbol {
+        color: #177dff;
+        font-weight: 700;
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      
+      .crypto-name {
+        color: #6c757d;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .crypto-weight {
+        color: #495057;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .fund-meta {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      
+      .meta-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #e6e6e6;
+      }
+
+      .meta-item:last-child {
+        border-bottom: none;
+      }
+      
+      .meta-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      
+      .meta-value {
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .risk-badge {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      
+      .risk-conservative { 
+        background: rgba(34, 197, 94, 0.1); 
+        color: #16a34a; 
+        border: 1px solid rgba(34, 197, 94, 0.3);
+      }
+      .risk-stable { 
+        background: rgba(251, 191, 36, 0.1); 
+        color: #d97706; 
+        border: 1px solid rgba(251, 191, 36, 0.3);
+      }
+      .risk-high { 
+        background: rgba(239, 68, 68, 0.1); 
+        color: #dc2626; 
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+      .risk-premium { 
+        background: rgba(139, 92, 246, 0.1); 
+        color: #7c3aed; 
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .fund-card {
+          margin-bottom: 2rem;
+        }
+        
+        .chart-container {
+          height: 300px;
+        }
+
+        .composition-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <%- include('partials/sidebar'); %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <!-- header starts -->
+        <%- include('partials/header') %>
+        <!-- header ends -->
+
+        <div class="container">
+          <div class="page-inner">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+              <div>
+                <h3 class="fw-bold mb-3" style="color: #232429;">Explore Funds</h3>
+                <h6 class="op-7 mb-2" style="color: #6c757d;">Discover investment opportunities that match your goals</h6>
+              </div>
+              <div class="ms-md-auto py-2 py-md-0">
+                <a href="/dashboard/wallet" class="btn btn-label-info btn-round me-2">
+                  <i class="fa fa-wallet me-1"></i>Add Money
+                </a>
+                <a href="/dashboard/portfolio" class="btn btn-primary btn-round">
+                  <i class="fa fa-chart-pie me-1"></i>Portfolio
+                </a>
+              </div>
+            </div>
+            
+            <!-- Funds Grid -->
+            <div class="row" id="fundsContainer">
+              <!-- Loading state -->
+              <div class="col-12 text-center" id="loadingState">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <p class="mt-3" style="color: #6c757d;">Loading funds...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- footer starts -->
+        <%- include('partials/footer') %>
+        <!-- footer ends -->
+      </div>
+    </div>
+
+    <!-- Fund Detail Modal -->
+    <div class="modal fade" id="fundModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fundModalTitle">Fund Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-8">
+                <!-- Fund Description -->
+                <div class="fund-detail-section">
+                  <div class="detail-title">About This Fund</div>
+                  <p id="fundDescription" class="mb-3"></p>
+                  <p id="fundSummary" class="text-muted"></p>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="fund-detail-section">
+                  <div class="detail-title">Performance Chart</div>
+                  <div class="text-center mb-3">
+                    <button class="time-btn active" onclick="loadChart('1M')">1M</button>
+                    <button class="time-btn" onclick="loadChart('3M')">3M</button>
+                    <button class="time-btn" onclick="loadChart('6M')">6M</button>
+                    <button class="time-btn" onclick="loadChart('1Y')">1Y</button>
+                    <button class="time-btn" onclick="loadChart('3Y')">3Y</button>
+                    <button class="time-btn" onclick="loadChart('ALL')">All</button>
+                  </div>
+                  <div class="chart-container">
+                    <canvas id="fundChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-4">
+                <!-- Fund Composition -->
+                <div class="fund-detail-section">
+                  <div class="detail-title">Portfolio Composition</div>
+                  <div class="composition-grid" id="modalComposition">
+                    <!-- Composition items will be populated here -->
+                  </div>
+                </div>
+
+                <!-- Fund Information -->
+                <div class="fund-detail-section">
+                  <div class="detail-title">Fund Information</div>
+                  <div class="fund-meta" id="modalFundMeta">
+                    <!-- Fund metadata will be populated here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="modalInvestBtn">
+              <i class="fa fa-plus-circle me-2"></i>Invest Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/dashboard/js/core/popper.min.js"></script>
+    <script src="/dashboard/js/core/bootstrap.min.js"></script>
+    <script src="/dashboard/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/dashboard/js/plugin/chart.js/chart.min.js"></script>
+    <script src="/dashboard/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="/dashboard/js/kaiadmin.min.js"></script>
+
+    <script>
+      let currentFundData = null;
+      let fundChart = null;
+
+      $(document).ready(function() {
+        loadFunds();
+      });
+
+      async function loadFunds() {
+        try {
+          const response = await fetch('/api/funds');
+          if (!response.ok) throw new Error('Failed to load funds');
+          
+          const funds = await response.json();
+          renderFunds(funds);
+        } catch (error) {
+          console.error('Error loading funds:', error);
+          showError();
+        }
+      }
+
+      function renderFunds(funds) {
+        const container = $('#fundsContainer');
+        const loadingState = $('#loadingState');
+        
+        loadingState.hide();
+        
+        const fundsHtml = funds.map(fund => {
+          const iconClass = getIconClass(fund.name);
+          const cardClass = fund.symbol.toLowerCase();
+          
+          return `
+            <div class="col-lg-6 col-xl-3 col-md-6 mb-4">
+              <div class="fund-card ${cardClass}">
+                <div class="card-body text-center p-4">
+                  <div class="fund-icon ${iconClass}">
+                    <i class="${getIcon(fund.name)}"></i>
+                  </div>
+                  
+                  <h5 class="card-title mb-1" style="color: #232429;">${fund.name}</h5>
+                  <p class="text-muted mb-3" style="font-size: 0.9rem;">${fund.summary}</p>
+                  
+                  <div class="nav-price mb-2">$${fund.currentNAV ? fund.currentNAV.toFixed(4) : '0.0000'}</div>
+                  
+                  <div class="row text-center mb-3">
+                    <div class="col-6">
+                      <small class="text-muted">Total Return</small>
+                      <div class="${fund.totalReturn >= 0 ? 'change-positive' : 'change-negative'} fw-bold">
+                        ${fund.totalReturn >= 0 ? '+' : ''}${fund.totalReturn ? fund.totalReturn.toFixed(2) : '0.00'}%
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <small class="text-muted">24h Change</small>
+                      <div class="${fund.dailyChange >= 0 ? 'change-positive' : 'change-negative'} fw-bold">
+                        ${fund.dailyChange >= 0 ? '+' : ''}${fund.dailyChange ? fund.dailyChange.toFixed(2) : '0.00'}%
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="composition-pills">
+                    ${fund.composition.map(asset => `
+                      <span class="composition-pill">${asset.symbol} ${(asset.weight * 100).toFixed(0)}%</span>
+                    `).join('')}
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-12">
+                      <button class="view-fund-btn" onclick="viewFund('${fund.symbol}')">
+                        <i class="fa fa-eye me-2"></i>View Fund
+                      </button>
+                    </div>
+                    <div class="col-12">
+                      <button class="invest-btn" onclick="investInFund('${fund.symbol}')">
+                        <i class="fa fa-plus-circle me-2"></i>Invest Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        container.html(fundsHtml);
+      }
+
+      function getIcon(fundName) {
+        if (fundName.includes('Growth')) return 'fas fa-chart-line';
+        if (fundName.includes('Balanced')) return 'fas fa-balance-scale';
+        if (fundName.includes('Pioneer')) return 'fas fa-rocket';
+        if (fundName.includes('AmanRC')) return 'fas fa-crown';
+        return 'fas fa-coins';
+      }
+
+      function getIconClass(fundName) {
+        if (fundName.includes('Growth')) return 'growth';
+        if (fundName.includes('Balanced')) return 'balanced';
+        if (fundName.includes('Pioneer')) return 'pioneer';
+        if (fundName.includes('AmanRC')) return 'amanrc';
+        return 'growth';
+      }
+
+      function getRiskClass(riskLevel) {
+        if (riskLevel.includes('Conservative')) return 'risk-conservative';
+        if (riskLevel.includes('Stable')) return 'risk-stable';
+        if (riskLevel.includes('High')) return 'risk-high';
+        if (riskLevel.includes('Premium')) return 'risk-premium';
+        return 'risk-conservative';
+      }
+
+      async function viewFund(symbol) {
+        try {
+          const response = await fetch(`/api/fund-details/${symbol}`);
+          if (!response.ok) throw new Error('Failed to load fund details');
+          
+          currentFundData = await response.json();
+          populateModal(currentFundData);
+          $('#fundModal').modal('show');
+          
+          // Reset time buttons and load default 1M chart
+          $('.time-btn').removeClass('active');
+          $('.time-btn').first().addClass('active');
+          
+          // Load default 1M chart
+          loadChart('1M');
+        } catch (error) {
+          console.error('Error loading fund details:', error);
+          alert('Failed to load fund details');
+        }
+      }
+
+      function populateModal(fund) {
+        $('#fundModalTitle').text(fund.name);
+        $('#fundDescription').text(fund.description);
+        $('#fundSummary').text(fund.summary);
+        $('#modalInvestBtn').attr('onclick', `investInFund('${fund.symbol}')`);
+        
+        // Populate composition
+        const compositionHtml = fund.composition.map(asset => `
+          <div class="composition-item">
+            <span class="crypto-symbol">${asset.symbol}</span>
+            <span class="crypto-name">${asset.name}</span>
+            <span class="crypto-weight">${(asset.weight * 100).toFixed(0)}%</span>
+          </div>
+        `).join('');
+        $('#modalComposition').html(compositionHtml);
+        
+        // Populate fund metadata
+        const metaHtml = `
+          <div class="meta-item">
+            <span class="meta-label">Symbol:</span>
+            <span class="meta-value">${fund.symbol}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Current NAV:</span>
+            <span class="meta-value">$${fund.currentNAV ? fund.currentNAV.toFixed(4) : '0.0000'}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Inception NAV:</span>
+            <span class="meta-value">$${fund.inceptionNAV.toFixed(4)}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Total Return:</span>
+            <span class="meta-value ${fund.totalReturn >= 0 ? 'change-positive' : 'change-negative'}">
+              ${fund.totalReturn >= 0 ? '+' : ''}${fund.totalReturn ? fund.totalReturn.toFixed(2) : '0.00'}%
+            </span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Risk Level:</span>
+            <span class="meta-value">
+              <span class="risk-badge ${getRiskClass(fund.riskLevel)}">${fund.riskLevel}</span>
+            </span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Inception Date:</span>
+            <span class="meta-value">${new Date(fund.inceptionDate).toLocaleDateString()}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Assets:</span>
+            <span class="meta-value">${fund.composition.length} Cryptocurrencies</span>
+          </div>
+        `;
+        $('#modalFundMeta').html(metaHtml);
+      }
+
+      async function loadChart(timeframe) {
+        if (!currentFundData) return;
+        
+        try {
+          // Update active button
+          $('.time-btn').removeClass('active');
+          event.target.classList.add('active');
+          
+          const response = await fetch(`/api/nav-chart/${currentFundData.symbol}?timeframe=${timeframe}`);
+          if (!response.ok) throw new Error('Failed to load chart data');
+          
+          const chartData = await response.json();
+          renderChart(chartData, timeframe);
+          
+        } catch (error) {
+          console.error('Error loading chart:', error);
+        }
+      }
+
+      function renderChart(data, timeframe) {
+        const canvas = document.getElementById('fundChart');
+        const ctx = canvas.getContext('2d');
+
+        // Destroy existing chart
+        if (fundChart) {
+          fundChart.destroy();
+        }
+
+        const navValues = data.map(item => item.nav);
+        const labels = data.map(item => {
+          const date = new Date(item.date);
+          if (timeframe === '1M' || timeframe === '3M') return date.getDate();
+          if (timeframe === '6M' || timeframe === '1Y') return `${date.getMonth() + 1}/${date.getDate()}`;
+          return `${date.getMonth() + 1}/${date.getFullYear().toString().slice(-2)}`;
+        });
+
+        fundChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: navValues,
+              borderColor: '#177dff',
+              backgroundColor: 'rgba(23, 125, 255, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 0,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#177dff',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                titleColor: '#232429',
+                bodyColor: '#495057',
+                borderColor: '#177dff',
+                borderWidth: 2,
+                cornerRadius: 10,
+                displayColors: false,
+                titleFont: { weight: 'bold' },
+                callbacks: {
+                  title: function(context) {
+                    const date = new Date(data[context[0].dataIndex].date);
+                    return date.toLocaleDateString();
+                  },
+                  label: function(context) {
+                    const navValue = context.parsed.y;
+                    return `NAV: $${navValue.toFixed(4)}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                ticks: { color: '#6c757d' }
+              },
+              y: {
+                grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                ticks: { 
+                  color: '#6c757d',
+                  callback: function(value) {
+                    return '$' + value.toFixed(2);
+                  }
+                }
+              }
+            },
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            }
+          }
+        });
+      }
+
+      function investInFund(symbol) {
+        window.location.href = `/dashboard/buy/${symbol}`;
+      }
+
+      function showError() {
+        $('#fundsContainer').html(`
+          <div class="col-12 text-center">
+            <div class="alert alert-danger">
+              <i class="fas fa-exclamation-triangle"></i>
+              Unable to load funds. Please try again later.
+            </div>
+          </div>
+        `);
+      }
+
+      // Handle modal cleanup
+      $('#fundModal').on('hidden.bs.modal', function() {
+        if (fundChart) {
+          fundChart.destroy();
+          fundChart = null;
+        }
+      });
+    </script>
+  </body>
+</html>
