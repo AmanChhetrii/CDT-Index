@@ -116,8 +116,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    
-    // PREMIUM SUBSCRIPTION FIELDS - ADDED
+    profilePhoto: {
+    type: String,
+    default: null
+     },
+    // PREMIUM SUBSCRIPTION FIELDS
     isPremium: {
         type: Boolean,
         default: false

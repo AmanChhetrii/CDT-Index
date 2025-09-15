@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Profile - CDT Index</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="/dashboard/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["/dashboard/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
+
+    <style>
+      body {
+        background: #ffffff;
+        color: #333;
+        font-family: 'Public Sans', sans-serif;
+      }
+      
+      .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      
+      .profile-header {
+        background: #1a1a2e;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        color: white;
+      }
+
+      .profile-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .avatar-container {
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid #6c5ce7;
+        background: #6c5ce7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+        object-fit: cover;
+      }
+
+      .avatar-upload {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #6c5ce7;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        font-size: 0.7rem;
+        border: 2px solid white;
+      }
+
+      .user-details h2 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .user-email {
+        color: #ddd;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .user-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .meta-item {
+        color: #ccc;
+      }
+
+      .premium-badge {
+        background: #6c5ce7;
+        color: white;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .free-badge {
+        background: #666;
+        color: white;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .section-card {
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+      }
+
+      .section-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid #e5e5e5;
+        background: #fafafa;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section-icon {
+        color: #6c5ce7;
+        font-size: 1rem;
+      }
+
+      .edit-btn {
+        background: none;
+        border: 1px solid #6c5ce7;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        color: #6c5ce7;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+      }
+
+      .edit-btn:hover {
+        background: #6c5ce7;
+        color: white;
+      }
+
+      .section-content {
+        padding: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 500;
+        color: #333;
+        font-size: 0.9rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        background: white;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #6c5ce7;
+      }
+
+      .form-control:disabled {
+        background: #f8f9fa;
+        color: #666;
+      }
+
+      .btn-primary {
+        background: #6c5ce7;
+        border: 1px solid #6c5ce7;
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+      }
+
+      .btn-primary:hover {
+        background: #5a4fcf;
+        border-color: #5a4fcf;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+        border: 1px solid #6c757d;
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .btn-outline {
+        background: none;
+        border: 1px solid #ddd;
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        color: #333;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 0.9rem;
+      }
+
+      .btn-outline:hover {
+        background: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .wallet-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .wallet-action {
+        background: #1a1a2e;
+        color: white;
+        padding: 1rem;
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        font-size: 0.9rem;
+      }
+
+      .wallet-action:hover {
+        background: #2c2c54;
+        color: white;
+      }
+
+      .wallet-action i {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+
+      .balance-display {
+        background: #6c5ce7;
+        color: white;
+        padding: 1.25rem;
+        border-radius: 6px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .balance-label {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+        opacity: 0.9;
+      }
+
+      .balance-amount {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .recent-transactions {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .transaction-item:last-child {
+        border-bottom: none;
+      }
+
+      .transaction-desc {
+        font-weight: 500;
+        color: #333;
+        font-size: 0.9rem;
+      }
+
+      .transaction-date {
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      .transaction-amount {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .amount-positive {
+        color: #27ae60;
+      }
+
+      .amount-negative {
+        color: #e74c3c;
+      }
+
+      .support-links {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .support-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        color: #333;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .support-link:hover {
+        background: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .support-icon {
+        color: #6c5ce7;
+        font-size: 1rem;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .subscription-info {
+        background: #f8f9fa;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .subscription-info.premium {
+        background: #6c5ce7;
+        color: white;
+        border-color: #6c5ce7;
+      }
+
+      .sub-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .sub-details {
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+
+      .hidden-file-input {
+        display: none;
+      }
+
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .loading-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        min-width: 200px;
+      }
+
+      .loading-spinner {
+        width: 30px;
+        height: 30px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #6c5ce7;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <%- include('partials/sidebar'); %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <!-- header starts -->
+        <%- include('partials/header') %>
+        <!-- header ends -->
+
+        <div class="container">
+          <div class="page-inner">
+            <div class="profile-container">
+              
+              <!-- Profile Header -->
+              <div class="profile-header">
+                <div class="profile-info">
+                  <div class="avatar-container">
+                    <div class="profile-avatar" id="profileAvatar">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                      <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="avatarInput" class="hidden-file-input" accept="image/*">
+                  </div>
+                  <div class="user-details">
+                    <h2 id="userName">Loading...</h2>
+                    <div class="user-email" id="userEmail">Loading...</div>
+                    <div class="user-meta">
+                      <div class="meta-item">
+                        Member since <span id="memberSince">Loading...</span>
+                      </div>
+                      <span id="premiumBadge" class="free-badge">Free</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Personal Information Section -->
+              <div class="section-card">
+                <div class="section-header">
+                  <div class="section-title">
+                    <i class="fas fa-user section-icon"></i>
+                    Personal Information
+                  </div>
+                  <button class="edit-btn" onclick="toggleEditMode('personal')">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+                <div class="section-content">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" disabled>
+                    <small style="color: #666; font-size: 0.8rem;">Email can be changed from account settings</small>
+                  </div>
+                  <div id="personalActions" class="hidden">
+                    <button type="button" class="btn-primary" onclick="savePersonalInfo()">Save Changes</button>
+                    <button type="button" class="btn-secondary" onclick="cancelEdit('personal')">Cancel</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Wallet Section -->
+              <div class="section-card">
+                <div class="section-header">
+                  <div class="section-title">
+                    <i class="fas fa-wallet section-icon"></i>
+                    Wallet Overview
+                  </div>
+                  <a href="/dashboard/wallet" style="color: #6c5ce7; text-decoration: none; font-size: 0.85rem;">
+                    <i class="fas fa-external-link-alt"></i> View Full Wallet
+                  </a>
+                </div>
+                <div class="section-content">
+                  <div class="row" style="margin-bottom: 1.5rem;">
+                    <div class="col-md-4">
+                      <div style="background: #6c5ce7; color: white; padding: 1rem; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 0.25rem;">Cash Balance</div>
+                        <div style="font-size: 1.3rem; font-weight: 700;" id="cashBalance">$0.00</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div style="background: #1a1a2e; color: white; padding: 1rem; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 0.25rem;">Investments</div>
+                        <div style="font-size: 1.3rem; font-weight: 700;" id="investmentValue">$0.00</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div style="background: #f8f9fa; border: 1px solid #e5e5e5; color: #333; padding: 1rem; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 0.8rem; margin-bottom: 0.25rem; color: #666;">Total Portfolio</div>
+                        <div style="font-size: 1.3rem; font-weight: 700;" id="totalPortfolio">$0.00</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="wallet-actions">
+                    <button class="wallet-action" onclick="openDepositModal()">
+                      <i class="fas fa-plus"></i>
+                      Add Money
+                    </button>
+                    <button class="wallet-action" onclick="openWithdrawModal()">
+                      <i class="fas fa-minus"></i>
+                      Withdraw
+                    </button>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                    <h6 style="margin: 0; font-size: 0.9rem;">Recent Activity</h6>
+                    <a href="/dashboard/transactions" style="color: #6c5ce7; text-decoration: none; font-size: 0.8rem;">
+                      View All
+                    </a>
+                  </div>
+                  <div class="recent-transactions" id="recentTransactions">
+                    <div style="text-align: center; padding: 1rem; color: #666;">
+                      Loading transactions...
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Account Settings Section -->
+              <div class="section-card">
+                <div class="section-header">
+                  <div class="section-title">
+                    <i class="fas fa-cog section-icon"></i>
+                    Account Settings
+                  </div>
+                </div>
+                <div class="section-content">
+                  <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">Manage your account security and preferences.</p>
+                  <a href="/dashboard/reset-pass" class="btn-outline">
+                    <i class="fas fa-key"></i> Change Password & Email
+                  </a>
+                </div>
+              </div>
+
+              <!-- Subscription Section -->
+              <div class="section-card">
+                <div class="section-header">
+                  <div class="section-title">
+                    <i class="fas fa-crown section-icon"></i>
+                    Subscription
+                  </div>
+                </div>
+                <div class="section-content">
+                  <div id="subscriptionInfo" class="subscription-info">
+                    <div class="sub-title">Free Plan</div>
+                    <div class="sub-details">Basic access to investment features</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Support Section -->
+              <div class="section-card">
+                <div class="section-header">
+                  <div class="section-title">
+                    <i class="fas fa-life-ring section-icon"></i>
+                    Support
+                  </div>
+                </div>
+                <div class="section-content">
+                  <div class="support-links">
+                    <a href="#" class="support-link" onclick="downloadTransactionHistory()">
+                      <i class="fas fa-download support-icon"></i>
+                      Download Transaction History
+                    </a>
+                    <a href="/support" class="support-link">
+                      <i class="fas fa-headset support-icon"></i>
+                      Contact Support
+                    </a>
+                    <a href="/help" class="support-link">
+                      <i class="fas fa-question-circle support-icon"></i>
+                      Help Center
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+          <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loadingText">Processing...</p>
+          </div>
+        </div>
+
+        <!-- Deposit Modal -->
+        <div class="modal fade" id="depositModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Money</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form id="depositForm">
+                  <div class="mb-3">
+                    <label for="depositAmount" class="form-label">Amount</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input type="number" class="form-control" id="depositAmount" 
+                             placeholder="0.00" min="1" max="100000" step="0.01" required>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="depositDescription" class="form-label">Note (Optional)</label>
+                    <input type="text" class="form-control" id="depositDescription" 
+                           placeholder="e.g., Monthly deposit">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="processDeposit()">Add Money</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Withdraw Modal -->
+        <div class="modal fade" id="withdrawModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Withdraw Money</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info">
+                  Available: <strong id="withdrawAvailableBalance">$0.00</strong>
+                </div>
+                <form id="withdrawForm">
+                  <div class="mb-3">
+                    <label for="withdrawAmount" class="form-label">Amount</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input type="number" class="form-control" id="withdrawAmount" 
+                             placeholder="0.00" min="1" step="0.01" required>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="withdrawDescription" class="form-label">Note (Optional)</label>
+                    <input type="text" class="form-control" id="withdrawDescription" 
+                           placeholder="e.g., Emergency withdrawal">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="processWithdraw()">Withdraw</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- footer starts -->
+        <%- include('partials/footer') %>
+        <!-- footer ends -->
+      </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/dashboard/js/core/popper.min.js"></script>
+    <script src="/dashboard/js/core/bootstrap.min.js"></script>
+    <script src="/dashboard/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/dashboard/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="/dashboard/js/kaiadmin.min.js"></script>
+
+   
+  
+
+<!-- User Data - Safe JSON approach -->
+<!-- User Data - Safe JSON approach -->
+<script type="application/json" id="user-data">
+  <%- JSON.stringify(typeof user !== 'undefined' && user ? {
+    firstName: user.firstName,
+    lastName: user.lastName,  
+    email: user.email,
+    id: user.id
+  } : null) %>
+</script>
+
+<script>
+  let originalData = {};
+  let userProfile = {};
+  let sessionUser = null;
+
+  try {
+    const userDataElement = document.getElementById('user-data');
+    sessionUser = userDataElement ? JSON.parse(userDataElement.textContent) : null;
+    window.sessionUser = sessionUser;
+  } catch (error) {
+    sessionUser = null;
+    window.sessionUser = null;
+  }
+
+  $(document).ready(function() {
+    if (sessionUser) {
+      initializeWithSessionData();
+    }
+    
+    loadUserProfile();
+    loadWalletData();
+    loadRecentTransactions();
+    setupAvatarUpload();
+  });
+
+  function initializeWithSessionData() {
+    if (sessionUser) {
+      $('#userName').text(sessionUser.firstName + ' ' + sessionUser.lastName);
+      $('#userEmail').text(sessionUser.email);
+      $('#firstName').val(sessionUser.firstName);
+      $('#lastName').val(sessionUser.lastName);
+      $('#email').val(sessionUser.email);
+    }
+  }
+
+  async function loadUserProfile() {
+    try {
+      const response = await fetch('/api/user/profile', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          showNotification('Please log in again', 'error');
+          setTimeout(() => window.location.href = '/login', 2000);
+          return;
+        }
+        throw new Error('Failed to load profile');
+      }
+      
+      const data = await response.json();
+      userProfile = data.user;
+      updateProfileDisplay();
+      
+    } catch (error) {
+      showNotification('Unable to load profile data', 'error');
+    }
+  }
+
+  function updateProfileDisplay() {
+    if (!userProfile) return;
+
+    $('#userName').text(userProfile.firstName + ' ' + userProfile.lastName);
+    $('#userEmail').text(userProfile.email);
+    
+    if (userProfile.createdAt) {
+      $('#memberSince').text(new Date(userProfile.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'short'
+      }));
+    }
+
+    if (userProfile.isPremium) {
+      $('#premiumBadge').removeClass('free-badge').addClass('premium-badge').text('Premium');
+      $('#subscriptionInfo').addClass('premium');
+      $('#subscriptionInfo .sub-title').text('Premium Plan');
+      $('#subscriptionInfo .sub-details').text('Full access to all features and funds');
+      
+      if (userProfile.premiumExpiry) {
+        const expiryDate = new Date(userProfile.premiumExpiry).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+        $('#subscriptionInfo .sub-details').text('Premium access until ' + expiryDate);
+      }
+    } else {
+      $('#premiumBadge').removeClass('premium-badge').addClass('free-badge').text('Free');
+      $('#subscriptionInfo').removeClass('premium');
+      $('#subscriptionInfo .sub-title').text('Free Plan');
+      $('#subscriptionInfo .sub-details').text('Basic access to investment features');
+    }
+
+    if (userProfile.profilePhoto) {
+      $('#profileAvatar').html('<img src="' + userProfile.profilePhoto + '" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">');
+    } else {
+      const initials = (userProfile.firstName.charAt(0) + userProfile.lastName.charAt(0)).toUpperCase();
+      $('#profileAvatar').html('<span>' + initials + '</span>');
+    }
+
+    $('#firstName').val(userProfile.firstName);
+    $('#lastName').val(userProfile.lastName);
+    $('#email').val(userProfile.email);
+    
+    originalData = {
+      firstName: userProfile.firstName,
+      lastName: userProfile.lastName,
+      email: userProfile.email
+    };
+  }
+
+  async function loadWalletData() {
+    try {
+      const response = await fetch('/api/wallet/portfolio', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to load wallet data');
+      }
+      
+      const data = await response.json();
+      
+      if (data && data.portfolio) {
+        const portfolio = data.portfolio;
+        const cashBalance = parseFloat(portfolio.cashBalance || 0);
+        const investmentValue = parseFloat(portfolio.totalInvestmentValue || 0);
+        const totalValue = parseFloat(portfolio.totalPortfolioValue || 0);
+        
+        $('#cashBalance').text('$' + cashBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+        $('#investmentValue').text('$' + investmentValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+        $('#totalPortfolio').text('$' + totalValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+        $('#withdrawAvailableBalance').text('$' + cashBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      }
+      
+    } catch (error) {
+      showNotification('Unable to load wallet data', 'error');
+      $('#cashBalance').text('$0.00');
+      $('#investmentValue').text('$0.00');
+      $('#totalPortfolio').text('$0.00');
+    }
+  }
+
+  async function loadRecentTransactions() {
+    try {
+      const response = await fetch('/api/wallet/transactions?limit=5', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to load transactions');
+      }
+      
+      const data = await response.json();
+      const transactions = data.transactions || [];
+      renderRecentTransactions(transactions);
+      
+    } catch (error) {
+      $('#recentTransactions').html('<p style="text-align: center; color: #666; padding: 1rem;">Unable to load transactions</p>');
+    }
+  }
+
+  function renderRecentTransactions(transactions) {
+    if (!transactions || transactions.length === 0) {
+      $('#recentTransactions').html('<p style="text-align: center; color: #666; padding: 1rem;">No recent transactions</p>');
+      return;
+    }
+
+    const transactionsHtml = transactions.map(transaction => {
+      const isPositive = ['DEPOSIT', 'SELL'].includes(transaction.type);
+      const amountClass = isPositive ? 'amount-positive' : 'amount-negative';
+      const amountPrefix = isPositive ? '+' : '-';
+      
+      return '<div class="transaction-item">' +
+        '<div>' +
+          '<div class="transaction-desc">' + (transaction.description || 'Transaction') + '</div>' +
+          '<div class="transaction-date">' + formatDate(transaction.date) + '</div>' +
+        '</div>' +
+        '<div class="transaction-amount ' + amountClass + '">' +
+          amountPrefix + '$' + parseFloat(transaction.amount || 0).toFixed(2) +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    $('#recentTransactions').html(transactionsHtml);
+  }
+
+  function setupAvatarUpload() {
+    $('#avatarInput').on('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 5 * 1024 * 1024) { 
+          showNotification('File size must be less than 5MB', 'error');
+          return;
+        }
+        
+        if (!file.type.startsWith('image/')) {
+          showNotification('Please select a valid image file', 'error');
+          return;
+        }
+        
+        uploadAvatar(file);
+      }
+    });
+  }
+
+  async function uploadAvatar(file) {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    showLoading('Uploading avatar...');
+
+    try {
+      const response = await fetch('/api/user/upload-avatar', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload avatar');
+      }
+      
+      const data = await response.json();
+      $('#profileAvatar').html('<img src="' + data.avatarUrl + '" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">');
+      showNotification('Avatar updated successfully!', 'success');
+      
+    } catch (error) {
+      showNotification('Failed to upload avatar', 'error');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  function toggleEditMode(section) {
+    if (section === 'personal') {
+      const isEditing = !$('#firstName').prop('disabled');
+      
+      if (isEditing) {
+        $('#firstName, #lastName').prop('disabled', true);
+        $('#personalActions').addClass('hidden');
+        $('.edit-btn').html('<i class="fas fa-edit"></i> Edit');
+        $('#firstName').val(originalData.firstName);
+        $('#lastName').val(originalData.lastName);
+      } else {
+        $('#firstName, #lastName').prop('disabled', false);
+        $('#personalActions').removeClass('hidden');
+        $('.edit-btn').html('<i class="fas fa-times"></i> Cancel');
+      }
+    }
+  }
+
+  function cancelEdit(section) {
+    if (section === 'personal') {
+      toggleEditMode('personal');
+    }
+  }
+
+  async function savePersonalInfo() {
+    const firstName = $('#firstName').val().trim();
+    const lastName = $('#lastName').val().trim();
+
+    if (!firstName || !lastName) {
+      showNotification('Please fill in all required fields', 'error');
+      return;
+    }
+
+    showLoading('Saving changes...');
+
+    try {
+      const response = await fetch('/api/user/update-profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ firstName, lastName })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+      
+      userProfile.firstName = firstName;
+      userProfile.lastName = lastName;
+      originalData.firstName = firstName;
+      originalData.lastName = lastName;
+      
+      if (sessionUser) {
+        sessionUser.firstName = firstName;
+        sessionUser.lastName = lastName;
+      }
+      
+      $('#userName').text(firstName + ' ' + lastName);
+      
+      if (!userProfile.profilePhoto) {
+        const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+        $('#profileAvatar').html('<span>' + initials + '</span>');
+      }
+      
+      toggleEditMode('personal');
+      showNotification('Profile updated successfully!', 'success');
+      
+    } catch (error) {
+      showNotification('Failed to update profile', 'error');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  function openDepositModal() {
+    $('#depositModal').modal('show');
+  }
+
+  function openWithdrawModal() {
+    const currentBalance = parseFloat($('#cashBalance').text().replace('$', '').replace(/,/g, ''));
+    if (currentBalance <= 0) {
+      showNotification('No funds available to withdraw', 'warning');
+      return;
+    }
+    $('#withdrawAmount').attr('max', currentBalance);
+    $('#withdrawModal').modal('show');
+  }
+
+  async function processDeposit() {
+    const amount = parseFloat($('#depositAmount').val());
+    const description = $('#depositDescription').val() || 'Cash deposit';
+
+    if (!amount || amount < 1 || amount > 100000) {
+      showNotification('Please enter a valid amount between $1 and $100,000', 'error');
+      return;
+    }
+
+    $('#depositModal').modal('hide');
+    showLoading('Processing deposit...');
+
+    try {
+      const response = await fetch('/api/wallet/deposit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ amount, description })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process deposit');
+      }
+      
+      $('#depositForm')[0].reset();
+      showNotification('Deposit successful!', 'success');
+      loadWalletData();
+      loadRecentTransactions();
+      
+    } catch (error) {
+      showNotification('Failed to process deposit', 'error');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  async function processWithdraw() {
+    const amount = parseFloat($('#withdrawAmount').val());
+    const description = $('#withdrawDescription').val() || 'Cash withdrawal';
+
+    if (!amount || amount < 1) {
+      showNotification('Please enter a valid amount', 'error');
+      return;
+    }
+
+    const currentBalance = parseFloat($('#cashBalance').text().replace('$', '').replace(/,/g, ''));
+    if (amount > currentBalance) {
+      showNotification('Insufficient funds', 'error');
+      return;
+    }
+
+    $('#withdrawModal').modal('hide');
+    showLoading('Processing withdrawal...');
+
+    try {
+      const response = await fetch('/api/wallet/withdraw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ amount, description })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process withdrawal');
+      }
+      
+      $('#withdrawForm')[0].reset();
+      showNotification('Withdrawal successful!', 'success');
+      loadWalletData();
+      loadRecentTransactions();
+      
+    } catch (error) {
+      showNotification('Failed to process withdrawal', 'error');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  async function downloadTransactionHistory() {
+    showLoading('Preparing download...');
+
+    try {
+      const response = await fetch('/api/user/export-transactions', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to export transactions');
+      }
+
+      const blob = await response.blob();
+      
+      if (blob.size === 0) {
+        throw new Error('No transaction data available');
+      }
+      
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'transaction-history-' + new Date().toISOString().split('T')[0] + '.csv';
+      
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      setTimeout(() => {
+        showNotification('Transaction history downloaded successfully!', 'success');
+      }, 500);
+      
+    } catch (error) {
+      showNotification('Failed to export: ' + error.message, 'error');
+    } finally {
+      setTimeout(() => {
+        hideLoading();
+      }, 800);
+    }
+  }
+
+  function showLoading(message) {
+    if (!message) message = 'Processing...';
+    $('#loadingText').text(message);
+    $('#loadingOverlay').css('display', 'flex');
+  }
+
+  function hideLoading() {
+    $('#loadingOverlay').hide();
+  }
+
+  function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (error) {
+      return 'Invalid Date';
+    }
+  }
+
+  function showNotification(message, type) {
+    if (!type) type = 'info';
+    $.notify({
+      message: message
+    }, {
+      type: type,
+      placement: { from: 'top', align: 'right' },
+      delay: 3000,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      }
+    });
+  }
+</script>
+
+  </body>
+</html>
