@@ -1,116 +1,184 @@
- <div class="sidebar" data-background-color="dark">
-        <div class="sidebar-logo">
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="/dashboard" class="logo">
-              <img
-                src="/dashboard/img/kaiadmin/logo_light.svg"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              />
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-          <!-- End Logo Header -->
-        </div>
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item active">
-                <a
-                  href="/dashboard"
-                >
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-              <li class="nav-item active">
-                <a
-                  href="/dashboard/transactions"
-                >
-                  <i class="fas fa-ellipsis-h"></i>
-                  <p>Transactions</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-              <li class="nav-item active">
-                <a
-                  href="/dashboard/explore"
-                >
-                  <i class="fas fa-ellipsis-h"></i>
-                  <p>Explore</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-              <li class="nav-item active">
-                <a
-                  href="/dashboard/wallet"
-                >
-                  <i class="fas fa-ellipsis-h"></i>
-                  <p>Wallet</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-              <li class="nav-item active">
-                <a
-                  href="/dashboard/Premium"
-                >
-                  <i class="fas fa-ellipsis-h"></i>
-                  <p>Premium</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-               <li class="nav-item active">
-                <a
-                  href="/dashboard/Profile"
-                >
-                  <i class="fas fa-ellipsis-h"></i>
-                  <p>Profile</p>
-                  <span class=""></span>
-                </a>
-               
-              </li>
-
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-                <h4 class="text-section">Components</h4>
-              </li>
-              
-              
-              
-             
-             
-              <li class="nav-item">
-                <a href="/dashboard/widgets">
-                  <i class="fas fa-desktop"></i>
-                  <p>Widgets</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+<div class="sidebar" data-background-color="dark" style="background-color: #1a0d3d;">
+  <div class="sidebar-logo">
+    <!-- Logo Header -->
+    <div class="logo-header" data-background-color="dark" style="background-color: #1a0d3d;">
+      <a href="/dashboard" class="logo">
+        <img
+          src="/dashboard/img/kaiadmin/logo_light.svg"
+          alt="navbar brand"
+          class="navbar-brand"
+          height="20"
+        />
+      </a>
+      <div class="nav-toggle">
+        <button class="btn btn-toggle toggle-sidebar">
+          <i class="gg-menu-right"></i>
+        </button>
+        <button class="btn btn-toggle sidenav-toggler">
+          <i class="gg-menu-left"></i>
+        </button>
       </div>
+      <button class="topbar-toggler more">
+        <i class="gg-more-vertical-alt"></i>
+      </button>
+    </div>
+    <!-- End Logo Header -->
+  </div>
+  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-content">
+      <ul class="nav nav-secondary">
+        <li class="nav-item" id="nav-dashboard">
+          <a href="/dashboard">
+            <i class="fas fa-home"></i>
+            <p>Dashboard</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-item" id="nav-transactions">
+          <a href="/dashboard/transactions">
+            <i class="fas fa-exchange-alt"></i>
+            <p>Transactions</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-item" id="nav-explore">
+          <a href="/dashboard/explore">
+            <i class="fas fa-search"></i>
+            <p>Explore</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-item" id="nav-wallet">
+          <a href="/dashboard/wallet">
+            <i class="fas fa-wallet"></i>
+            <p>Wallet</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-item" id="nav-premium">
+          <a href="/dashboard/premium">
+            <i class="fas fa-crown"></i>
+            <p>Premium</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-item" id="nav-profile">
+          <a href="/dashboard/profile">
+            <i class="fas fa-user"></i>
+            <p>Profile</p>
+            <span class=""></span>
+          </a>
+        </li>
+        <li class="nav-section">
+          <span class="sidebar-mini-icon">
+            <i class="fa fa-ellipsis-h"></i>
+          </span>
+          <h4 class="text-section">Components</h4>
+        </li>
+        <li class="nav-item" id="nav-widgets">
+          <a href="/dashboard/widgets">
+            <i class="fas fa-desktop"></i>
+            <p>Widgets</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Override existing styles with dark violet theme */
+.sidebar {
+  background-color: #1a0d3d !important;
+}
+
+.logo-header {
+  background-color: #1a0d3d !important;
+}
+
+/* Better active state styling with lighter violet shade */
+.nav-item.active > a {
+  background-color: #2d1b69 !important;
+  color: #ffffff !important;
+  border-left: 3px solid #4a3585;
+  border-radius: 0;
+}
+
+.nav-item.active > a i {
+  color: #ffffff !important;
+}
+
+/* Default state styling */
+.nav-item > a {
+  color: #a395c7 !important;
+  transition: all 0.3s ease;
+}
+
+.nav-item > a i {
+  color: #7a6ba8 !important;
+}
+
+/* Hover effects */
+.nav-item:not(.active) > a:hover {
+  background-color: #2d1b69 !important;
+  color: #ffffff !important;
+  transform: translateX(5px);
+}
+
+.nav-item:not(.active) > a:hover i {
+  color: #ffffff !important;
+}
+
+/* Text section styling */
+.text-section {
+  color: #7a6ba8 !important;
+}
+
+/* Button styling for toggles */
+.btn-toggle {
+  color: #a395c7 !important;
+}
+
+.btn-toggle:hover {
+  color: #ffffff !important;
+}
+</style>
+
+<script>
+// Active tab functionality - add this script to each page
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove active class from all nav items
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Get current page from URL
+    const currentPath = window.location.pathname;
+    let activeNavId = '';
+    
+    // Determine which nav item should be active based on current path
+    if (currentPath === '/dashboard' || currentPath === '/dashboard/') {
+        activeNavId = 'nav-dashboard';
+    } else if (currentPath.includes('/transactions')) {
+        activeNavId = 'nav-transactions';
+    } else if (currentPath.includes('/explore')) {
+        activeNavId = 'nav-explore';
+    } else if (currentPath.includes('/wallet')) {
+        activeNavId = 'nav-wallet';
+    } else if (currentPath.includes('/premium')) {
+        activeNavId = 'nav-premium';
+    } else if (currentPath.includes('/profile')) {
+        activeNavId = 'nav-profile';
+    } else if (currentPath.includes('/widgets')) {
+        activeNavId = 'nav-widgets';
+    }
+    
+    // Add active class to the current page's nav item
+    if (activeNavId) {
+        const activeNav = document.getElementById(activeNavId);
+        if (activeNav) {
+            activeNav.classList.add('active');
+        }
+    }
+});
+</script>

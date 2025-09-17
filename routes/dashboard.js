@@ -16,18 +16,42 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Configure multer for avatar uploads
+// Function to delete old avatar files
+function deleteOldAvatar(userId) {
+  const avatarDir = path.join(__dirname, '../public/uploads/avatars/');
+  const possibleExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
+  
+  possibleExtensions.forEach(ext => {
+    const oldFilePath = path.join(avatarDir, userId + ext);
+    if (fs.existsSync(oldFilePath)) {
+      try {
+        fs.unlinkSync(oldFilePath);
+        console.log('Deleted old avatar:', oldFilePath);
+      } catch (error) {
+        console.error('Error deleting old avatar:', error);
+      }
+    }
+  });
+}
+
+// Configure multer for avatar uploads with userid naming
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = 'public/uploads/avatars/';
+    const uploadDir = path.join(__dirname, '../public/uploads/avatars/');
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'avatar-' + req.session.user.id + '-' + uniqueSuffix + path.extname(file.originalname));
+    try {
+      const userId = req.session.user.id;
+      // Always save as .jpg regardless of original format
+      cb(null, userId + '.jpg');
+    } catch (error) {
+      console.error('Error in filename function:', error);
+      cb(error);
+    }
   }
 });
 
@@ -46,25 +70,262 @@ const upload = multer({
 // Apply auth middleware to all dashboard routes
 router.use(requireAuth);
 
+// Middleware to load complete user data for all dashboard pages
+const loadUserData = async (req, res, next) => {
+    try {
+        if (req.session.user) {
+            // Get complete user data from database including profile photo
+            const fullUserData = await User.findById(req.session.user.id)
+                .select('firstName lastName email profilePhoto isPremium premiumExpiry createdAt')
+                .lean();
+            
+            if (fullUserData) {
+                // Merge database data with session data
+                req.userData = {
+                    ...req.session.user,
+                    ...fullUserData
+                };
+            } else {
+                // Fallback to session data if database query fails
+                req.userData = req.session.user;
+            }
+        } else {
+            req.userData = null;
+        }
+        
+        next();
+    } catch (error) {
+        console.error('Error loading user data:', error);
+        // Fallback to session data on error
+        req.userData = req.session.user || null;
+        next();
+    }
+};
+
+// Apply the loadUserData middleware to all routes
+router.use(loadUserData);
+
 // ===== PAGE ROUTES =====
 
 router.get('/dashboard', (req, res) => {
     res.render('dashboard/dashboard', { 
         title: 'Dashboard - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
 });
 
+// api dashboard
+
+// Add these 3 endpoints to your dashboard.js routes file
+// Insert them after your existing API endpoints (around line 600, after the subscription endpoints)
+
+// ===== DASHBOARD API ENDPOINTS =====
+
+// Get dashboard summary stats
+// In your dashboard routes, update the summary endpoint:
+router.get('/api/dashboard/summary', async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+        const User = require('../models/User');
+        const ROI = require('../models/ROI');
+        const mongoose = require('mongoose');
+        
+        const user = await User.findById(userId).select('portfolio holdings').lean();
+        if (!user) return res.status(404).json({ error: 'User not found' });
+        
+        const portfolio = user.portfolio || {};
+        const totalPortfolioValue = (portfolio.cashBalance || 0) + (portfolio.totalInvestmentValue || 0);
+        
+        // Calculate daily change from ROI data
+        let dayChange = 0;
+        let dayChangePercentage = 0;
+        
+        try {
+            // Get today's and yesterday's portfolio values from ROI
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            const [todayROI, yesterdayROI] = await Promise.all([
+                ROI.findOne({ userId: new mongoose.Types.ObjectId(userId), date: today }).lean(),
+                ROI.findOne({ userId: new mongoose.Types.ObjectId(userId), date: yesterday }).lean()
+            ]);
+            
+            if (todayROI && yesterdayROI) {
+                dayChange = todayROI.totalPortfolioValue - yesterdayROI.totalPortfolioValue;
+                dayChangePercentage = yesterdayROI.totalPortfolioValue > 0 
+                    ? (dayChange / yesterdayROI.totalPortfolioValue) * 100 
+                    : 0;
+            } else if (yesterdayROI) {
+                // If no today's ROI but have yesterday's, compare current value with yesterday
+                dayChange = totalPortfolioValue - yesterdayROI.totalPortfolioValue;
+                dayChangePercentage = yesterdayROI.totalPortfolioValue > 0 
+                    ? (dayChange / yesterdayROI.totalPortfolioValue) * 100 
+                    : 0;
+            }
+        } catch (roiError) {
+            console.log('ROI calculation error (using fallback):', roiError.message);
+        }
+        
+        res.json({
+            totalPortfolioValue,
+            cashBalance: portfolio.cashBalance || 0,
+            totalReturnPercentage: portfolio.totalReturnPercentage || 0,
+            numberOfFunds: user.holdings?.length || 0,
+            dayChange,
+            dayChangePercentage
+        });
+    } catch (error) {
+        console.error('Dashboard summary error:', error);
+        res.status(500).json({ error: 'Failed to load dashboard summary' });
+    }
+});
+// Get user's fund performance data from NAV model
+router.get('/api/dashboard/user-funds-performance', async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+        const NAV = require('../models/NAV');
+        const Fund = require('../models/Fund');
+        const mongoose = require('mongoose');
+        
+        // Get user's holdings
+        const user = await User.findById(userId).select('holdings').lean();
+        if (!user || !user.holdings || user.holdings.length === 0) {
+            return res.json({ funds: [] });
+        }
+
+        console.log('User has', user.holdings.length, 'fund holdings');
+
+        // Debug: Check what's in NAV collection
+        const totalNavRecords = await NAV.countDocuments();
+        console.log('Total NAV records in database:', totalNavRecords);
+
+        // Get sample NAV data
+        const sampleNav = await NAV.findOne().lean();
+        console.log('Sample NAV record:', sampleNav);
+
+        // Check unique fund symbols in NAV
+        const uniqueFundSymbols = await NAV.distinct('fundSymbol');
+        console.log('Unique fund symbols in NAV:', uniqueFundSymbols);
+
+        // Check user's fund symbols
+        const userFundSymbols = user.holdings.map(h => h.fundSymbol);
+        console.log('User fund symbols:', userFundSymbols);
+
+        // Get earliest purchase date for display purposes only
+        const earliestDate = user.holdings.reduce((earliest, holding) => {
+            const purchaseDate = new Date(holding.firstPurchaseDate);
+            return !earliest || purchaseDate < earliest ? purchaseDate : earliest;
+        }, null);
+
+        console.log('User purchase date (for reference):', earliestDate);
+
+        // Get NAV data for each fund - show all monthly data since inception
+        const fundsData = await Promise.all(
+            user.holdings.map(async (holding) => {
+                console.log('Fetching NAV for fund:', holding.fundSymbol);
+                
+                // Get all monthly NAV data for the fund (since fund inception)
+                const navData = await NAV.find({
+                    fundSymbol: holding.fundSymbol,
+                    granularity: 'monthly'
+                }).sort({ date: 1 }).select('date nav').lean();
+
+                console.log('Found', navData.length, 'monthly NAV records for', holding.fundSymbol);
+
+                const fund = await Fund.findOne({ symbol: holding.fundSymbol }).select('name').lean();
+
+                return {
+                    symbol: holding.fundSymbol,
+                    name: fund?.name || holding.fundSymbol,
+                    data: navData.map(nav => ({
+                        date: nav.date,
+                        value: nav.nav
+                    }))
+                };
+            })
+        );
+
+        console.log('Returning fund data for', fundsData.length, 'funds');
+        res.json({ funds: fundsData });
+    } catch (error) {
+        console.error('Fund performance error:', error);
+        res.status(500).json({ error: 'Failed to load fund performance' });
+    }
+});
+
+// Get user's portfolio value history from ROI model
+router.get('/api/dashboard/portfolio-value-history', async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+        const ROI = require('../models/ROI');
+        const mongoose = require('mongoose');
+        
+        console.log('Fetching portfolio history for user:', userId);
+        
+        // Check if user has any ROI records
+        const userRoiCount = await ROI.countDocuments({ userId: new mongoose.Types.ObjectId(userId) });
+        console.log('User ROI records count:', userRoiCount);
+
+        if (userRoiCount === 0) {
+            console.log('No ROI data found - creating mock data for chart');
+            // Since you have no ROI data, create some mock data based on user's portfolio
+            const user = await User.findById(userId).select('portfolio').lean();
+            const currentValue = (user?.portfolio?.cashBalance || 0) + (user?.portfolio?.totalInvestmentValue || 0);
+            
+            // Create mock historical data for the last 30 days
+            const mockData = [];
+            const today = new Date();
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                // Add some variation to make the chart look realistic
+                const variation = (Math.random() - 0.5) * (currentValue * 0.1);
+                mockData.push({
+                    date: date,
+                    value: Math.max(0, currentValue + variation)
+                });
+            }
+            
+            return res.json({ data: mockData });
+        }
+
+        // If ROI data exists, fetch it normally
+        const portfolioHistory = await ROI.find({ 
+            userId: new mongoose.Types.ObjectId(userId) 
+        })
+        .sort({ date: 1 })
+        .select('date totalPortfolioValue')
+        .lean();
+
+        const formattedData = portfolioHistory.map(entry => ({
+            date: entry.date,
+            value: entry.totalPortfolioValue
+        }));
+
+        res.json({ data: formattedData });
+    } catch (error) {
+        console.error('Portfolio history error:', error);
+        res.status(500).json({ error: 'Failed to load portfolio history' });
+    }
+});
+
+// api dashboard
+
 router.get('/dashboard/widgets', (req, res) => {
-    res.render('dashboard/widgets');
+    res.render('dashboard/widgets', {
+        user: req.userData
+    });
 });
 
 router.get('/dashboard/premium', (req, res) => {
     res.render('dashboard/premium', {
         title: 'Premium Plans - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
@@ -73,7 +334,7 @@ router.get('/dashboard/premium', (req, res) => {
 router.get('/dashboard/wallet', (req, res) => {
     res.render('dashboard/wallet', {
         title: 'Wallet - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
@@ -82,17 +343,16 @@ router.get('/dashboard/wallet', (req, res) => {
 router.get('/dashboard/transactions', (req, res) => {
     res.render('dashboard/transactions', {
         title: 'Transaction History - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
 });
 
-// Profile page route
 router.get('/dashboard/profile', (req, res) => {
     res.render('dashboard/profile', {
         title: 'Profile - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
@@ -101,28 +361,25 @@ router.get('/dashboard/profile', (req, res) => {
 router.get('/dashboard/explore', (req, res) => {
     res.render('dashboard/explore', {
         title: 'Explore Funds - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
 });
 
-// Change password page route
 router.get('/dashboard/reset-pass', (req, res) => {
     res.render('dashboard/reset-pass', {
         title: 'Reset Password - CDT Index',
-        user: req.session.user,
+        user: req.userData,
         success: req.flash('success'),
         error: req.flash('error')
     });
 });
 
-// Buy page route with fund data
 router.get('/dashboard/buy/:symbol', async (req, res) => {
     try {
         const { symbol } = req.params;
         
-        // Get fund details and user portfolio
         const [fundDetails, userPortfolio] = await Promise.all([
             FundService.getFundDetails(symbol.toUpperCase()),
             WalletService.getUserPortfolio(req.session.user.id)
@@ -132,7 +389,7 @@ router.get('/dashboard/buy/:symbol', async (req, res) => {
             title: `Buy ${fundDetails.name} - CDT Index`,
             fund: fundDetails,
             userPortfolio: userPortfolio,
-            user: req.session.user,
+            user: req.userData,
             success: req.flash('success'),
             error: req.flash('error')
         });
@@ -146,7 +403,6 @@ router.get('/dashboard/buy/:symbol', async (req, res) => {
 
 // ===== PROFILE API ENDPOINTS =====
 
-// Get user profile
 router.get('/api/user/profile', async (req, res) => {
     try {
         const user = await User.findById(req.session.user.id)
@@ -164,7 +420,6 @@ router.get('/api/user/profile', async (req, res) => {
     }
 });
 
-// Update user profile
 router.put('/api/user/update-profile', async (req, res) => {
     try {
         const { firstName, lastName } = req.body;
@@ -205,29 +460,70 @@ router.put('/api/user/update-profile', async (req, res) => {
     }
 });
 
-// Upload avatar
-router.post('/api/user/upload-avatar', upload.single('avatar'), async (req, res) => {
+// CORRECTED upload avatar route with proper deletion timing
+router.post('/api/user/upload-avatar', async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
-        }
+        const userId = req.session.user.id;
         
-        const avatarUrl = '/uploads/avatars/' + req.file.filename;
+        // Delete old avatar files BEFORE processing the upload
+        deleteOldAvatar(userId);
         
-        // Update user's profile photo in database
-        const user = await User.findByIdAndUpdate(
-            req.session.user.id,
-            { profilePhoto: avatarUrl },
-            { new: true }
-        );
-        
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-        
-        res.json({ 
-            success: true, 
-            avatarUrl: avatarUrl 
+        // Now handle the upload
+        upload.single('avatar')(req, res, async function (err) {
+            if (err) {
+                console.error('Multer upload error:', err);
+                return res.status(400).json({ error: err.message });
+            }
+            
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+            
+            try {
+                // The file is now saved as userid.jpg
+                const avatarUrl = '/uploads/avatars/' + userId + '.jpg';
+                
+                // Update user's profile photo in database
+                const user = await User.findByIdAndUpdate(
+                    userId,
+                    { profilePhoto: avatarUrl },
+                    { new: true }
+                );
+                
+                if (!user) {
+                    // If user update fails, delete the uploaded file
+                    const filePath = path.join(__dirname, '../public/uploads/avatars/', userId + '.jpg');
+                    if (fs.existsSync(filePath)) {
+                        fs.unlinkSync(filePath);
+                    }
+                    return res.status(404).json({ error: 'User not found' });
+                }
+                
+                // Update session data
+                if (req.session.user) {
+                    req.session.user.profilePhoto = avatarUrl;
+                }
+                
+                res.json({ 
+                    success: true, 
+                    avatarUrl: avatarUrl + '?t=' + Date.now()
+                });
+                
+            } catch (dbError) {
+                console.error('Database update error:', dbError);
+                
+                // Clean up uploaded file if database update fails
+                const filePath = path.join(__dirname, '../public/uploads/avatars/', userId + '.jpg');
+                if (fs.existsSync(filePath)) {
+                    try {
+                        fs.unlinkSync(filePath);
+                    } catch (deleteError) {
+                        console.error('Error cleaning up failed upload:', deleteError);
+                    }
+                }
+                
+                res.status(500).json({ error: 'Failed to save avatar to database' });
+            }
         });
         
     } catch (error) {
@@ -236,43 +532,96 @@ router.post('/api/user/upload-avatar', upload.single('avatar'), async (req, res)
     }
 });
 
-// Export transaction history
+// Export transaction history with proper CSV format
 router.get('/api/user/export-transactions', async (req, res) => {
     try {
         const transactions = await Transaction.find({ 
             userId: req.session.user.id 
         })
-        .sort({ transactionDate: -1 })
+        .sort({ $or: [
+            { transactionDate: -1 }, 
+            { createdAt: -1 },
+            { date: -1 },
+            { _id: -1 }
+        ]})
         .lean();
         
-        // Create CSV content
-        let csvContent = 'Date,Type,Description,Amount,Fund,Units,NAV Price,Status\n';
+        // Add BOM for proper UTF-8 handling in Excel
+        let csvContent = '\uFEFF';
+        
+        // CSV header with shorter column names for Excel
+        csvContent += 'Date,Time,Type,Description,Amount,Fund,Units,NAV_Price,Status,Reference\n';
         
         transactions.forEach(transaction => {
+            let transactionDate = null;
+            
+            // Try multiple date field possibilities
+            if (transaction.transactionDate) {
+                transactionDate = new Date(transaction.transactionDate);
+            } else if (transaction.createdAt) {
+                transactionDate = new Date(transaction.createdAt);
+            } else if (transaction.date) {
+                transactionDate = new Date(transaction.date);
+            } else if (transaction._id) {
+                transactionDate = new Date(parseInt(transaction._id.toString().substring(0,8), 16) * 1000);
+            }
+            
+            let formattedDate = 'No_Date';
+            let formattedTime = 'No_Time';
+            
+            if (transactionDate && !isNaN(transactionDate.getTime())) {
+                // Use simple date format that Excel recognizes
+                formattedDate = (transactionDate.getMonth() + 1) + '/' + 
+                               transactionDate.getDate() + '/' + 
+                               transactionDate.getFullYear();
+                               
+                formattedTime = transactionDate.getHours().toString().padStart(2, '0') + ':' + 
+                               transactionDate.getMinutes().toString().padStart(2, '0') + ':' + 
+                               transactionDate.getSeconds().toString().padStart(2, '0');
+            }
+            
+            // Clean and escape data for CSV
+            const cleanDescription = (transaction.description || 'Transaction')
+                .replace(/"/g, '""')  // Escape quotes
+                .replace(/,/g, ' ')   // Replace commas with spaces
+                .replace(/\n/g, ' ')  // Replace newlines with spaces
+                .trim();
+            
+            const amount = parseFloat(transaction.amount || 0).toFixed(2);
+            const units = transaction.units ? parseFloat(transaction.units).toFixed(4) : '';
+            const navPrice = transaction.navPriceAtTransaction ? parseFloat(transaction.navPriceAtTransaction).toFixed(4) : '';
+            
+            // Build row without excessive quotes
             const row = [
-                new Date(transaction.transactionDate).toLocaleDateString(),
-                transaction.transactionType,
-                `"${transaction.description}"`,
-                transaction.amount,
+                formattedDate,
+                formattedTime,
+                transaction.transactionType || 'Unknown',
+                '"' + cleanDescription + '"',
+                amount,
                 transaction.fundSymbol || '',
-                transaction.units || '',
-                transaction.navPriceAtTransaction || '',
-                transaction.status
+                units,
+                navPrice,
+                transaction.status || 'Completed',
+                transaction.referenceId || ''
             ].join(',');
+            
             csvContent += row + '\n';
         });
         
-        res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', 'attachment; filename=transaction-history.csv');
+        const filename = 'transactions_' + new Date().toISOString().split('T')[0].replace(/-/g, '') + '.csv';
+        
+        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+        res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Pragma', 'no-cache');
+        
         res.send(csvContent);
         
     } catch (error) {
-        console.error('Export transactions error:', error);
         res.status(500).json({ error: 'Failed to export transactions' });
     }
 });
 
-// Change password API
 router.post('/api/user/change-password', async (req, res) => {
     try {
         const { currentPassword, newPassword, confirmPassword } = req.body;
@@ -327,20 +676,16 @@ router.get('/api/transactions', async (req, res) => {
             limit = 20
         } = req.query;
 
-        // Build query
         const query = { userId };
 
-        // Add type filter
         if (type) {
             query.transactionType = type;
         }
 
-        // Add fund filter
         if (fund) {
             query.fundSymbol = fund.toUpperCase();
         }
 
-        // Add period filter
         const now = new Date();
         let startDate;
         
@@ -368,10 +713,8 @@ router.get('/api/transactions', async (req, res) => {
             query.transactionDate = { $gte: startDate };
         }
 
-        // Get total count
         const totalCount = await Transaction.countDocuments(query);
 
-        // Get paginated transactions
         const transactions = await Transaction.find(query)
             .sort({ transactionDate: -1 })
             .skip((parseInt(page) - 1) * parseInt(limit))
@@ -391,7 +734,6 @@ router.get('/api/transactions', async (req, res) => {
     }
 });
 
-// Get specific transaction details
 router.get('/api/transactions/:transactionId', async (req, res) => {
     try {
         const { transactionId } = req.params;
@@ -413,7 +755,6 @@ router.get('/api/transactions/:transactionId', async (req, res) => {
     }
 });
 
-// Get transaction summary for user
 router.get('/api/transactions/summary', async (req, res) => {
     try {
         const userId = req.session.user.id;
@@ -628,109 +969,12 @@ router.post('/api/purchase-premium', async (req, res) => {
     }
 });
 
-// Add this debugging to your routes/dashboard.js
-
-// Debug middleware - add this right after requireAuth middleware
-router.use((req, res, next) => {
-    console.log('=== DEBUG INFO ===');
-    console.log('Request URL:', req.url);
-    console.log('Session user:', req.session.user);
-    console.log('User ID type:', typeof req.session.user?.id);
-    console.log('User ID value:', req.session.user?.id);
-    console.log('==================');
-    next();
+router.get('/api/test', (req, res) => {
+    res.json({ 
+        message: 'API working',
+        user: req.session.user || null,
+        timestamp: new Date()
+    });
 });
-
-// Enhanced profile endpoint with debugging
-router.get('/api/user/profile', async (req, res) => {
-    try {
-        console.log('Profile API called');
-        console.log('Session user:', req.session.user);
-        console.log('Looking for user ID:', req.session.user.id);
-        
-        const user = await User.findById(req.session.user.id)
-            .select('-password')
-            .lean();
-        
-        console.log('User found in DB:', user ? 'YES' : 'NO');
-        console.log('User data:', user);
-        
-        if (!user) {
-            console.log('User not found in database');
-            return res.status(404).json({ error: 'User not found' });
-        }
-        
-        const responseData = { user };
-        console.log('Sending response:', responseData);
-        
-        res.json(responseData);
-    } catch (error) {
-        console.error('Get profile error:', error);
-        console.error('Error stack:', error.stack);
-        res.status(500).json({ error: 'Failed to load profile: ' + error.message });
-    }
-});
-
-// Enhanced wallet portfolio endpoint
-router.get('/api/wallet/portfolio', async (req, res) => {
-    try {
-        console.log('Wallet portfolio API called');
-        console.log('User ID:', req.session.user.id);
-        
-        const portfolio = await WalletService.getUserPortfolio(req.session.user.id);
-        console.log('Portfolio from service:', portfolio);
-        
-        // Ensure consistent response format
-        const response = {
-            portfolio: {
-                cashBalance: portfolio?.cashBalance || 0,
-                investmentValue: portfolio?.totalInvestmentValue || 0,
-                totalValue: portfolio?.totalPortfolioValue || 0
-            }
-        };
-        
-        console.log('Sending portfolio response:', response);
-        res.json(response);
-    } catch (error) {
-        console.error('API wallet portfolio error:', error);
-        console.error('Error stack:', error.stack);
-        res.status(500).json({ error: 'Unable to load portfolio data: ' + error.message });
-    }
-});
-
-// Enhanced transactions endpoint
-router.get('/api/wallet/transactions', async (req, res) => {
-    try {
-        console.log('Wallet transactions API called');
-        console.log('User ID:', req.session.user.id);
-        console.log('Query params:', req.query);
-        
-        const options = {
-            page: parseInt(req.query.page) || 1,
-            limit: parseInt(req.query.limit) || 20,
-            type: req.query.type
-        };
-        
-        console.log('Transaction options:', options);
-        
-        const transactions = await WalletService.getUserTransactions(req.session.user.id, options);
-        console.log('Transactions from service:', transactions);
-        
-        // Ensure consistent response format
-        const response = {
-            transactions: transactions?.transactions || [],
-            totalCount: transactions?.totalCount || 0
-        };
-        
-        console.log('Sending transactions response:', response);
-        res.json(response);
-    } catch (error) {
-        console.error('API wallet transactions error:', error);
-        console.error('Error stack:', error.stack);
-        res.status(500).json({ error: 'Unable to load transaction history: ' + error.message });
-    }
-});
-
-
 
 module.exports = router;

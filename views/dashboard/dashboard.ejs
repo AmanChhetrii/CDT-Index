@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Profile</title>
+    <title>Dashboard - CDT Index</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -12,6 +12,9 @@
       href="/dashboard/img/kaiadmin/favicon.ico"
       type="image/x-icon"
     />
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 
     <!-- Fonts and icons -->
     <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
@@ -37,21 +40,102 @@
     <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
     <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
-
     
+    <!-- Custom CSS for equal height cards -->
+    <style>
+      .stats-cards-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -0.75rem; /* Negative margin to offset card margins */
+      }
+      
+      .stats-card-col {
+        flex: 1 1 25%; /* Each card takes 25% width on desktop */
+        min-width: 250px; /* Minimum width for smaller screens */
+        padding: 0.75rem; /* Consistent padding around each card */
+        display: flex;
+      }
+      
+      .card-stats {
+        display: flex;
+        flex-direction: column;
+        height: 120px; /* Fixed height for all cards */
+        width: 100%;
+      }
+      
+      .card-stats .card-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 1.5rem 1.25rem;
+      }
+      
+      .card-stats .numbers {
+        flex: 1;
+      }
+      
+      .card-stats .numbers .card-category {
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .card-stats .numbers .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 1200px) {
+        .stats-card-col {
+          flex: 1 1 50%; /* 2 cards per row on medium screens */
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .stats-card-col {
+          flex: 1 1 100%; /* 1 card per row on mobile */
+          min-width: auto;
+        }
+        
+        .stats-cards-row {
+          margin: -0.5rem;
+        }
+        
+        .stats-card-col {
+          padding: 0.5rem;
+        }
+      }
+      
+      /* Ensure icons are consistent */
+      .icon-big {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
       <!-- Sidebar -->
-     <%- include('partials/sidebar'); %>
+      <%- include('partials/sidebar'); %>
       <!-- End Sidebar -->
 
       <div class="main-panel">
-      
         <!-- header starts -->
-         <%- include('partials/header') %>
-         <!-- header ends -->
-        
+        <%- include('partials/header') %>
+        <!-- header ends -->
 
         <div class="container">
           <div class="page-inner">
@@ -62,12 +146,14 @@
                 <h6 class="op-7 mb-2">Everything You Need In One Place</h6>
               </div>
               <div class="ms-md-auto py-2 py-md-0">
-                <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
-                <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+                <a href="/dashboard/explore" class="btn btn-label-info btn-round me-2">Explore Funds</a>
+                <a href="/dashboard/wallet" class="btn btn-primary btn-round">Manage Portfolio</a>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-6 col-md-3">
+            
+            <!-- Equal height cards row -->
+            <div class="stats-cards-row">
+              <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -75,41 +161,21 @@
                         <div
                           class="icon-big text-center icon-primary bubble-shadow-small"
                         >
-                          <i class="fas fa-users"></i>
+                          <i class="fas fa-chart-line"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Visitors</p>
-                          <h4 class="card-title">1,294</h4>
+                          <p class="card-category">Portfolio Value</p>
+                          <h4 class="card-title" id="portfolioValue">$0</h4>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col-icon">
-                        <div
-                          class="icon-big text-center icon-info bubble-shadow-small"
-                        >
-                          <i class="fas fa-user-check"></i>
-                        </div>
-                      </div>
-                      <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                          <p class="card-category">Subscribers</p>
-                          <h4 class="card-title">1303</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3">
+
+               <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -117,20 +183,46 @@
                         <div
                           class="icon-big text-center icon-success bubble-shadow-small"
                         >
-                          <i class="fas fa-luggage-cart"></i>
+                          <i class="fa-solid fa-sack-dollar"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Sales</p>
-                          <h4 class="card-title">$ 1,345</h4>
+                          <p class="card-category">Total Return</p>
+                          <h4 class="card-title">
+                            <span id="totalReturn">0%</span>
+                            <small class="text-muted ms-2" id="totalReturnAmount">$0</small>
+                          </h4>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-3">
+              
+              <div class="stats-card-col">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-icon">
+                        <div
+                          class="icon-big text-center icon-info bubble-shadow-small"
+                        >
+                          <i class="fa-solid fa-wallet"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Cash Balance</p>
+                          <h4 class="card-title" id="cashBalance">$0</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -138,13 +230,13 @@
                         <div
                           class="icon-big text-center icon-secondary bubble-shadow-small"
                         >
-                          <i class="far fa-check-circle"></i>
+                          <i class="fas fa-cubes"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Order</p>
-                          <h4 class="card-title">576</h4>
+                          <p class="card-category">Funds Owned</p>
+                          <h4 class="card-title" id="fundsOwned">0</h4>
                         </div>
                       </div>
                     </div>
@@ -152,27 +244,28 @@
                 </div>
               </div>
             </div>
+            
             <div class="row">
               <div class="col-md-8">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row">
-                      <div class="card-title">User Statistics</div>
+                      <div class="card-title">Fund Performance Since Investment</div>
                       <div class="card-tools">
                         <a
-                          href="#"
+                          href="/dashboard/explore"
                           class="btn btn-label-success btn-round btn-sm me-2"
                         >
                           <span class="btn-label">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-plus"></i>
                           </span>
-                          Export
+                          Add Funds
                         </a>
-                        <a href="#" class="btn btn-label-info btn-round btn-sm">
+                        <a href="/dashboard/transactions" class="btn btn-label-info btn-round btn-sm">
                           <span class="btn-label">
-                            <i class="fa fa-print"></i>
+                            <i class="fa fa-list"></i>
                           </span>
-                          Print
+                          History
                         </a>
                       </div>
                     </div>
@@ -181,7 +274,7 @@
                     <div class="chart-container" style="min-height: 375px">
                       <canvas id="statisticsChart"></canvas>
                     </div>
-                    <div id="myChartLegend"></div>
+                    <div id="myChartLegend" style="display: none;"></div>
                   </div>
                 </div>
               </div>
@@ -189,7 +282,7 @@
                 <div class="card card-primary card-round">
                   <div class="card-header">
                     <div class="card-head-row">
-                      <div class="card-title">Daily Sales</div>
+                      <div class="card-title">Portfolio Value History</div>
                       <div class="card-tools">
                         <div class="dropdown">
                           <button
@@ -200,26 +293,23 @@
                             aria-haspopup="true"
                             aria-expanded="false"
                           >
-                            Export
+                            Options
                           </button>
                           <div
                             class="dropdown-menu"
                             aria-labelledby="dropdownMenuButton"
                           >
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#"
-                              >Something else here</a
-                            >
+                            <a class="dropdown-item" href="/dashboard/wallet">View Wallet</a>
+                            <a class="dropdown-item" href="/dashboard/transactions">View Transactions</a>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="card-category">March 25 - April 02</div>
+                    <div class="card-category">Daily Portfolio Values</div>
                   </div>
                   <div class="card-body pb-0">
                     <div class="mb-4 mt-2">
-                      <h1>$4,578.58</h1>
+                      <h1 id="currentPortfolioValue">$0</h1>
                     </div>
                     <div class="pull-in">
                       <canvas id="dailySalesChart"></canvas>
@@ -228,12 +318,9 @@
                 </div>
                 <div class="card card-round">
                   <div class="card-body pb-0">
-                    <div class="h1 fw-bold float-end text-primary">+5%</div>
-                    <h2 class="mb-2">17</h2>
-                    <p class="text-muted">Users online</p>
-                    <div class="pull-in sparkline-fix">
-                      <div id="lineChart"></div>
-                    </div>
+                    <div class="h1 fw-bold float-end text-primary" id="changePercent">+0%</div>
+                    <h2 class="mb-2" id="changeAmount">$0</h2>
+                    <p class="text-muted">Today's Change</p>
                   </div>
                 </div>
               </div>
@@ -241,14 +328,12 @@
           </div>
         </div>
 
-      <!-- footer starts -->
-       <%- include('partials/footer') %>
-      <!-- footer ends -->
+        <!-- footer starts -->
+        <%- include('partials/footer') %>
+        <!-- footer ends -->
       </div>
-
-     
-      <!-- End Custom template -->
     </div>
+
     <!--   Core JS Files   -->
     <script src="/dashboard/js/core/jquery-3.7.1.min.js"></script>
     <script src="/dashboard/js/core/popper.min.js"></script>
@@ -282,9 +367,260 @@
     <!-- Kaiadmin JS -->
     <script src="/dashboard/js/kaiadmin.min.js"></script>
 
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="/dashboard/js/setting-demo.js"></script>
-    <script src="/dashboard/js/demo.js"></script>
-    
+    <!-- Dashboard Custom Script -->
+    <script>
+      $(document).ready(function() {
+        var statisticsChart, dailySalesChart;
+
+        // Load dashboard data
+        loadDashboardData();
+
+        async function loadDashboardData() {
+          try {
+            // Load summary data
+            const summaryResponse = await fetch('/api/dashboard/summary');
+            const summaryData = await summaryResponse.json();
+            
+            // Update cards (except total return - will be calculated from portfolio data)
+            $('#portfolioValue').text('$' + (summaryData.totalPortfolioValue || 0).toLocaleString());
+            $('#cashBalance').text('$' + (summaryData.cashBalance || 0).toLocaleString());
+            $('#fundsOwned').text(summaryData.numberOfFunds || 0);
+            $('#currentPortfolioValue').text('$' + (summaryData.totalPortfolioValue || 0).toLocaleString());
+            
+            // Load fund performance chart
+            await loadFundChart();
+            
+            // Load portfolio chart and calculate total returns from ROI data
+            await loadPortfolioChart();
+
+          } catch (error) {
+            console.error('Error loading dashboard:', error);
+          }
+        }
+
+        async function loadFundChart() {
+          try {
+            const response = await fetch('/api/dashboard/user-funds-performance');
+            const data = await response.json();
+            
+            const ctx = document.getElementById("statisticsChart").getContext("2d");
+
+            if (!data.funds || data.funds.length === 0) {
+              return;
+            }
+
+            // Filter valid funds with data
+            const validFunds = data.funds.filter(fund => fund.data && fund.data.length > 0);
+            
+            if (validFunds.length === 0) {
+              return;
+            }
+
+            const colors = ["#177dff", "#f3545d", "#fdaf4b", "#1d7af3", "#6861ce", "#59d05d"];
+            
+            const datasets = validFunds.map((fund, index) => {
+              const color = colors[index % colors.length];
+              // Convert hex to rgba for background with 20% opacity
+              const hexToRgba = (hex) => {
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                return `rgba(${r}, ${g}, ${b}, 0.2)`;
+              };
+              
+              return {
+                label: fund.name,
+                borderColor: color,
+                pointBackgroundColor: color,
+                pointRadius: 0,
+                backgroundColor: hexToRgba(color),
+                fill: true,
+                borderWidth: 2,
+                data: fund.data.map(point => point.value)
+              };
+            });
+
+            // Get labels from first fund (empty labels to hide dates)
+            const labels = validFunds[0].data.map(() => '');
+
+            if (statisticsChart) {
+              statisticsChart.destroy();
+            }
+
+            statisticsChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: labels,
+                datasets: datasets
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                interaction: {
+                  intersect: false,
+                  mode: 'index'
+                },
+                scales: {
+                  x: {
+                    display: false,
+                  },
+                  y: {
+                    grid: {
+                      drawBorder: false,
+                      color: "#f1f1f1",
+                    },
+                    ticks: {
+                      color: "#9a9a9a",
+                      callback: function(value) {
+                        return '$' + value;
+                      }
+                    },
+                  },
+                },
+                elements: {
+                  line: {
+                    tension: 0.4,
+                  },
+                  point: {
+                    radius: 0,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                    hoverBorderWidth: 3,
+                  },
+                },
+              },
+            });
+
+          } catch (error) {
+            console.error('Error loading fund chart:', error);
+          }
+        }
+
+        async function loadPortfolioChart() {
+          try {
+            const response = await fetch('/api/dashboard/portfolio-value-history');
+            const data = await response.json();
+            
+            const ctx = document.getElementById("dailySalesChart").getContext("2d");
+
+            if (!data.data || data.data.length === 0) {
+              return;
+            }
+
+            const values = data.data.map(point => point.value);
+
+            // Calculate total returns from first to last value in ROI chart data
+            if (data.data.length >= 2) {
+              const firstValue = data.data[0].value;
+              const lastValue = data.data[data.data.length - 1].value;
+              
+              let totalReturnPercentage = 0;
+              let totalReturnAmount = 0;
+              
+              if (firstValue !== 0) {
+                totalReturnPercentage = ((lastValue - firstValue) / firstValue) * 100;
+                totalReturnAmount = lastValue - firstValue;
+              }
+              
+              // Update total return card
+              const returnSign = totalReturnPercentage >= 0 ? '+' : '';
+              const amountSign = totalReturnAmount >= 0 ? '+' : '';
+              
+              $('#totalReturn').text(returnSign + totalReturnPercentage.toFixed(2) + '%');
+              $('#totalReturnAmount').text(amountSign + '$' + Math.abs(totalReturnAmount).toLocaleString());
+            } else if (data.data.length === 1) {
+              // If only one data point, show 0%
+              $('#totalReturn').text('0.00%');
+              $('#totalReturnAmount').text('$0');
+            }
+
+            // Calculate daily change from ROI graph data (last 2 dates)
+            if (data.data.length >= 2) {
+              const currentValue = data.data[data.data.length - 1].value;
+              const previousValue = data.data[data.data.length - 2].value;
+              
+              const changeAmount = currentValue - previousValue;
+              const changePercentage = previousValue !== 0 ? (changeAmount / previousValue) * 100 : 0;
+              
+              const changeSign = changeAmount >= 0 ? '+' : '';
+              $('#changeAmount').text(changeSign + '$' + Math.abs(changeAmount).toFixed(2));
+              $('#changePercent').text(changeSign + changePercentage.toFixed(2) + '%');
+              
+              const changeColor = changeAmount >= 0 ? 'text-success' : 'text-danger';
+              $('#changePercent').removeClass('text-primary text-success text-danger').addClass(changeColor);
+            } else {
+              // Fallback when insufficient data
+              $('#changeAmount').text('$0.00');
+              $('#changePercent').text('+0.00%');
+              $('#changePercent').removeClass('text-success text-danger').addClass('text-primary');
+            }
+
+            if (dailySalesChart) {
+              dailySalesChart.destroy();
+            }
+
+            dailySalesChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: data.data.map(() => ''), // Empty labels to hide dates
+                datasets: [{
+                  label: "Portfolio Value",
+                  borderColor: "#ffffff",
+                  pointBorderColor: "#FFF", 
+                  pointBackgroundColor: "#ffffff",
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                  pointRadius: 0,
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                  fill: true,
+                  borderWidth: 2,
+                  data: values,
+                }],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                interaction: {
+                  intersect: false,
+                  mode: 'index'
+                },
+                scales: {
+                  x: {
+                    display: false,
+                  },
+                  y: {
+                    display: false,
+                  },
+                },
+                elements: {
+                  line: {
+                    borderWidth: 2,
+                    tension: 0.4,
+                  },
+                  point: {
+                    radius: 0,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                  },
+                },
+              },
+            });
+
+          } catch (error) {
+            console.error('Error loading portfolio chart:', error);
+          }
+        }
+
+      });
+    </script>
   </body>
 </html>
