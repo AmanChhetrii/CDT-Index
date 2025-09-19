@@ -1,15 +1,17 @@
-// manualDataFetch.js - Fixed manual data fetch with proper NAV calculation
+// combinedDataScript.js - Manual data fetch with NAV calculation followed by ROI calculation
 require('dotenv').config();
 const mongoose = require('mongoose');
 const CryptoAsset = require('./models/CryptoAsset');
 const CryptoPrice = require('./models/CryptoPrice');
 const NAV = require('./models/NAV');
+const User = require('./models/User');
+const ROI = require('./models/ROI');
 
 if (!global.fetch) {
     global.fetch = require('node-fetch');
 }
 
-class ManualDataFetch {
+class CombinedDataProcessor {
     constructor() {
         // Fund configurations for NAV calculation
         this.fundConfigs = {
@@ -37,8 +39,11 @@ class ManualDataFetch {
 
     async run() {
         try {
-            console.log('=== Starting Manual Daily Data Management ===');
+            console.log('=== Starting Combined Data Processing ===');
             console.log('Timestamp:', new Date().toLocaleString());
+            
+            // PHASE 1: COMPLETE ALL NAV-RELATED TASKS
+            console.log('\n--- PHASE 1: NAV PROCESSING ---');
             
             // Step 1: Always fetch current crypto prices
             await this.fetchDailyPrices();
@@ -75,14 +80,21 @@ class ManualDataFetch {
             // Step 7: Cleanup old NAV data
             await this.cleanupOldDailyNAV();
             
-            console.log('=== Manual Daily Tasks Completed Successfully ===');
+            console.log('--- PHASE 1 COMPLETED: All NAV calculations finished ---');
+            
+            // PHASE 2: ROI CALCULATIONS (only after NAV is complete)
+            console.log('\n--- PHASE 2: ROI PROCESSING ---');
+            await this.saveTodaysROIForAllUsers();
+            
+            console.log('\n=== Combined Data Processing Completed Successfully ===');
             
         } catch (error) {
-            console.error('Manual daily tasks failed:', error);
+            console.error('Combined data processing failed:', error);
             throw error;
         }
     }
 
+    // NAV-related methods (unchanged from original)
     async fetchDailyPrices() {
         const cryptos = await CryptoAsset.getActiveCryptos();
         let successCount = 0;
@@ -651,6 +663,106 @@ class ManualDataFetch {
         }
     }
 
+    // ROI-related method (unchanged from original)
+    async saveTodaysROIForAllUsers() {
+        try {
+            // Get current date and time
+            const today = new Date();
+            
+            console.log(`Saving ROI data for ${today.toString()}`);
+            
+            // Find all users with portfolio data or holdings
+            const users = await User.find({
+                $or: [
+                    { 'portfolio.totalInvestmentValue': { $gt: 0 } },
+                    { 'portfolio.cashBalance': { $gt: 0 } },
+                    { 'holdings.0': { $exists: true } }
+                ]
+            }).select('_id firstName lastName portfolio holdings');
+
+            console.log(`Found ${users.length} users with portfolio data`);
+
+            let saved = 0;
+            let skipped = 0;
+            let errors = 0;
+
+            for (const user of users) {
+                try {
+                    const userId = new mongoose.Types.ObjectId(user._id);
+                    
+                    // Calculate current market value of fund holdings
+                    let currentFundValue = 0;
+                    
+                    if (user.holdings && user.holdings.length > 0) {
+                        console.log(`Calculating fund values for ${user.firstName} ${user.lastName} (${user.holdings.length} funds)`);
+                        
+                        for (const holding of user.holdings) {
+                            try {
+                                // Get current NAV for this fund
+                                const currentNAV = await NAV.findOne({
+                                    fundSymbol: holding.fundSymbol,
+                                    granularity: 'daily'
+                                }).sort({ date: -1 }).lean();
+                                
+                                if (currentNAV && currentNAV.nav > 0) {
+                                    const fundValue = holding.units * currentNAV.nav;
+                                    currentFundValue += fundValue;
+                                    console.log(`  ${holding.fundSymbol}: ${holding.units} units × $${currentNAV.nav} = $${fundValue.toFixed(2)}`);
+                                } else {
+                                    console.log(`  ${holding.fundSymbol}: No current NAV found`);
+                                }
+                            } catch (navError) {
+                                console.error(`  Error getting NAV for ${holding.fundSymbol}:`, navError.message);
+                            }
+                        }
+                    } else {
+                        console.log(`${user.firstName} ${user.lastName} has no fund holdings`);
+                    }
+                    
+                    // Portfolio Value = ONLY current fund market value (no cash)
+                    const portfolio = user.portfolio || {};
+                    const cashBalance = portfolio.cashBalance || 0;
+                    const totalValue = currentFundValue;
+                    
+                    console.log(`${user.firstName} ${user.lastName}: Cash ${cashBalance} (excluded) + Funds ${currentFundValue.toFixed(2)} = Portfolio ${totalValue.toFixed(2)}`);
+                    
+                    // Only save if total value is greater than 0
+                    if (totalValue > 0) {
+                        // Save ROI record with current timestamp
+                        await ROI.create({
+                            userId: userId,
+                            date: today,
+                            totalPortfolioValue: totalValue
+                        });
+                        
+                        console.log(`✓ Saved ROI for ${user.firstName} ${user.lastName}: $${totalValue.toFixed(2)}`);
+                        saved++;
+                    } else {
+                        console.log(`⚠ Skipped ${user.firstName} ${user.lastName}: Zero portfolio value`);
+                        skipped++;
+                    }
+                    
+                } catch (userError) {
+                    console.error(`Error processing ${user.firstName} ${user.lastName}:`, userError.message);
+                    errors++;
+                }
+            }
+            
+            console.log('\n=== ROI Summary ===');
+            console.log(`Saved: ${saved}`);
+            console.log(`Skipped: ${skipped}`);
+            console.log(`Errors: ${errors}`);
+            
+            if (saved > 0) {
+                console.log('ROI data saved successfully!');
+            }
+            
+        } catch (error) {
+            console.error('ROI calculation error:', error);
+            throw error;
+        }
+    }
+
     // Get summary of what will happen before running
     async preview() {
         const today = new Date();
@@ -658,14 +770,27 @@ class ManualDataFetch {
         const needsWeekly = await this.checkNeedsWeeklySampling();
         const needsMonthly = await this.checkNeedsMonthlySampling();
         
-        console.log('=== Manual Data Fetch Preview ===');
+        const users = await User.find({
+            $or: [
+                { 'portfolio.totalInvestmentValue': { $gt: 0 } },
+                { 'portfolio.cashBalance': { $gt: 0 } },
+                { 'holdings.0': { $exists: true } }
+            ]
+        }).select('_id');
+        
+        console.log('=== Combined Data Processing Preview ===');
         console.log(`Date: ${today.toDateString()}`);
         console.log(`Day of week: ${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today.getDay()]}`);
-        console.log(`Cryptocurrencies to fetch: ${cryptos.length}`);
-        console.log(`Funds to calculate NAV: ${Object.keys(this.fundConfigs).length}`);
-        console.log(`Weekly sampling needed: ${needsWeekly ? 'YES' : 'NO'}`);
-        console.log(`Monthly sampling needed: ${needsMonthly ? 'YES' : 'NO'}`);
-        console.log('=====================================');
+        console.log('');
+        console.log('PHASE 1 - NAV Processing:');
+        console.log(`  Cryptocurrencies to fetch: ${cryptos.length}`);
+        console.log(`  Funds to calculate NAV: ${Object.keys(this.fundConfigs).length}`);
+        console.log(`  Weekly sampling needed: ${needsWeekly ? 'YES' : 'NO'}`);
+        console.log(`  Monthly sampling needed: ${needsMonthly ? 'YES' : 'NO'}`);
+        console.log('');
+        console.log('PHASE 2 - ROI Processing:');
+        console.log(`  Users with portfolios: ${users.length}`);
+        console.log('==========================================');
     }
 }
 
@@ -675,21 +800,21 @@ async function main() {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to MongoDB');
 
-        const dataFetch = new ManualDataFetch();
+        const processor = new CombinedDataProcessor();
         
         // Check if user wants preview
         if (process.argv[2] === 'preview') {
-            await dataFetch.preview();
+            await processor.preview();
         } else {
-            // Run the actual data fetch
-            await dataFetch.run();
+            // Run the combined processing
+            await processor.run();
         }
 
         await mongoose.disconnect();
         console.log('Database connection closed');
         
     } catch (error) {
-        console.error('Manual data fetch failed:', error);
+        console.error('Combined data processing failed:', error);
         process.exit(1);
     }
 }

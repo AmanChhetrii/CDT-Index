@@ -118,13 +118,10 @@ router.get('/dashboard', (req, res) => {
 
 // api dashboard
 
-// Add these 3 endpoints to your dashboard.js routes file
-// Insert them after your existing API endpoints (around line 600, after the subscription endpoints)
 
 // ===== DASHBOARD API ENDPOINTS =====
 
-// Get dashboard summary stats
-// In your dashboard routes, update the summary endpoint:
+// Get dashboard summary stats - CORRECTED VERSION
 router.get('/api/dashboard/summary', async (req, res) => {
     try {
         const userId = req.session.user.id;
@@ -136,7 +133,26 @@ router.get('/api/dashboard/summary', async (req, res) => {
         if (!user) return res.status(404).json({ error: 'User not found' });
         
         const portfolio = user.portfolio || {};
-        const totalPortfolioValue = (portfolio.cashBalance || 0) + (portfolio.totalInvestmentValue || 0);
+        
+        // Get the latest ROI data for totalPortfolioValue
+        let totalPortfolioValue = 0;
+        try {
+            const latestROI = await ROI.findOne({ 
+                userId: new mongoose.Types.ObjectId(userId) 
+            }).sort({ date: -1 }).lean();
+            
+            if (latestROI) {
+                totalPortfolioValue = latestROI.totalPortfolioValue;
+                console.log('Latest ROI data:', latestROI);
+            } else {
+                // Fallback to portfolio calculation if no ROI data exists
+                totalPortfolioValue = (portfolio.cashBalance || 0) + (portfolio.totalInvestmentValue || 0);
+            }
+        } catch (roiError) {
+            console.log('ROI fetch error (using fallback):', roiError.message);
+            // Fallback calculation
+            totalPortfolioValue = (portfolio.cashBalance || 0) + (portfolio.totalInvestmentValue || 0);
+        }
         
         // Calculate daily change from ROI data
         let dayChange = 0;
@@ -172,7 +188,7 @@ router.get('/api/dashboard/summary', async (req, res) => {
         }
         
         res.json({
-            totalPortfolioValue,
+            totalPortfolioValue,  // This now comes from ROI data, not calculated
             cashBalance: portfolio.cashBalance || 0,
             totalReturnPercentage: portfolio.totalReturnPercentage || 0,
             numberOfFunds: user.holdings?.length || 0,
@@ -184,6 +200,7 @@ router.get('/api/dashboard/summary', async (req, res) => {
         res.status(500).json({ error: 'Failed to load dashboard summary' });
     }
 });
+
 // Get user's fund performance data from NAV model
 router.get('/api/dashboard/user-funds-performance', async (req, res) => {
     try {
