@@ -46,7 +46,7 @@
       }
       
       .premium-container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 2rem auto;
         padding: 0 1rem;
       }
@@ -57,164 +57,320 @@
       }
       
       .page-title {
-        font-size: 1.75rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        color: #2d3436;
+        color: #1a202c;
         margin: 0 0 0.5rem 0;
       }
       
       .page-subtitle {
-        color: #636e72;
+        color: #718096;
+        font-size: 1.1rem;
         margin: 0;
       }
       
       .current-status {
         background: #ffffff;
-        border: 1px solid #e5e5e5;
-        border-radius: 12px;
-        padding: 1.5rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 1.5rem 2rem;
         margin-bottom: 3rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .current-status.premium-user {
+        justify-content: center;
+      }
+      
+      .status-info h6 {
+        color: #4a5568;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       
       .status-badge {
-        background: #22c55e;
+        background: #48bb78;
         color: white;
-        padding: 0.3rem 1rem;
+        padding: 0.5rem 1.2rem;
         border-radius: 20px;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 600;
+        display: inline-block;
       }
       
       .premium-badge {
-        background: #FFD700;
-        color: #000;
-        padding: 0.3rem 1rem;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 0.5rem 1.2rem;
         border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-      }
-      
-      .plans-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 3rem;
-      }
-      
-      .plan-card {
-        background: #ffffff;
-        border: 1px solid #e5e5e5;
-        border-radius: 12px;
-        padding: 2rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-      
-      .plan-card:hover {
-        transform: translateY(-5px);
-        border-color: #0984e3;
-        box-shadow: 0 10px 30px rgba(9, 132, 227, 0.15);
-      }
-      
-      .plan-card.featured {
-        border-color: #FFD700;
-        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2);
-      }
-      
-      .plan-card.featured::before {
-        content: 'MOST POPULAR';
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #FFD700;
-        color: #000;
-        padding: 0.3rem 1rem;
-        border-radius: 15px;
-        font-size: 0.7rem;
-        font-weight: 700;
-      }
-      
-      .plan-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #2d3436;
-        margin-bottom: 0.5rem;
-      }
-      
-      .plan-subtitle {
-        color: #636e72;
         font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-      }
-      
-      .plan-price {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #2d3436;
-        margin-bottom: 0.25rem;
-      }
-      
-      .plan-period {
-        color: #636e72;
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-      }
-      
-      .plan-btn {
-        width: 100%;
-        padding: 0.75rem 1.5rem;
-        border: 2px solid #0984e3;
-        border-radius: 8px;
-        background: #ffffff;
-        color: #0984e3;
         font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-      
-      .plan-btn:hover {
-        background: #0984e3;
-        color: white;
-      }
-      
-      .plan-btn.featured {
-        background: #0984e3;
-        color: white;
-      }
-      
-      .plan-btn.featured:hover {
-        background: #0767c8;
-      }
-      
-      .insufficient-funds {
-        background: #e74c3c !important;
-        border-color: #e74c3c !important;
-        color: white !important;
-        cursor: not-allowed !important;
-      }
-      
-      .insufficient-funds:hover {
-        background: #c0392b !important;
+        display: inline-block;
       }
       
       .wallet-info {
-        background: #f8f9fa;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        padding: 1rem;
-        margin-bottom: 2rem;
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
         text-align: center;
       }
       
       .wallet-balance {
         font-size: 1.1rem;
         font-weight: 600;
-        color: #2d3436;
+        color: #2d3748;
+      }
+
+      /* Premium Plans Grid */
+      .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+      
+      .plan-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+      
+      .plan-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+      }
+
+      /* 6 Month Plan - Blue Theme */
+      .plan-card.six-months {
+        border-color: #3b82f6;
+      }
+
+      .plan-card.six-months:hover {
+        border-color: #2563eb;
+      }
+
+      .plan-card.six-months .plan-price {
+        color: #3b82f6;
+      }
+
+      .plan-card.six-months .plan-btn {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      }
+
+      .plan-card.six-months .plan-btn:hover {
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+      }
+      
+      /* 1 Year Plan - Green Theme (Featured) */
+      .plan-card.featured {
+        border-color: #10b981;
+        box-shadow: 0 10px 15px rgba(16, 185, 129, 0.1);
+        position: relative;
+      }
+      
+      .plan-card.featured::before {
+        content: 'MOST POPULAR';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 0.4rem 1.5rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .plan-card.featured:hover {
+        border-color: #059669;
+      }
+
+      .plan-card.featured .plan-price {
+        color: #10b981;
+      }
+
+      .plan-card.featured .plan-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      }
+
+      .plan-card.featured .plan-btn:hover {
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      }
+
+      /* Lifetime Plan - Purple Theme */
+      .plan-card.lifetime {
+        border-color: #8b5cf6;
+      }
+
+      .plan-card.lifetime:hover {
+        border-color: #7c3aed;
+      }
+
+      .plan-card.lifetime .plan-price {
+        color: #8b5cf6;
+      }
+
+      .plan-card.lifetime .plan-btn {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      }
+
+      .plan-card.lifetime .plan-btn:hover {
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+      }
+      
+      .plan-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 0.5rem;
+      }
+      
+      .plan-subtitle {
+        color: #718096;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .plan-price {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.25rem;
+      }
+      
+      .plan-period {
+        color: #718096;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+      }
+      
+      .plan-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .plan-btn:hover {
+        transform: translateY(-2px);
+      }
+      
+      .insufficient-funds {
+        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
+        box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3) !important;
+        cursor: not-allowed !important;
+      }
+      
+      .insufficient-funds:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3) !important;
+      }
+
+      /* Premium Benefits Section */
+      .premium-benefits {
+        margin-bottom: 3rem;
+      }
+
+      .benefits-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .benefits-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 0.5rem;
+      }
+
+      .benefits-subtitle {
+        color: #718096;
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .benefit-item {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+
+      .benefit-item:hover {
+        transform: translateY(-5px);
+        border-color: #10b981;
+        box-shadow: 0 15px 20px rgba(0,0,0,0.1);
+      }
+
+      .benefit-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 2rem;
+      }
+
+      .benefit-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 1rem;
+      }
+
+      .benefit-description {
+        color: #718096;
+        line-height: 1.6;
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .coming-soon-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
       }
       
       /* Loading Overlay */
@@ -224,8 +380,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.5);
         display: none;
         z-index: 9999;
         align-items: center;
@@ -234,23 +389,21 @@
       
       .loading-content {
         text-align: center;
-        padding: 1.5rem 2rem;
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid rgba(229, 229, 229, 0.3);
-        border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        backdrop-filter: blur(10px);
-        max-width: 250px;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        max-width: 280px;
       }
       
       .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(243, 243, 243, 0.8);
-        border-top: 3px solid #0984e3;
+        width: 50px;
+        height: 50px;
+        border: 4px solid #e2e8f0;
+        border-top: 4px solid #10b981;
         border-radius: 50%;
         animation: spin 1s linear infinite;
-        margin: 0 auto 1rem;
+        margin: 0 auto 1.5rem;
       }
       
       @keyframes spin {
@@ -261,8 +414,36 @@
       .loading-text {
         font-size: 1rem;
         font-weight: 600;
-        color: #2d3436;
+        color: #1a202c;
         margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        .premium-container {
+          padding: 0 0.5rem;
+        }
+        
+        .page-title {
+          font-size: 2rem;
+        }
+        
+        .current-status {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+        
+        .plan-card {
+          padding: 2rem 1.5rem;
+        }
+        
+        .benefit-item {
+          padding: 2rem 1.5rem;
+        }
+        
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -284,26 +465,61 @@
               <!-- Page Header -->
               <div class="page-header">
                 <h1 class="page-title">Premium Plans</h1>
-                <p class="page-subtitle">Unlock advanced features and priority support</p>
+                <p class="page-subtitle">Unlock advanced features and premium investment tools</p>
               </div>
 
               <!-- Current Status -->
-              <div class="current-status">
-                <div>
-                  <h6 class="mb-1">Current Plan</h6>
+              <div class="current-status" id="currentStatus">
+                <div class="status-info">
+                  <h6>Current Plan</h6>
                   <span class="status-badge" id="currentPlan">Free Plan</span>
                 </div>
-                <div class="wallet-info">
+                <div class="wallet-info" id="walletInfo">
                   <span class="wallet-balance">Wallet Balance: <span id="walletBalance">$0.00</span></span>
                 </div>
               </div>
 
-              <!-- Plans Grid -->
-              <div class="plans-grid">
+              <!-- Premium Benefits (shown when user has premium) -->
+              <div class="premium-benefits" id="premiumBenefits" style="display: none;">
+                <div class="benefits-header">
+                  <h2 class="benefits-title">Your Premium Benefits</h2>
+                  <p class="benefits-subtitle">Enjoy exclusive access to advanced investment tools and personalized support</p>
+                </div>
+                
+                <div class="benefits-grid">
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="benefit-title">Portfolio Consulting</h3>
+                    <p class="benefit-description">Expert guidance to align investments with personal financial goals. One-on-one consultations with experienced fund managers.</p>
+                  </div>
+
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="benefit-title">Dedicated Support Team</h3>
+                    <p class="benefit-description">Ongoing professional support and portfolio oversight from our team of experienced fund managers.</p>
+                  </div>
+
+                  <div class="benefit-item">
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <div class="benefit-icon">
+                      <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="benefit-title">Custom Funds</h3>
+                    <p class="benefit-description">Build a personalized crypto portfolio with chosen assets and weightages tailored to your investment preferences.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Plans Grid (hidden when user has premium) -->
+              <div class="plans-grid" id="plansGrid">
                 <!-- 6 Month Plan -->
-                <div class="plan-card">
+                <div class="plan-card six-months">
                   <h3 class="plan-title">6 Months Premium</h3>
-                  <p class="plan-subtitle">Best value for new users</p>
+                  <p class="plan-subtitle">Perfect for exploring premium features</p>
                   <div class="plan-price">$299</div>
                   <div class="plan-period">One-time payment</div>
                   <button class="plan-btn" onclick="purchasePlan('6_months', 299)" id="btn-6-months">
@@ -314,18 +530,18 @@
                 <!-- 1 Year Plan (Featured) -->
                 <div class="plan-card featured">
                   <h3 class="plan-title">1 Year Premium</h3>
-                  <p class="plan-subtitle">Most popular choice</p>
+                  <p class="plan-subtitle">Most popular choice among investors</p>
                   <div class="plan-price">$999</div>
                   <div class="plan-period">One-time payment</div>
-                  <button class="plan-btn featured" onclick="purchasePlan('1_year', 999)" id="btn-1-year">
+                  <button class="plan-btn" onclick="purchasePlan('1_year', 999)" id="btn-1-year">
                     Upgrade Now
                   </button>
                 </div>
 
                 <!-- Lifetime Plan -->
-                <div class="plan-card">
+                <div class="plan-card lifetime">
                   <h3 class="plan-title">Lifetime Premium</h3>
-                  <p class="plan-subtitle">Ultimate investment</p>
+                  <p class="plan-subtitle">Ultimate investment in your future</p>
                   <div class="plan-price">$9,999</div>
                   <div class="plan-period">One-time payment</div>
                   <button class="plan-btn" onclick="purchasePlan('lifetime', 9999)" id="btn-lifetime">
@@ -342,7 +558,7 @@
         <div class="loading-overlay" id="loadingOverlay">
           <div class="loading-content">
             <div class="loading-spinner"></div>
-            <p class="loading-text" id="loadingText">Processing...</p>
+            <p class="loading-text" id="loadingText">Processing your upgrade...</p>
           </div>
         </div>
 
@@ -407,9 +623,17 @@
 
       function updateSubscriptionDisplay() {
         if (userSubscription.isPremium) {
-          $('#currentPlan').removeClass('status-badge').addClass('premium-badge').text('Premium');
+          $('#currentPlan').removeClass('status-badge').addClass('premium-badge').text('Premium Active');
+          $('#plansGrid').hide();
+          $('#premiumBenefits').show();
+          $('#walletInfo').hide(); // Hide wallet info for premium users
+          $('#currentStatus').addClass('premium-user'); // Center the status
         } else {
           $('#currentPlan').removeClass('premium-badge').addClass('status-badge').text('Free Plan');
+          $('#plansGrid').show();
+          $('#premiumBenefits').hide();
+          $('#walletInfo').show(); // Show wallet info for free users
+          $('#currentStatus').removeClass('premium-user');
         }
       }
 

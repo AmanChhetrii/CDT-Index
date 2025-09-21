@@ -13,8 +13,10 @@
       type="image/x-icon"
     />
     <!-- Font Awesome 6 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Fonts and icons -->
     <script src="/dashboard/js/plugin/webfont/webfont.min.js"></script>
@@ -40,7 +42,7 @@
     <link rel="stylesheet" href="/dashboard/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/dashboard/css/plugins.min.css" />
     <link rel="stylesheet" href="/dashboard/css/kaiadmin.min.css" />
-    
+
     <!-- Custom CSS for equal height cards -->
     <style>
       .stats-cards-row {
@@ -48,32 +50,32 @@
         flex-wrap: wrap;
         margin: -0.75rem; /* Negative margin to offset card margins */
       }
-      
+
       .stats-card-col {
         flex: 1 1 25%; /* Each card takes 25% width on desktop */
         min-width: 250px; /* Minimum width for smaller screens */
         padding: 0.75rem; /* Consistent padding around each card */
         display: flex;
       }
-      
+
       .card-stats {
         display: flex;
         flex-direction: column;
         height: 120px; /* Fixed height for all cards */
         width: 100%;
       }
-      
+
       .card-stats .card-body {
         flex: 1;
         display: flex;
         align-items: center;
         padding: 1.5rem 1.25rem;
       }
-      
+
       .card-stats .numbers {
         flex: 1;
       }
-      
+
       .card-stats .numbers .card-category {
         font-size: 0.875rem;
         margin-bottom: 0.5rem;
@@ -82,7 +84,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      
+
       .card-stats .numbers .card-title {
         font-size: 1.5rem;
         font-weight: 600;
@@ -92,29 +94,79 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      
+
+      /* Special styling for total returns card */
+      .total-returns-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+
+      .total-returns-amount {
+        font-size: large;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+
+      .total-returns-percentage {
+        font-size: smaller;
+        font-weight: 400;
+        line-height: 1;
+        margin-top: -2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+
       /* Responsive adjustments */
       @media (max-width: 1200px) {
         .stats-card-col {
           flex: 1 1 50%; /* 2 cards per row on medium screens */
         }
       }
-      
+
       @media (max-width: 768px) {
         .stats-card-col {
           flex: 1 1 100%; /* 1 card per row on mobile */
           min-width: auto;
         }
-        
+
         .stats-cards-row {
           margin: -0.5rem;
         }
-        
+
         .stats-card-col {
           padding: 0.5rem;
         }
+
+        /* Further reduce font sizes on mobile */
+        .total-returns-amount {
+          font-size: 1.1rem !important;
+        }
+
+        .total-returns-percentage {
+          font-size: 0.9rem !important;
+        }
       }
-      
+
+      @media (max-width: 480px) {
+        /* Extra small screens */
+        .total-returns-amount {
+          font-size: 1rem !important;
+        }
+
+        .total-returns-percentage {
+          font-size: 0.85rem !important;
+        }
+      }
+
       /* Ensure icons are consistent */
       .icon-big {
         width: 60px;
@@ -140,17 +192,31 @@
         <div class="container">
           <div class="page-inner">
             <div
-              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+            >
               <div>
-                <h3 class="fw-bold mb-3">Dashboard</h3>
-                <h6 class="op-7 mb-2">Everything You Need In One Place</h6>
+                <h1 class="fw-bold mb-3">Dashboard</h3>
+                <h6 class="op-7 mb-2">Monitor Your Portfolio Performance.</h6>
               </div>
               <div class="ms-md-auto py-2 py-md-0">
-                <a href="/dashboard/explore" class="btn btn-label-info btn-round me-2">Explore Funds</a>
-                <a href="/dashboard/wallet" class="btn btn-primary btn-round">Manage Portfolio</a>
+                <a
+                  href="/dashboard/wallet"
+                  class="btn btn-label-info btn-round me-2"
+                >
+                  <span class="btn-label">
+                    <i class="fas fa-plus"></i>
+                  </span>
+                  Add Cash
+                </a>
+                <a href="/dashboard/explore" class="btn btn-primary btn-round">
+                  <span class="btn-label">
+                    <i class="fas fa-eye"></i>
+                  </span>
+                  View Funds
+                </a>
               </div>
             </div>
-            
+
             <!-- Equal height cards row -->
             <div class="stats-cards-row">
               <div class="stats-card-col">
@@ -175,7 +241,7 @@
                 </div>
               </div>
 
-               <div class="stats-card-col">
+              <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -189,17 +255,27 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Total Return</p>
-                          <h4 class="card-title">
-                            <span id="totalReturn">0%</span>
-                            <small class="text-muted ms-2" id="totalReturnAmount">$0</small>
-                          </h4>
+                          <div class="total-returns-container">
+                            <h4
+                              class="total-returns-amount"
+                              id="totalReturnAmount"
+                            >
+                              $0
+                            </h4>
+                            <h4
+                              class="total-returns-percentage"
+                              id="totalReturn"
+                            >
+                              0%
+                            </h4>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
@@ -221,7 +297,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="stats-card-col">
                 <div class="card card-stats card-round">
                   <div class="card-body">
@@ -244,29 +320,23 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-8">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row">
-                      <div class="card-title">Fund Performance Since Investment</div>
-                      <div class="card-tools">
-                        <a
-                          href="/dashboard/explore"
-                          class="btn btn-label-success btn-round btn-sm me-2"
+                      <div class="card-title">
+                        Fund Performance Since Inception.<span
+                          style="
+                            color: rgb(81, 80, 80);
+                            font-weight: lighter;
+                            font-size: x-small;
+                          "
                         >
-                          <span class="btn-label">
-                            <i class="fa fa-plus"></i>
-                          </span>
-                          Add Funds
-                        </a>
-                        <a href="/dashboard/transactions" class="btn btn-label-info btn-round btn-sm">
-                          <span class="btn-label">
-                            <i class="fa fa-list"></i>
-                          </span>
-                          History
-                        </a>
+                          &lpar;Each vertical line on the X-axis represents a
+                          month &rpar;</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -274,7 +344,7 @@
                     <div class="chart-container" style="min-height: 375px">
                       <canvas id="statisticsChart"></canvas>
                     </div>
-                    <div id="myChartLegend" style="display: none;"></div>
+                    <div id="myChartLegend" style="display: none"></div>
                   </div>
                 </div>
               </div>
@@ -299,8 +369,14 @@
                             class="dropdown-menu"
                             aria-labelledby="dropdownMenuButton"
                           >
-                            <a class="dropdown-item" href="/dashboard/wallet">View Wallet</a>
-                            <a class="dropdown-item" href="/dashboard/transactions">View Transactions</a>
+                            <a class="dropdown-item" href="/dashboard/wallet"
+                              >View Wallet</a
+                            >
+                            <a
+                              class="dropdown-item"
+                              href="/dashboard/transactions"
+                              >View Transactions</a
+                            >
                           </div>
                         </div>
                       </div>
@@ -318,7 +394,12 @@
                 </div>
                 <div class="card card-round">
                   <div class="card-body pb-0">
-                    <div class="h1 fw-bold float-end text-primary" id="changePercent">+0%</div>
+                    <div
+                      class="h1 fw-bold float-end text-primary"
+                      id="changePercent"
+                    >
+                      +0%
+                    </div>
                     <h2 class="mb-2" id="changeAmount">$0</h2>
                     <p class="text-muted">Today's Change</p>
                   </div>
@@ -364,12 +445,12 @@
     <!-- Sweet Alert -->
     <script src="/dashboard/js/plugin/sweetalert/sweetalert.min.js"></script>
 
-    <!-- Kaiadmin JS -->
+    <!-- JS -->
     <script src="/dashboard/js/kaiadmin.min.js"></script>
 
     <!-- Dashboard Custom Script -->
     <script>
-      $(document).ready(function() {
+      $(document).ready(function () {
         var statisticsChart, dailySalesChart;
 
         // Load dashboard data
@@ -378,46 +459,64 @@
         async function loadDashboardData() {
           try {
             // Load summary data
-            const summaryResponse = await fetch('/api/dashboard/summary');
+            const summaryResponse = await fetch("/api/dashboard/summary");
             const summaryData = await summaryResponse.json();
-            
+
             // Update cards (except total return - will be calculated from portfolio data)
-            $('#portfolioValue').text('$' + (summaryData.totalPortfolioValue || 0).toLocaleString());
-            $('#cashBalance').text('$' + (summaryData.cashBalance || 0).toLocaleString());
-            $('#fundsOwned').text(summaryData.numberOfFunds || 0);
-            $('#currentPortfolioValue').text('$' + (summaryData.totalPortfolioValue || 0).toLocaleString());
-            
+            $("#portfolioValue").text(
+              "$" + (summaryData.totalPortfolioValue || 0).toLocaleString()
+            );
+            $("#cashBalance").text(
+              "$" + (summaryData.cashBalance || 0).toLocaleString()
+            );
+            $("#fundsOwned").text(summaryData.numberOfFunds || 0);
+            $("#currentPortfolioValue").text(
+              "$" + (summaryData.totalPortfolioValue || 0).toLocaleString()
+            );
+
             // Load fund performance chart
             await loadFundChart();
-            
+
             // Load portfolio chart and calculate total returns from ROI data
             await loadPortfolioChart();
-
           } catch (error) {
-            console.error('Error loading dashboard:', error);
+            console.error("Error loading dashboard:", error);
           }
         }
 
         async function loadFundChart() {
           try {
-            const response = await fetch('/api/dashboard/user-funds-performance');
+            const response = await fetch(
+              "/api/dashboard/user-funds-performance"
+            );
             const data = await response.json();
-            
-            const ctx = document.getElementById("statisticsChart").getContext("2d");
+
+            const ctx = document
+              .getElementById("statisticsChart")
+              .getContext("2d");
 
             if (!data.funds || data.funds.length === 0) {
               return;
             }
 
             // Filter valid funds with data
-            const validFunds = data.funds.filter(fund => fund.data && fund.data.length > 0);
-            
+            const validFunds = data.funds.filter(
+              (fund) => fund.data && fund.data.length > 0
+            );
+
             if (validFunds.length === 0) {
               return;
             }
 
-            const colors = ["#177dff", "#f3545d", "#fdaf4b", "#1d7af3", "#6861ce", "#59d05d"];
-            
+            const colors = [
+              "#177dff",
+              "#f3545d",
+              "#fdaf4b",
+              "#1d7af3",
+              "#6861ce",
+              "#59d05d",
+            ];
+
             const datasets = validFunds.map((fund, index) => {
               const color = colors[index % colors.length];
               // Convert hex to rgba for background with 20% opacity
@@ -427,7 +526,7 @@
                 const b = parseInt(hex.slice(5, 7), 16);
                 return `rgba(${r}, ${g}, ${b}, 0.2)`;
               };
-              
+
               return {
                 label: fund.name,
                 borderColor: color,
@@ -436,12 +535,12 @@
                 backgroundColor: hexToRgba(color),
                 fill: true,
                 borderWidth: 2,
-                data: fund.data.map(point => point.value)
+                data: fund.data.map((point) => point.value),
               };
             });
 
             // Get labels from first fund (empty labels to hide dates)
-            const labels = validFunds[0].data.map(() => '');
+            const labels = validFunds[0].data.map(() => "");
 
             if (statisticsChart) {
               statisticsChart.destroy();
@@ -451,7 +550,7 @@
               type: "line",
               data: {
                 labels: labels,
-                datasets: datasets
+                datasets: datasets,
               },
               options: {
                 responsive: true,
@@ -463,7 +562,7 @@
                 },
                 interaction: {
                   intersect: false,
-                  mode: 'index'
+                  mode: "index",
                 },
                 scales: {
                   x: {
@@ -476,9 +575,9 @@
                     },
                     ticks: {
                       color: "#9a9a9a",
-                      callback: function(value) {
-                        return '$' + value;
-                      }
+                      callback: function (value) {
+                        return "$" + value;
+                      },
                     },
                   },
                 },
@@ -495,69 +594,87 @@
                 },
               },
             });
-
           } catch (error) {
-            console.error('Error loading fund chart:', error);
+            console.error("Error loading fund chart:", error);
           }
         }
 
         async function loadPortfolioChart() {
           try {
-            const response = await fetch('/api/dashboard/portfolio-value-history');
+            const response = await fetch(
+              "/api/dashboard/portfolio-value-history"
+            );
             const data = await response.json();
-            
-            const ctx = document.getElementById("dailySalesChart").getContext("2d");
+
+            const ctx = document
+              .getElementById("dailySalesChart")
+              .getContext("2d");
 
             if (!data.data || data.data.length === 0) {
               return;
             }
 
-            const values = data.data.map(point => point.value);
+            const values = data.data.map((point) => point.value);
 
             // Calculate total returns from first to last value in ROI chart data
             if (data.data.length >= 2) {
               const firstValue = data.data[0].value;
               const lastValue = data.data[data.data.length - 1].value;
-              
+
               let totalReturnPercentage = 0;
               let totalReturnAmount = 0;
-              
+
               if (firstValue !== 0) {
-                totalReturnPercentage = ((lastValue - firstValue) / firstValue) * 100;
+                totalReturnPercentage =
+                  ((lastValue - firstValue) / firstValue) * 100;
                 totalReturnAmount = lastValue - firstValue;
               }
-              
-              // Update total return card
-              const returnSign = totalReturnPercentage >= 0 ? '+' : '';
-              const amountSign = totalReturnAmount >= 0 ? '+' : '';
-              
-              $('#totalReturn').text(returnSign + totalReturnPercentage.toFixed(2) + '%');
-              $('#totalReturnAmount').text(amountSign + '$' + Math.abs(totalReturnAmount).toLocaleString());
+
+              // Update total return card (amount first, then percentage)
+              const returnSign = totalReturnPercentage >= 0 ? "+" : "";
+              const amountSign = totalReturnAmount >= 0 ? "+" : "";
+
+              $("#totalReturnAmount").text(
+                amountSign + "$" + Math.abs(totalReturnAmount).toLocaleString()
+              );
+              $("#totalReturn").text(
+                returnSign + totalReturnPercentage.toFixed(2) + "%"
+              );
             } else if (data.data.length === 1) {
               // If only one data point, show 0%
-              $('#totalReturn').text('0.00%');
-              $('#totalReturnAmount').text('$0');
+              $("#totalReturnAmount").text("$0");
+              $("#totalReturn").text("0.00%");
             }
 
             // Calculate daily change from ROI graph data (last 2 dates)
             if (data.data.length >= 2) {
               const currentValue = data.data[data.data.length - 1].value;
               const previousValue = data.data[data.data.length - 2].value;
-              
+
               const changeAmount = currentValue - previousValue;
-              const changePercentage = previousValue !== 0 ? (changeAmount / previousValue) * 100 : 0;
-              
-              const changeSign = changeAmount >= 0 ? '+' : '';
-              $('#changeAmount').text(changeSign + '$' + Math.abs(changeAmount).toFixed(2));
-              $('#changePercent').text(changeSign + changePercentage.toFixed(2) + '%');
-              
-              const changeColor = changeAmount >= 0 ? 'text-success' : 'text-danger';
-              $('#changePercent').removeClass('text-primary text-success text-danger').addClass(changeColor);
+              const changePercentage =
+                previousValue !== 0 ? (changeAmount / previousValue) * 100 : 0;
+
+              const changeSign = changeAmount >= 0 ? "+" : "";
+              $("#changeAmount").text(
+                changeSign + "$" + Math.abs(changeAmount).toFixed(2)
+              );
+              $("#changePercent").text(
+                changeSign + changePercentage.toFixed(2) + "%"
+              );
+
+              const changeColor =
+                changeAmount >= 0 ? "text-success" : "text-danger";
+              $("#changePercent")
+                .removeClass("text-primary text-success text-danger")
+                .addClass(changeColor);
             } else {
               // Fallback when insufficient data
-              $('#changeAmount').text('$0.00');
-              $('#changePercent').text('+0.00%');
-              $('#changePercent').removeClass('text-success text-danger').addClass('text-primary');
+              $("#changeAmount").text("$0.00");
+              $("#changePercent").text("+0.00%");
+              $("#changePercent")
+                .removeClass("text-success text-danger")
+                .addClass("text-primary");
             }
 
             if (dailySalesChart) {
@@ -567,19 +684,21 @@
             dailySalesChart = new Chart(ctx, {
               type: "line",
               data: {
-                labels: data.data.map(() => ''), // Empty labels to hide dates
-                datasets: [{
-                  label: "Portfolio Value",
-                  borderColor: "#ffffff",
-                  pointBorderColor: "#FFF", 
-                  pointBackgroundColor: "#ffffff",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  pointRadius: 0,
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  fill: true,
-                  borderWidth: 2,
-                  data: values,
-                }],
+                labels: data.data.map(() => ""), // Empty labels to hide dates
+                datasets: [
+                  {
+                    label: "Portfolio Value",
+                    borderColor: "#ffffff",
+                    pointBorderColor: "#FFF",
+                    pointBackgroundColor: "#ffffff",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    pointRadius: 0,
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    fill: true,
+                    borderWidth: 2,
+                    data: values,
+                  },
+                ],
               },
               options: {
                 responsive: true,
@@ -591,7 +710,7 @@
                 },
                 interaction: {
                   intersect: false,
-                  mode: 'index'
+                  mode: "index",
                 },
                 scales: {
                   x: {
@@ -614,12 +733,10 @@
                 },
               },
             });
-
           } catch (error) {
-            console.error('Error loading portfolio chart:', error);
+            console.error("Error loading portfolio chart:", error);
           }
         }
-
       });
     </script>
   </body>

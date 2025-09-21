@@ -59,6 +59,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    min-width: 150px;
 }
 
 .modern-btn:hover {
@@ -66,6 +67,17 @@
     box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     color: white;
     text-decoration: none;
+}
+
+.modern-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.modern-btn .spinner-border {
+    width: 1rem;
+    height: 1rem;
 }
 
 /* Social links */
@@ -108,6 +120,27 @@
     color: var(--glow-color);
     width: 20px;
     text-align: center;
+}
+
+/* Alert messages */
+.alert-custom {
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: none;
+    display: none;
+}
+
+.alert-success-custom {
+    background: rgba(40, 167, 69, 0.2);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    color: #28a745;
+}
+
+.alert-error-custom {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #dc3545;
 }
 
 /* Responsive Design */
@@ -172,15 +205,14 @@
                     </div>
 
                     <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8; margin-bottom: 3rem; font-size: 1.1rem; margin-top: -30px;">
-    We are always happy to hear from you.<br>
-    Whether you have questions about your account or need help with transactions, our team is ready to assist.<br>
-    If you want more information about our funds and services, we are here to provide clarity.<br>
-    You can reach us by email for general queries.<br>
-    For urgent matters, connect with us by phone during business hours.<br>
-    We aim to respond to all inquiries within 24 to 48 hours on working days.<br>
-    For quick answers, check our FAQ section where common questions are already covered.<br>
-</p>
-
+                        We are always happy to hear from you.<br>
+                        Whether you have questions about your account or need help with transactions, our team is ready to assist.<br>
+                        If you want more information about our funds and services, we are here to provide clarity.<br>
+                        You can reach us by email for general queries.<br>
+                        For urgent matters, connect with us by phone during business hours.<br>
+                        We aim to respond to all inquiries within 24 to 48 hours on working days.<br>
+                        For quick answers, check our FAQ section where common questions are already covered.<br>
+                    </p>
 
                     <!-- Contact Social Info -->
                     <div class="social-links" style="margin-left: -100px;">
@@ -199,13 +231,22 @@
                     <p style="color: rgba(255,255,255,0.7); text-align: center; margin-bottom: 3rem;">
                         Send us a message and we'll get back to you within 48 hours.
                     </p>
-                    <form id="contactForm" action="#" method="post">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                    
+                    <!-- Alert Messages -->
+                    <div id="contactAlert" class="alert-custom">
+                        <span id="alertMessage"></span>
+                    </div>
+                    
+                    <form id="contactForm">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required maxlength="100">
                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-                        <textarea name="message" class="form-control" id="message" cols="30" rows="8" placeholder="Your Message" required></textarea>
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required maxlength="200">
+                        <textarea name="message" class="form-control" id="message" cols="30" rows="8" placeholder="Your Message" required maxlength="1000"></textarea>
                         <div class="text-center">
-                            <button class="btn modern-btn mt-30" type="submit">Send Message</button>
+                            <button class="btn modern-btn mt-30" type="submit" id="submitBtn">
+                                <span id="submitText">Send Message</span>
+                                <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -220,67 +261,67 @@
 (function() {
     // Particles.js configuration for contact section
     const particleConfig = {
-   "particles": {
-       "number": {
-           "value": 120,
-           "density": {
-               "enable": true,
-               "value_area": 1000
-           }
-       },
-       "color": {
-           "value": "#ffffff"
-       },
-       "shape": {
-           "type": "circle"
-       },
-       "opacity": {
-           "value": 0.3,
-           "random": true,
-           "anim": {
-               "enable": true,
-               "speed": 0.5,
-               "opacity_min": 0.1,
-               "sync": false
-           }
-       },
-       "size": {
-           "value": 1,
-           "random": true,
-           "anim": {
+       "particles": {
+           "number": {
+               "value": 120,
+               "density": {
+                   "enable": true,
+                   "value_area": 1000
+               }
+           },
+           "color": {
+               "value": "#ffffff"
+           },
+           "shape": {
+               "type": "circle"
+           },
+           "opacity": {
+               "value": 0.3,
+               "random": true,
+               "anim": {
+                   "enable": true,
+                   "speed": 0.5,
+                   "opacity_min": 0.1,
+                   "sync": false
+               }
+           },
+           "size": {
+               "value": 1,
+               "random": true,
+               "anim": {
+                   "enable": true,
+                   "speed": 0.8,
+                   "size_min": 0.3,
+                   "sync": false
+               }
+           },
+           "line_linked": {
+               "enable": false
+           },
+           "move": {
                "enable": true,
                "speed": 0.8,
-               "size_min": 0.3,
-               "sync": false
+               "direction": "none",
+               "random": true,
+               "straight": false,
+               "out_mode": "out",
+               "bounce": false
            }
        },
-       "line_linked": {
-           "enable": false
+       "interactivity": {
+           "detect_on": "canvas",
+           "events": {
+               "onhover": {
+                   "enable": false
+               },
+               "onclick": {
+                   "enable": false
+               },
+               "resize": true
+           }
        },
-       "move": {
-           "enable": true,
-           "speed": 0.8,
-           "direction": "none",
-           "random": true,
-           "straight": false,
-           "out_mode": "out",
-           "bounce": false
-       }
-   },
-   "interactivity": {
-       "detect_on": "canvas",
-       "events": {
-           "onhover": {
-               "enable": false
-           },
-           "onclick": {
-               "enable": false
-           },
-           "resize": true
-       }
-   },
-   "retina_detect": true
-};
+       "retina_detect": true
+    };
 
     // Initialize particles when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
@@ -289,24 +330,74 @@
         }
     });
 
-    // Form validation and enhancement
+    // Contact form submission with AJAX
     document.addEventListener('DOMContentLoaded', function() {
         const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const alertDiv = document.getElementById('contactAlert');
+        const alertMessage = document.getElementById('alertMessage');
+
+        function showAlert(message, isSuccess = false) {
+            alertDiv.className = `alert-custom ${isSuccess ? 'alert-success-custom' : 'alert-error-custom'}`;
+            alertMessage.textContent = message;
+            alertDiv.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function setSubmitState(isSubmitting) {
+            submitBtn.disabled = isSubmitting;
+            if (isSubmitting) {
+                submitText.classList.add('d-none');
+                submitSpinner.classList.remove('d-none');
+            } else {
+                submitText.classList.remove('d-none');
+                submitSpinner.classList.add('d-none');
+            }
+        }
+
         if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
+            contactForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const subject = document.getElementById('subject').value.trim();
-                const message = document.getElementById('message').value.trim();
+                // Hide previous alerts
+                alertDiv.style.display = 'none';
                 
-                if (name && email && subject && message) {
-                    // Show success message (replace with actual form submission)
-                    alert('Thank you for your message! We will get back to you within 24 hours.');
-                    this.reset();
-                } else {
-                    alert('Please fill in all required fields.');
+                // Set loading state
+                setSubmitState(true);
+                
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert(result.message, true);
+                        contactForm.reset();
+                    } else {
+                        showAlert(result.message, false);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    showAlert('Network error. Please check your connection and try again.', false);
+                } finally {
+                    setSubmitState(false);
                 }
             });
         }

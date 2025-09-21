@@ -3,19 +3,23 @@ const User = require('../models/User');
 
 const requireAuth = async (req, res, next) => {
     if (req.session.user) {
-        // Verify user still exists in database
         try {
             const user = await User.findById(req.session.user.id);
             if (!user) {
-                // User deleted - destroy session
-                req.session.destroy();
-                req.flash('error', 'Session expired. Please log in again.');
-                return res.redirect('/login');
+                return req.session.destroy((err) => {
+                    if (err) console.error('Session destroy error:', err);
+                    res.clearCookie('connect.sid');
+                    res.redirect('/login?error=session_expired');
+                });
             }
             return next();
         } catch (error) {
-            req.session.destroy();
-            return res.redirect('/login');
+            console.error('Auth middleware error:', error);
+            return req.session.destroy((err) => {
+                if (err) console.error('Session destroy error:', err);
+                res.clearCookie('connect.sid');
+                res.redirect('/login');
+            });
         }
     }
     res.redirect('/login');

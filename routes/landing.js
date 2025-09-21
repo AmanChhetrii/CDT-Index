@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Fund = require('../models/Fund');
 const NAV = require('../models/NAV');
+const Contact = require('../models/Contact'); // Add this line
 
 // Landing pages
 router.get('/', function(req, res) {
@@ -57,7 +58,91 @@ router.get('/funds', function(req, res) {
     res.render('landing/funds');
 });
 
-// API Routes
+// Contact Form Submission (AJAX endpoint)
+router.post('/api/contact', async function(req, res) {
+    try {
+        const { name, email, subject, message } = req.body;
+
+        // Basic validation
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+
+        // Email validation
+        const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid email address'
+            });
+        }
+
+        // Create new contact message
+        const newContact = new Contact({
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            subject: subject.trim(),
+            message: message.trim(),
+            ipAddress: req.ip || req.connection.remoteAddress
+        });
+
+        // Save to database
+        await newContact.save();
+
+        console.log(`New contact message from: ${email} - ${subject}`);
+
+        // Success response
+        res.json({
+            success: true,
+            message: 'Thank you for your message! We will get back to you within 24-48 hours.'
+        });
+
+    } catch (error) {
+        console.error('Contact form error:', error);
+
+        // Handle validation errors
+        if (error.name === 'ValidationError') {
+            const errorMessages = Object.values(error.errors).map(err => err.message);
+            return res.status(400).json({
+                success: false,
+                message: errorMessages.join('. ')
+            });
+        }
+        
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong. Please try again later.'
+        });
+    }
+});
+
+// Admin route to view contact messages (optional)
+router.get('/admin/contacts', async function(req, res) {
+    try {
+        // Add authentication middleware here if needed
+        const contacts = await Contact.find()
+            .sort({ createdAt: -1 })
+            .limit(50)
+            .select('name email subject message status createdAt');
+            
+        res.json({
+            success: true,
+            count: contacts.length,
+            contacts: contacts
+        });
+    } catch (error) {
+        console.error('Error fetching contacts:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: 'Failed to fetch contacts' 
+        });
+    }
+});
+
+// API Routes for Funds
 
 // Get all funds with current NAV data
 router.get('/api/funds', async function(req, res) {

@@ -1,4 +1,4 @@
-// combinedDataScript.js - Manual data fetch with NAV calculation followed by ROI calculation
+// manualDataFetch.js - Manual data fetch with NAV calculation followed by ROI calculation
 require('dotenv').config();
 const mongoose = require('mongoose');
 const CryptoAsset = require('./models/CryptoAsset');

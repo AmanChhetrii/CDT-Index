@@ -124,7 +124,7 @@
               <% if (typeof user !== 'undefined' && user && user.profilePhoto) { %>
                 <img src="<%= user.profilePhoto %>?t=<%= Date.now() %>" alt="Profile" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;" />
               <% } else { %>
-                <div id="headerUserAvatar" style="width: 36px; height: 36px; border-radius: 50%; background: #6c5ce7; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">
+                <div id="headerUserAvatar" style="width: 36px; height: 36px; border-radius: 50%; background: #211b4f; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">
                   <% if (typeof user !== 'undefined' && user) { %>
                     <%= (user.firstName.charAt(0) + (user.lastName ? user.lastName.charAt(0) : '')).toUpperCase() %>
                   <% } else { %>
@@ -152,7 +152,7 @@
                     <% if (typeof user !== 'undefined' && user && user.profilePhoto) { %>
                       <img src="<%= user.profilePhoto %>?t=<%= Date.now() %>" alt="Profile" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;" />
                     <% } else { %>
-                      <div id="headerUserAvatarLarge" style="width: 60px; height: 60px; border-radius: 8px; background: #6c5ce7; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 24px;">
+                      <div id="headerUserAvatarLarge" style="width: 60px; height: 60px; border-radius: 8px; background: #130e38; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 24px;">
                         <% if (typeof user !== 'undefined' && user) { %>
                           <%= (user.firstName.charAt(0) + (user.lastName ? user.lastName.charAt(0) : '')).toUpperCase() %>
                         <% } else { %>
